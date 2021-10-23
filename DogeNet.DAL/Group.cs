@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace example1.Models
+namespace DogeNet.DAL
 {
     public partial class Group
     {
         public Group()
         {
+            GroupParticipants = new HashSet<GroupParticipant>();
             OwnerPosts = new HashSet<OwnerPost>();
         }
 
@@ -21,6 +22,8 @@ namespace example1.Models
         public string CoverImg { get; set; }
         public string Status { get; set; }
 
+        public virtual User Creator { get; set; }
+        public virtual ICollection<GroupParticipant> GroupParticipants { get; set; }
         public virtual ICollection<OwnerPost> OwnerPosts { get; set; }
     }
 }

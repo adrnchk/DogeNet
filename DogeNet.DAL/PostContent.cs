@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 
 #nullable disable
-
-namespace example1.Models
+namespace DogeNet.DAL
 {
     public partial class PostContent
     {
