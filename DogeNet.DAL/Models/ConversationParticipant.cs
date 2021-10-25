@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace DogeNet.DAL
+
+namespace DogeNet.DAL.Models
 {
     public partial class ConversationParticipant
     {
@@ -14,6 +14,7 @@ namespace DogeNet.DAL
         public string Title { get; set; }
         public string Status { get; set; }
 
+        public virtual Conversation Conversation { get; set; }
         public virtual User User { get; set; }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace DogeNet.DAL
+
+namespace DogeNet.DAL.Models
 {
+    
     public partial class User
     {
         public User()
@@ -30,7 +31,7 @@ namespace DogeNet.DAL
         public string Phone { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public bool? IsActive { get; set; }
+        public int? StatusId { get; set; }
         public string Title { get; set; }
         public string AvatarImg { get; set; }
         public string CoverImg { get; set; }
@@ -38,6 +39,7 @@ namespace DogeNet.DAL
         public string Bio { get; set; }
 
         public virtual City City { get; set; }
+        public virtual Status Status { get; set; }
         public virtual ICollection<BlackList> BlackListFriends { get; set; }
         public virtual ICollection<BlackList> BlackListUsers { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

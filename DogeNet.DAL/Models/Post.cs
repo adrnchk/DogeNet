@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace DogeNet.DAL
+namespace DogeNet.DAL.Models
 {
     public partial class Post
     {
@@ -22,6 +21,7 @@ namespace DogeNet.DAL
         public string Text { get; set; }
         public bool? IsCommentAvailable { get; set; }
 
+        public virtual User Creator { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
         public virtual ICollection<PostContent> PostContents { get; set; }

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace DogeNet.DAL
+namespace DogeNet.DAL.Models
 {
     public partial class Message
     {
@@ -13,5 +12,8 @@ namespace DogeNet.DAL
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public string Text { get; set; }
+
+        public virtual Conversation Conversation { get; set; }
+        public virtual User User { get; set; }
     }
 }

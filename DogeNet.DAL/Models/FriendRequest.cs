@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
 
-namespace DogeNet.DAL
+namespace DogeNet.DAL.Models
 {
     public partial class FriendRequest
     {
