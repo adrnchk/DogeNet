@@ -12,7 +12,7 @@ namespace DogeNet.DAL.Models
         public Group()
         {
             GroupParticipants = new HashSet<GroupParticipant>();
-            OwnerPosts = new HashSet<OwnerPost>();
+            GroupPosts = new HashSet<GroupPost>();
         }
 
         public int Id { get; set; }
@@ -27,6 +27,6 @@ namespace DogeNet.DAL.Models
         public virtual User Creator { get; set; }
         public virtual Status Status { get; set; }
         public virtual ICollection<GroupParticipant> GroupParticipants { get; set; }
-        public virtual ICollection<OwnerPost> OwnerPosts { get; set; }
+        public virtual ICollection<GroupPost> GroupPosts { get; set; }
     }
 }

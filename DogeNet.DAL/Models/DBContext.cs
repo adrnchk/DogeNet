@@ -30,7 +30,7 @@ namespace DogeNet.DAL.Models
         public virtual DbSet<GroupParticipant> GroupParticipants { get; set; }
         public virtual DbSet<Like> Likes { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
-        public virtual DbSet<OwnerPost> OwnerPosts { get; set; }
+        public virtual DbSet<GroupPost> OwnerPosts { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<PostContent> PostContents { get; set; }
         public virtual DbSet<Status> Statuses { get; set; }
@@ -241,21 +241,21 @@ namespace DogeNet.DAL.Models
                     .HasConstraintName("FK_Messages_Users");
             });
 
-            modelBuilder.Entity<OwnerPost>(entity =>
+            modelBuilder.Entity<GroupPost>(entity =>
             {
-                entity.ToTable("OwnerPost");
+                entity.ToTable("GroupPost");
 
                 entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.OwnerPosts)
+                    .WithMany(p => p.GroupPosts)
                     .HasForeignKey(d => d.OwnerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_OwnerPost_Users");
+                    .HasConstraintName("FK_GroupPost_Groups");
 
                 entity.HasOne(d => d.Post)
-                    .WithMany(p => p.OwnerPosts)
+                    .WithMany(p => p.GroupPosts)
                     .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_OwnerPost_Groups");
+                    .HasConstraintName("FK_GroupPost_Posts");
             });
 
             modelBuilder.Entity<Post>(entity =>

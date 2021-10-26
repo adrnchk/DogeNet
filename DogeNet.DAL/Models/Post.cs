@@ -11,6 +11,7 @@ namespace DogeNet.DAL.Models
             Comments = new HashSet<Comment>();
             Likes = new HashSet<Like>();
             PostContents = new HashSet<PostContent>();
+            GroupPosts = new HashSet<GroupPost>();
         }
 
         public int Id { get; set; }
@@ -22,6 +23,7 @@ namespace DogeNet.DAL.Models
         public bool? IsCommentAvailable { get; set; }
 
         public virtual User Creator { get; set; }
+        public virtual ICollection<GroupPost> GroupPosts { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
         public virtual ICollection<PostContent> PostContents { get; set; }
