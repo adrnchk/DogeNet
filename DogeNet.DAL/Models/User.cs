@@ -21,6 +21,7 @@ namespace DogeNet.DAL.Models
             Groups = new HashSet<Group>();
             Likes = new HashSet<Like>();
             Messages = new HashSet<Message>();
+            ProfilePosts = new HashSet<ProfilePost>();
             Posts = new HashSet<Post>();
         }
 
@@ -50,6 +51,7 @@ namespace DogeNet.DAL.Models
         public virtual ICollection<Group> Groups { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<ProfilePost> ProfilePosts { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
     }
 }
