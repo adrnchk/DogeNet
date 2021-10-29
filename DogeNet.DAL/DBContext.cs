@@ -1,4 +1,5 @@
 ﻿using DogeNet.DAL.Configuration;
+using DogeNet.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,14 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DogeNet.DAL.Models
+namespace DogeNet.DAL
 {
     public partial class DBContext : DbContext
     {
-        public DBContext()
-        {
-        }
-
         public DBContext(DbContextOptions<DBContext> options)
             : base(options)
         {
@@ -48,8 +45,7 @@ namespace DogeNet.DAL.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new BlackListConfiguration());
-            //apply assembly?
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DBContext).Assembly);
             OnModelCreatingPartial(modelBuilder);
         }
 
