@@ -1,14 +1,13 @@
-﻿using DogeNet.DAL.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="MessageConfiguration.cs" company="Leobit">
+// Copyright (c) Leobit. All rights reserved.
+// </copyright>
 
 namespace DogeNet.DAL.Configuration
 {
+    using DogeNet.DAL.Models;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     public class MessageConfiguration : IEntityTypeConfiguration<Message>
     {
         public void Configure(EntityTypeBuilder<Message> builder)
@@ -24,7 +23,6 @@ namespace DogeNet.DAL.Configuration
                 .WithMany(p => p.Messages)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
-
         }
     }
 }

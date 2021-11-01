@@ -1,14 +1,13 @@
-﻿using DogeNet.DAL.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="PostContentConfiguration.cs" company="Leobit">
+// Copyright (c) Leobit. All rights reserved.
+// </copyright>
 
 namespace DogeNet.DAL.Configuration
 {
+    using DogeNet.DAL.Models;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     public class PostContentConfiguration : IEntityTypeConfiguration<PostContent>
     {
         public void Configure(EntityTypeBuilder<PostContent> builder)
