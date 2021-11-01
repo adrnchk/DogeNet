@@ -12,7 +12,7 @@ namespace DogeNet.DAL.Configuration
     {
         public void Configure(EntityTypeBuilder<ConversationParticipant> builder)
         {
-            builder.ToTable(nameof(City)).HasKey(entity => entity.Id);
+            builder.ToTable(nameof(ConversationParticipant)).HasKey(entity => entity.Id);
 
             builder.HasOne(d => d.Conversation)
                 .WithMany(p => p.ConversationParticipants)
