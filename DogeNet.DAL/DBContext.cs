@@ -7,7 +7,7 @@ namespace DogeNet.DAL
     using DogeNet.DAL.Models;
     using Microsoft.EntityFrameworkCore;
 
-    public partial class DBContext : DbContext
+    public class DBContext : DbContext
     {
         public DBContext(DbContextOptions<DBContext> options)
             : base(options)
@@ -59,9 +59,7 @@ namespace DogeNet.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DBContext).Assembly);
-            this.OnModelCreatingPartial(modelBuilder);
+            this.OnModelCreating(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

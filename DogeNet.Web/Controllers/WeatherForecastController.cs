@@ -23,7 +23,6 @@ namespace DogeNet.Web.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
