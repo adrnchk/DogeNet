@@ -1,3 +1,5 @@
 .vs/
 DogeNet.BLL/obj
 DogeNet.DAL/obj
+DogeNet.BLL/bin
+DogeNet.DAL/bin
