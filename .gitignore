@@ -1,5 +1,8 @@
 .vs/
 DogeNet.BLL/obj
 DogeNet.DAL/obj
+DogeNet.WebApi/obj
+
 DogeNet.BLL/bin
 DogeNet.DAL/bin
+DogeNet.WebApi/bin
