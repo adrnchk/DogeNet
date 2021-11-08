@@ -52,14 +52,13 @@ namespace DogeNet.DAL
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-QV2VVS8\\MSSQLSERVER01;Database=DogeNetDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=LEOBIT-ALIU\\ADRIANSQL;Database=DogeNetDB;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DBContext).Assembly);
-            this.OnModelCreating(modelBuilder);
         }
     }
 }
