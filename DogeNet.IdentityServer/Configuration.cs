@@ -23,7 +23,11 @@ namespace DogeNet.IdentityServer
         public static IEnumerable<ApiResource> ApiResources =>
             new List<ApiResource>
             {
-                new ApiResource("DogeNetWebAPI")
+                new ApiResource("DogeNetWebAPI", "Web API", new []
+                    { JwtClaimTypes.Name})
+                {
+                    Scopes = { "DogeNetWebAPI" }
+                }
             };
 
         public static IEnumerable<Client> Clients =>
@@ -39,6 +43,8 @@ namespace DogeNet.IdentityServer
                     AllowedGrantTypes = GrantTypes.Code,
                     
                     AllowedCorsOrigins = { "https://localhost:7001", "http://localhost:7000" },
+
+                    RedirectUris = { "https://localhost:7001" },
 
                     AllowedScopes =
                     {

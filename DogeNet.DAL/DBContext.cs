@@ -5,9 +5,11 @@
 namespace DogeNet.DAL
 {
     using DogeNet.DAL.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class DBContext : DbContext
+    public class DBContext : IdentityDbContext<User, ApplicationRole, int>
     {
         public DBContext(DbContextOptions<DBContext> options)
             : base(options)
@@ -46,8 +48,6 @@ namespace DogeNet.DAL
 
         public virtual DbSet<Status> Statuses { get; set; }
 
-        public virtual DbSet<User> Users { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -58,6 +58,15 @@ namespace DogeNet.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationRole>(entity => entity.ToTable(name: "Roles"));
+            modelBuilder.Entity<IdentityUserRole<int>>(entity => entity.ToTable(name: "UserRoles"));
+            modelBuilder.Entity<IdentityUserClaim<int>>(entity => entity.ToTable(name: "UserClaims"));
+            modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.ToTable(name: "UserLogins"));
+            modelBuilder.Entity<IdentityUserToken<int>>(entity => entity.ToTable(name: "UserTokens"));
+            modelBuilder.Entity<IdentityRoleClaim<int>>(entity => entity.ToTable(name: "RoleClaims"));
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DBContext).Assembly);
         }
     }

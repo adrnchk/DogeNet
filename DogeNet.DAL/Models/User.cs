@@ -3,11 +3,14 @@
 // </copyright>
 
 namespace DogeNet.DAL.Models
-{
+{   
     using System;
     using System.Collections.Generic;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Identity;
 
-    public partial class User
+    public partial class User : IdentityUser<int>
     {
         public User()
         {
@@ -26,13 +29,9 @@ namespace DogeNet.DAL.Models
             this.Posts = new HashSet<Post>();
         }
 
-        public int Id { get; set; }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
-        public string Phone { get; set; }
 
         public DateTime? CreatedAt { get; set; }
 

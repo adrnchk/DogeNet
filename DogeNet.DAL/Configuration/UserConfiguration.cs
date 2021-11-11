@@ -14,8 +14,6 @@ namespace DogeNet.DAL.Configuration
         {
             builder.ToTable(nameof(User)).HasKey(entity => entity.Id);
 
-            builder.Property(e => e.FirstName).IsRequired();
-
             builder.HasOne(d => d.City)
                 .WithMany(p => p.Users)
                 .HasForeignKey(d => d.CityId);

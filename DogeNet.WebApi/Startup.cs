@@ -22,28 +22,28 @@ namespace DogeNet.WebApi
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            AppConfiguration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration AppConfiguration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(options =>
             {
-                options.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             })
                 .AddIdentityServerAuthentication(options =>
                 {
                     options.ApiName = "DogeNetWebAPI";
-                    options.Authority = Configuration.GetValue<string>("Services:IdentityServer");
+                    options.Authority = AppConfiguration.GetValue<string>("Services:IdentityServer");
                     options.RequireHttpsMetadata = false;
                 });
-            
 
-            services.AddDbContext<DBContext>(options => options.UseSqlServer(Configuration.GetValue<string>("ConnectionStrings:SQLServer")));
+            var connectionString = AppConfiguration.GetConnectionString(nameof(DBContext));
+            services.AddDbContext<DBContext>(options => options.UseSqlServer(connectionString));
 
             services.AddControllers();
             services.AddSwaggerGen(options =>
