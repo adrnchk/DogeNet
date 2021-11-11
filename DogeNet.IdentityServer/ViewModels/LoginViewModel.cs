@@ -11,6 +11,6 @@ namespace DogeNet.IdentityServer.ViewModels
         public string Password { get; set; }
 
         [Required]
-        public string ReturnUrl { get; set; } = "https://localhost:7001/swagger/index.html";
+        public string ReturnUrl { get; set; }
     }
 }
