@@ -58,7 +58,7 @@ namespace DogeNet.WebApi
                             TokenUrl = new Uri("https://localhost:10001/connect/token"),
                             Scopes = new Dictionary<string, string>
                             {
-                                {"DogeNetWebAPI", "DogeNet WebAPI"}
+                                {AppConfiguration.GetValue<string>("Scopes:WebApi:Name"), AppConfiguration.GetValue<string>("Scopes:WebApi:Description")}
                             }
                         }
                     }
@@ -81,7 +81,7 @@ namespace DogeNet.WebApi
                         new List<string>()
                     }
             });
-        });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,4 +1,4 @@
-﻿// <copyright file="DBContext.cs" company="Leobit">
+﻿// <copyright file="ApplicationRole.cs" company="Leobit">
 // Copyright (c) Leobit. All rights reserved.
 // </copyright>
 

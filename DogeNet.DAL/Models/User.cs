@@ -3,7 +3,7 @@
 // </copyright>
 
 namespace DogeNet.DAL.Models
-{   
+{
     using System;
     using System.Collections.Generic;
     using System.Security.Claims;

@@ -1,7 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// <copyright file="LoginViewModel.cs" company="Leobit">
+// Copyright (c) Leobit. All rights reserved.
+// </copyright>
 
 namespace DogeNet.IdentityServer.ViewModels
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class LoginViewModel
     {
         [Required]

@@ -1,24 +1,31 @@
-using DogeNet.DAL;
-using DogeNet.DAL.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using System.IO;
+// <copyright file="Startup.cs" company="Leobit">
+// Copyright (c) Leobit. All rights reserved.
+// </copyright>
 
 namespace DogeNet.IdentityServer
 {
+    using System.IO;
+    using DogeNet.DAL;
+    using DogeNet.DAL.Models;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.FileProviders;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.OpenApi.Models;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            AppConfiguration = configuration;
+            this.AppConfiguration = configuration;
+            StaticConfig = configuration;
         }
+
+        public static IConfiguration StaticConfig { get; private set; }
 
         public IConfiguration AppConfiguration { get; }
 
@@ -27,7 +34,7 @@ namespace DogeNet.IdentityServer
         {
             services.AddDbContext<DBContext>(config =>
             {
-                config.UseSqlServer(AppConfiguration.GetConnectionString(nameof(DBContext)));
+                config.UseSqlServer(this.AppConfiguration.GetConnectionString(nameof(DBContext)));
             })
                 .AddIdentity<User, ApplicationRole>(config =>
                 {
@@ -80,7 +87,7 @@ namespace DogeNet.IdentityServer
             {
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(env.ContentRootPath, "Styles")),
-                RequestPath = "/styles"
+                RequestPath = "/styles",
             });
 
             app.UseHttpsRedirection();
@@ -93,7 +100,7 @@ namespace DogeNet.IdentityServer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }

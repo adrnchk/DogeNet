@@ -1,16 +1,16 @@
 ﻿@model DogeNet.IdentityServer.ViewModels.LoginViewModel
 
 <head>
-    <link href=@Url.Content("~/styles/app.css") rel="stylesheet" type="text/css"/>
-    
-    </head>
+    <link href=@Url.Content("~/styles/app.css") rel="stylesheet" type="text/css" />
+
+</head>
 <div class="container-login">
     <div class="wrap-login">
         <span class="login-form-title p-b-26">Login</span>
         <form asp-controller="Account" asp-action="Login" method="post">
             <div asp-validation-summary="All"></div>
 
-            <input hidden name="ReturnUrl" />
+            <input hidden name="ReturnUrl" value="@Model.ReturnUrl" />
             <div class="wrap-input">
                 <input class="input" placeholder="Email" autoFocus required name="UserName" />
                 <span asp-validation-for="UserName"></span>
@@ -23,7 +23,6 @@
             <p>
                 <button class="gradient-button" type="submit">Login</button>
             </p>
-
 
         </form>
     </div>

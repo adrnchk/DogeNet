@@ -1,33 +1,35 @@
-﻿using IdentityModel;
-using IdentityServer4;
-using IdentityServer4.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// <copyright file="Configuration.cs" company="Leobit">
+// Copyright (c) Leobit. All rights reserved.
+// </copyright>
 
 namespace DogeNet.IdentityServer
 {
+    using System.Collections.Generic;
+    using IdentityModel;
+    using IdentityServer4;
+    using IdentityServer4.Models;
+    using Microsoft.Extensions.Configuration;
+
     public static class Configuration
     {
         public static IEnumerable<ApiScope> ApiScopes => new List<ApiScope>
         {
-            new ApiScope("DogeNetWebAPI", "Web API")
+            new ApiScope(Startup.StaticConfig.GetValue<string>("Scopes:WebApi")),
         };
 
         public static IEnumerable<IdentityResource> IdentityResources => new List<IdentityResource>
         {
             new IdentityResources.OpenId(),
-            new IdentityResources.Profile()
+            new IdentityResources.Profile(),
         };
+
         public static IEnumerable<ApiResource> ApiResources =>
             new List<ApiResource>
             {
-                new ApiResource("DogeNetWebAPI", "Web API", new []
-                    { JwtClaimTypes.Name})
+                new ApiResource(Startup.StaticConfig.GetValue<string>("Scopes:WebApi"), new[] { JwtClaimTypes.Name })
                 {
-                    Scopes = { "DogeNetWebAPI" }
-                }
+                    Scopes = { Startup.StaticConfig.GetValue<string>("Scopes:WebApi") },
+                },
             };
 
         public static IEnumerable<Client> Clients =>
@@ -35,13 +37,17 @@ namespace DogeNet.IdentityServer
             {
                 new Client
                 {
-                    ClientId = "DogeNet-web-api",
-                    ClientName = "DogeNet Web Api",
-                    
-                    ClientSecrets={new Secret("1234".ToSha256())},
+                    ClientId = Startup.StaticConfig.GetValue<string>("Clients:WebApi:Id"),
+
+                    ClientName = Startup.StaticConfig.GetValue<string>("Clients:WebApi:Name"),
+
+                    ClientSecrets =
+                    {
+                        new Secret(Startup.StaticConfig.GetValue<string>("Clients:WebApi:Secret").ToSha256()),
+                    },
 
                     AllowedGrantTypes = GrantTypes.Code,
-                    
+
                     AllowedCorsOrigins = { "https://localhost:7001", "http://localhost:7000" },
 
                     RedirectUris = { "https://localhost:7001" },
@@ -50,39 +56,33 @@ namespace DogeNet.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "DogeNetWebAPI"
+                        Startup.StaticConfig.GetValue<string>("Scopes:WebApi"),
                     },
-                    AllowAccessTokensViaBrowser = true
+
+                    AllowAccessTokensViaBrowser = true,
                 },
                 new Client
                 {
-                    ClientId = "client_id_swagger",
-                    ClientSecrets = { new Secret("client_secret_swagger".ToSha256()) },
-                    AllowedGrantTypes =  GrantTypes.ResourceOwnerPassword,
-                    AllowedCorsOrigins = { "https://localhost:7001" },
-                    AllowedScopes =
+                    ClientId = Startup.StaticConfig.GetValue<string>("Clients:WebApp:Id"),
+
+                    ClientName = Startup.StaticConfig.GetValue<string>("Clients:WebApp:Name"),
+
+                    ClientSecrets =
                     {
-                        "DogeNetWebAPI",
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
-                    }
-                },
-                new Client
-                {
-                    ClientId = "DogeNet-web-app",
-                    ClientName = "DogeNet Client",
-                    ClientSecrets={new Secret("client_secret".ToSha256())},
+                        new Secret(Startup.StaticConfig.GetValue<string>("Clients:WebApp:Secret").ToSha256()),
+                    },
 
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                                        
+
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "DogeNetWebAPI"
+                        Startup.StaticConfig.GetValue<string>("Scopes:WebApi"),
                     },
-                    AllowAccessTokensViaBrowser = true
-                }
+
+                    AllowAccessTokensViaBrowser = true,
+                },
             };
     }
 }
