@@ -14,7 +14,7 @@ namespace DogeNet.IdentityServer
     {
         public static IEnumerable<ApiScope> ApiScopes => new List<ApiScope>
         {
-            new ApiScope(Startup.StaticConfig.GetValue<string>("Scopes:WebApi")),
+            new ApiScope(Startup.StaticConfig.GetValue<string>("Scopes:WebApi:Name")),
         };
 
         public static IEnumerable<IdentityResource> IdentityResources => new List<IdentityResource>
@@ -26,9 +26,9 @@ namespace DogeNet.IdentityServer
         public static IEnumerable<ApiResource> ApiResources =>
             new List<ApiResource>
             {
-                new ApiResource(Startup.StaticConfig.GetValue<string>("Scopes:WebApi"), new[] { JwtClaimTypes.Name })
+                new ApiResource(Startup.StaticConfig.GetValue<string>("Scopes:WebApi:Name"), new[] { JwtClaimTypes.Name })
                 {
-                    Scopes = { Startup.StaticConfig.GetValue<string>("Scopes:WebApi") },
+                    Scopes = { Startup.StaticConfig.GetValue<string>("Scopes:WebApi:Name") },
                 },
             };
 
@@ -56,7 +56,7 @@ namespace DogeNet.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        Startup.StaticConfig.GetValue<string>("Scopes:WebApi"),
+                        Startup.StaticConfig.GetValue<string>("Scopes:WebApi:Name"),
                     },
 
                     AllowAccessTokensViaBrowser = true,
@@ -78,7 +78,7 @@ namespace DogeNet.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        Startup.StaticConfig.GetValue<string>("Scopes:WebApi"),
+                        Startup.StaticConfig.GetValue<string>("Scopes:WebApi:Name"),
                     },
 
                     AllowAccessTokensViaBrowser = true,

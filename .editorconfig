@@ -1,10 +1,4 @@
 ﻿[*.cs]
 
-# SA1601: Partial elements should be documented
-dotnet_diagnostic.SA1601.severity = silent
-
 # SA1600: Elements should be documented
 dotnet_diagnostic.SA1600.severity = silent
-
-# SA0001: XML comment analysis disabled
-dotnet_diagnostic.SA0001.severity = silent

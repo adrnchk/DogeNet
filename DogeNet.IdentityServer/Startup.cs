@@ -36,7 +36,7 @@ namespace DogeNet.IdentityServer
             {
                 config.UseSqlServer(this.AppConfiguration.GetConnectionString(nameof(DBContext)));
             })
-                .AddIdentity<User, ApplicationRole>(config =>
+                .AddIdentity<User, IdentityRole<int>>(config =>
                 {
                     config.Password.RequireDigit = false;
                     config.Password.RequireLowercase = false;

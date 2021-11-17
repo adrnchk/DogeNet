@@ -1,28 +1,32 @@
-using DogeNet.DAL;
-using IdentityServer4.AccessTokenValidation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+// <copyright file="Startup.cs" company="Leobit">
+// Copyright (c) Leobit. All rights reserved.
+// </copyright>
 
 namespace DogeNet.WebApi
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using DogeNet.DAL;
+    using IdentityServer4.AccessTokenValidation;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.HttpsPolicy;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.OpenApi.Models;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            AppConfiguration = configuration;
+            this.AppConfiguration = configuration;
         }
 
         public IConfiguration AppConfiguration { get; }
@@ -38,11 +42,11 @@ namespace DogeNet.WebApi
                 .AddIdentityServerAuthentication(options =>
                 {
                     options.ApiName = "DogeNetWebAPI";
-                    options.Authority = AppConfiguration.GetValue<string>("Services:IdentityServer");
+                    options.Authority = this.AppConfiguration.GetValue<string>("Services:IdentityServer");
                     options.RequireHttpsMetadata = false;
                 });
 
-            var connectionString = AppConfiguration.GetConnectionString(nameof(DBContext));
+            var connectionString = this.AppConfiguration.GetConnectionString(nameof(DBContext));
             services.AddDbContext<DBContext>(options => options.UseSqlServer(connectionString));
 
             services.AddControllers();
@@ -58,10 +62,13 @@ namespace DogeNet.WebApi
                             TokenUrl = new Uri("https://localhost:10001/connect/token"),
                             Scopes = new Dictionary<string, string>
                             {
-                                {AppConfiguration.GetValue<string>("Scopes:WebApi:Name"), AppConfiguration.GetValue<string>("Scopes:WebApi:Description")}
-                            }
-                        }
-                    }
+                                {
+                                    this.AppConfiguration.GetValue<string>("Scopes:WebApi:Name"),
+                                    this.AppConfiguration.GetValue<string>("Scopes:WebApi:Description")
+                                },
+                            },
+                        },
+                    },
                 });
 
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -72,15 +79,15 @@ namespace DogeNet.WebApi
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "oauth2"
+                                Id = "oauth2",
                             },
                             Scheme = "oauth2",
                             Name = "Bearer",
-                            In = ParameterLocation.Header
+                            In = ParameterLocation.Header,
                         },
                         new List<string>()
-                    }
-            });
+                    },
+                });
             });
         }
 

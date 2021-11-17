@@ -9,7 +9,7 @@ namespace DogeNet.DAL
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class DBContext : IdentityDbContext<User, ApplicationRole, int>
+    public class DBContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DBContext(DbContextOptions<DBContext> options)
             : base(options)
@@ -60,12 +60,12 @@ namespace DogeNet.DAL
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationRole>(entity => entity.ToTable(name: "Roles"));
-            modelBuilder.Entity<IdentityUserRole<int>>(entity => entity.ToTable(name: "UserRoles"));
-            modelBuilder.Entity<IdentityUserClaim<int>>(entity => entity.ToTable(name: "UserClaims"));
-            modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.ToTable(name: "UserLogins"));
-            modelBuilder.Entity<IdentityUserToken<int>>(entity => entity.ToTable(name: "UserTokens"));
-            modelBuilder.Entity<IdentityRoleClaim<int>>(entity => entity.ToTable(name: "RoleClaims"));
+            //modelBuilder.Entity<ApplicationRole>(entity => entity.ToTable(name: "Roles"));
+            //modelBuilder.Entity<IdentityUserRole<int>>(entity => entity.ToTable(name: "UserRoles"));
+            //modelBuilder.Entity<IdentityUserClaim<int>>(entity => entity.ToTable(name: "UserClaims"));
+            //modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.ToTable(name: "UserLogins"));
+            //modelBuilder.Entity<IdentityUserToken<int>>(entity => entity.ToTable(name: "UserTokens"));
+            //modelBuilder.Entity<IdentityRoleClaim<int>>(entity => entity.ToTable(name: "RoleClaims"));
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DBContext).Assembly);
         }
