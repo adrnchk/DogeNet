@@ -12,11 +12,9 @@ namespace DogeNet.WebApi.Controllers
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("[controller]")]
     public class UserController : Controller
     {
         [HttpGet]
-        [Route("[action]")]
         [Authorize]
         public string GetSecretTest()
         {

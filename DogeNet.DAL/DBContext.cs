@@ -48,24 +48,9 @@ namespace DogeNet.DAL
 
         public virtual DbSet<Status> Statuses { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=LEOBIT-ALIU\\ADRIANSQL;Database=DogeNetDB;Trusted_Connection=True;");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            //modelBuilder.Entity<ApplicationRole>(entity => entity.ToTable(name: "Roles"));
-            //modelBuilder.Entity<IdentityUserRole<int>>(entity => entity.ToTable(name: "UserRoles"));
-            //modelBuilder.Entity<IdentityUserClaim<int>>(entity => entity.ToTable(name: "UserClaims"));
-            //modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.ToTable(name: "UserLogins"));
-            //modelBuilder.Entity<IdentityUserToken<int>>(entity => entity.ToTable(name: "UserTokens"));
-            //modelBuilder.Entity<IdentityRoleClaim<int>>(entity => entity.ToTable(name: "RoleClaims"));
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DBContext).Assembly);
         }
