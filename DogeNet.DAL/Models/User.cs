@@ -6,6 +6,9 @@ namespace DogeNet.DAL.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Identity;
 
     public partial class User
     {
@@ -28,11 +31,13 @@ namespace DogeNet.DAL.Models
 
         public int Id { get; set; }
 
+        public string UserName { get; set; }
+
+        public string IdentityId { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
-        public string Phone { get; set; }
 
         public DateTime? CreatedAt { get; set; }
 
@@ -49,6 +54,8 @@ namespace DogeNet.DAL.Models
         public int? CityId { get; set; }
 
         public string Bio { get; set; }
+
+        public virtual IdentityUser Identity { get; set; }
 
         public virtual City City { get; set; }
 

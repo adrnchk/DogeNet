@@ -4,10 +4,13 @@
 
 namespace DogeNet.DAL
 {
+    using System;
     using DogeNet.DAL.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class DBContext : DbContext
+    public class DBContext : IdentityDbContext
     {
         public DBContext(DbContextOptions<DBContext> options)
             : base(options)
@@ -46,20 +49,13 @@ namespace DogeNet.DAL
 
         public virtual DbSet<Status> Statuses { get; set; }
 
-        public virtual DbSet<User> Users { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-QV2VVS8\\MSSQLSERVER01;Database=DogeNetDB;Trusted_Connection=True;");
-            }
-        }
+        public virtual DbSet<User> AppUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DBContext).Assembly);
-            this.OnModelCreating(modelBuilder);
         }
     }
 }
