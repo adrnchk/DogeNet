@@ -10,7 +10,7 @@ namespace DogeNet.DAL.Models
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Identity;
 
-    public partial class User : IdentityUser<int>
+    public partial class User
     {
         public User()
         {
@@ -28,6 +28,12 @@ namespace DogeNet.DAL.Models
             this.ProfilePosts = new HashSet<ProfilePost>();
             this.Posts = new HashSet<Post>();
         }
+
+        public int Id { get; set; }
+
+        public string UserName { get; set; }
+
+        public string IdentityId { get; set; }
 
         public string FirstName { get; set; }
 
@@ -48,6 +54,8 @@ namespace DogeNet.DAL.Models
         public int? CityId { get; set; }
 
         public string Bio { get; set; }
+
+        public virtual IdentityUser Identity { get; set; }
 
         public virtual City City { get; set; }
 

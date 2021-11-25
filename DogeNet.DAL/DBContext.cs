@@ -4,12 +4,13 @@
 
 namespace DogeNet.DAL
 {
+    using System;
     using DogeNet.DAL.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class DBContext : IdentityDbContext<User, IdentityRole<int>, int>
+    public class DBContext : IdentityDbContext
     {
         public DBContext(DbContextOptions<DBContext> options)
             : base(options)
@@ -47,6 +48,8 @@ namespace DogeNet.DAL
         public virtual DbSet<PostContent> PostContents { get; set; }
 
         public virtual DbSet<Status> Statuses { get; set; }
+
+        public virtual DbSet<User> AppUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
