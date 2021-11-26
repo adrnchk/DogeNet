@@ -1,13 +1,17 @@
-﻿using DogeNet.BLL.Features.Account.CreateAccount;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// <copyright file="RegistrationController.cs" company="Leobit">
+// Copyright (c) Leobit. All rights reserved.
+// </copyright>
 
 namespace DogeNet.Registration.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using DogeNet.BLL.Features.Account.CreateAccount;
+    using MediatR;
+    using Microsoft.AspNetCore.Mvc;
+
     [Route("api/[controller]")]
     [ApiController]
     public class RegistrationController : ControllerBase
@@ -20,7 +24,7 @@ namespace DogeNet.Registration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(CreateAccountCommand command) 
+        public async Task<IActionResult> Register(CreateAccountCommand command)
         {
             // Validation here...
             var validator = new CreateAccountValidator();
@@ -28,13 +32,12 @@ namespace DogeNet.Registration.Controllers
 
             if (validationResults.IsValid)
             {
-                return Ok(await mediator.Send(command));
+                return this.Ok(await this.mediator.Send(command));
             }
             else
             {
-                return NotFound(validationResults.Errors);
+                return this.NotFound(validationResults.Errors);
             }
-
-        } 
+        }
     }
 }

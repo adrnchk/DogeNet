@@ -53,17 +53,6 @@ namespace DogeNet.DAL
 
         public virtual DbSet<User> AppUsers { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    var builder = new ConfigurationBuilder();
-        //    builder.SetBasePath(Directory.GetCurrentDirectory());
-        //    builder.AddJsonFile("appsettings.json");
-        //    var config = builder.Build();
-        //    string connectionString = config.GetConnectionString(nameof(DBContext));
-
-        //    optionsBuilder.UseSqlServer(connectionString);
-        //}
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
