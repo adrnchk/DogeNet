@@ -5,10 +5,12 @@
 namespace DogeNet.DAL
 {
     using System;
+    using System.IO;
     using DogeNet.DAL.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
 
     public class DBContext : IdentityDbContext
     {
@@ -50,6 +52,17 @@ namespace DogeNet.DAL
         public virtual DbSet<Status> Statuses { get; set; }
 
         public virtual DbSet<User> AppUsers { get; set; }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    var builder = new ConfigurationBuilder();
+        //    builder.SetBasePath(Directory.GetCurrentDirectory());
+        //    builder.AddJsonFile("appsettings.json");
+        //    var config = builder.Build();
+        //    string connectionString = config.GetConnectionString(nameof(DBContext));
+
+        //    optionsBuilder.UseSqlServer(connectionString);
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
