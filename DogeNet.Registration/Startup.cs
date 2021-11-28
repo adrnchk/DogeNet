@@ -8,7 +8,12 @@ namespace DogeNet.Registration
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using DogeNet.BLL.Features.Account.CreateAccount;
+    using DogeNet.BLL.Services.Implementations;
+    using DogeNet.BLL.Services.Interfaces;
     using DogeNet.DAL;
+    using FluentValidation;
+    using FluentValidation.AspNetCore;
     using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -31,7 +36,6 @@ namespace DogeNet.Registration
 
         public static IConfiguration Configuration { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString(nameof(DBContext));
@@ -47,14 +51,18 @@ namespace DogeNet.Registration
                 .AddEntityFrameworkStores<DBContext>();
 
             services.AddMediatR(typeof(DogeNet.BLL.Features.Account.CreateAccount.CreateAccountHandler));
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
+            services.AddTransient<IValidator<CreateAccountModel>, CreateAccountValidator>();
+            services.AddAutoMapper(typeof(CreateAccountModelProfiles).Assembly);
+
+            services.AddScoped<IUserManagerService, UserManagerService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DogeNet.Registration", Version = "v1" });
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

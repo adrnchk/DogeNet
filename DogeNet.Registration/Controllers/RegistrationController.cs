@@ -26,17 +26,13 @@ namespace DogeNet.Registration.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(CreateAccountCommand command)
         {
-            // Validation here...
-            var validator = new CreateAccountValidator();
-            var validationResults = validator.Validate(command.model);
-
-            if (validationResults.IsValid)
+            if (this.ModelState.IsValid)
             {
                 return this.Ok(await this.mediator.Send(command));
             }
             else
             {
-                return this.NotFound(validationResults.Errors);
+                return this.BadRequest(this.ModelState.Values);
             }
         }
     }
