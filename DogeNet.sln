@@ -16,7 +16,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeNet.WebApi", "DogeNet.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeNet.IdentityServer", "DogeNet.IdentityServer\DogeNet.IdentityServer.csproj", "{3F04C20E-A9F1-4EA7-906D-AF152AA99AC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogeNet.Registration", "DogeNet.Registration\DogeNet.Registration.csproj", "{B41560E9-75B1-4234-8DC4-1EBB3D1624DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeNet.Registration", "DogeNet.Registration\DogeNet.Registration.csproj", "{B41560E9-75B1-4234-8DC4-1EBB3D1624DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogeNet.Tests", "DogeNet.Tests\DogeNet.Tests.csproj", "{FD1F58A2-76E2-46F4-A39C-8FA308CDAF6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{B41560E9-75B1-4234-8DC4-1EBB3D1624DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B41560E9-75B1-4234-8DC4-1EBB3D1624DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B41560E9-75B1-4234-8DC4-1EBB3D1624DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD1F58A2-76E2-46F4-A39C-8FA308CDAF6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD1F58A2-76E2-46F4-A39C-8FA308CDAF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD1F58A2-76E2-46F4-A39C-8FA308CDAF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD1F58A2-76E2-46F4-A39C-8FA308CDAF6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
