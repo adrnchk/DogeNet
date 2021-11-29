@@ -4,11 +4,7 @@
 
 namespace DogeNet.Tests.BLL.Features.Account
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using DogeNet.BLL.Features.Account;
     using DogeNet.BLL.Features.Account.CreateAccount;
     using Xunit;
 
@@ -77,8 +73,8 @@ namespace DogeNet.Tests.BLL.Features.Account
             CreateAccountModel model = new CreateAccountModel()
             {
                 UserName = "UserNameTest",
-                Password = "123",
-                RepeatPassword = "123",
+                Password = new string('-', AccountConstants.MinLengthForPassword - 1),
+                RepeatPassword = new string('-', AccountConstants.MinLengthForPassword - 1),
                 FirstName = "UserFirstName",
                 LastName = "UserLastName",
                 Email = "test@Email.com",
@@ -95,12 +91,12 @@ namespace DogeNet.Tests.BLL.Features.Account
         {
             CreateAccountModel model = new CreateAccountModel()
             {
-                UserName = "UserNam434124442142412421442421455555555555555555555555555555555555544555555555555555555521412421421424124164354435533545eTest",
-                Password = "UserPassword12ef5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555ffewf3#",
-                RepeatPassword = "UserPassword12ef5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555ffewf3#",
-                FirstName = "UserNam434124442142412421442421455555555555555555555555555555555555544555555555555555555521412421421424124164354435533545eTest",
-                LastName = "UserNam434124442142412421442421455555555555555555555555555555555555544555555555555555555521412421421424124164354435533545eTest",
-                Email = "UserNam434124442142412421442421455555555555555555555555555555555555544555555555555555555521412421421424124164354435533545eTest@Email.com",
+                UserName = new string('-', AccountConstants.MaxLengthForUserName + 1),
+                Password = new string('-', AccountConstants.MaxLengthForPassword + 1),
+                RepeatPassword = new string('-', AccountConstants.MaxLengthForPassword + 1),
+                FirstName = new string('-', AccountConstants.MaxLengthForFirstName + 1),
+                LastName = new string('-', AccountConstants.MaxLengthForLastName + 1),
+                Email = "test@email.com",
             };
             CreateAccountValidator validator = new CreateAccountValidator();
 

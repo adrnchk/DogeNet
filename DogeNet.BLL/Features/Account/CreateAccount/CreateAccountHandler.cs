@@ -4,10 +4,6 @@
 
 namespace DogeNet.BLL.Features.Account.CreateAccount
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
@@ -16,7 +12,6 @@ namespace DogeNet.BLL.Features.Account.CreateAccount
     using DogeNet.DAL.Models;
     using MediatR;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
 
     public class CreateAccountHandler : IRequestHandler<CreateAccountCommand, int>
     {
