@@ -13,11 +13,11 @@ namespace DogeNet.IdentityServer.Controllers
 
     public class AccountController : Controller
     {
-        private readonly SignInManager<User> signInManager;
-        private readonly UserManager<User> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<IdentityUser> userManager;
         private readonly IIdentityServerInteractionService interaction;
 
-        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, IIdentityServerInteractionService interaction)
+        public AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IIdentityServerInteractionService interaction)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -42,7 +42,7 @@ namespace DogeNet.IdentityServer.Controllers
                 return this.View(model);
             }
 
-            var user = new User
+            var user = new IdentityUser
             {
                 UserName = model.UserName,
             };
