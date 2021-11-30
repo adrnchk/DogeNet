@@ -6,25 +6,42 @@ namespace DogeNet.Tests.BLL.Features.Account
 {
     using DogeNet.BLL.Features.Account;
     using DogeNet.BLL.Features.Account.CreateAccount;
+    using DogeNet.DAL;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Moq;
     using Xunit;
 
     public class CreateAccountValidatorTests
     {
+        private readonly DBContext context;
+        private readonly CreateAccountValidator validator;
+
+        public CreateAccountValidatorTests()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<DBContext>();
+
+            optionsBuilder.UseInMemoryDatabase("TEST_ONLY");
+
+            this.context = new DBContext(optionsBuilder.Options);
+
+            this.validator = new CreateAccountValidator(this.context);
+        }
+
         [Fact]
         public void ValidationNormal()
         {
-            CreateAccountModel model = new CreateAccountModel()
+            var model = new CreateAccountModel()
             {
-                UserName = "UserNameTest",
+                UserName = "UserNameTestNormal",
                 Password = "UserPassword123#",
                 RepeatPassword = "UserPassword123#",
                 FirstName = "UserFirstName",
                 LastName = "UserLastName",
                 Email = "test@Email.com",
             };
-            CreateAccountValidator validator = new CreateAccountValidator();
 
-            var validationResults = validator.Validate(model);
+            var validationResults = this.validator.Validate(model);
 
             Assert.True(validationResults.IsValid);
         }
@@ -32,18 +49,43 @@ namespace DogeNet.Tests.BLL.Features.Account
         [Fact]
         public void ValidationWrongEmailFormat()
         {
-            CreateAccountModel model = new CreateAccountModel()
+            var model = new CreateAccountModel()
             {
-                UserName = "UserNameTest",
+                UserName = "UserNameTestEmail",
                 Password = "UserPassword123#",
                 RepeatPassword = "UserPassword123#",
                 FirstName = "UserFirstName",
                 LastName = "UserLastName",
                 Email = "testEm#ail.com",
             };
-            CreateAccountValidator validator = new CreateAccountValidator();
 
-            var validationResults = validator.Validate(model);
+            var validationResults = this.validator.Validate(model);
+
+            Assert.False(validationResults.IsValid);
+        }
+
+        [Fact]
+        public void ValidationNotUniqueUserName()
+        {
+            var model = new CreateAccountModel()
+            {
+                UserName = "UserNameNotUnique",
+                Password = "UserPassword123#",
+                RepeatPassword = "UserPassword123#",
+                FirstName = "UserFirstName",
+                LastName = "UserLastName",
+                Email = "testEm@ail.com",
+            };
+
+            var user = new IdentityUser()
+            {
+                UserName = model.UserName,
+            };
+
+            this.context.Users.Add(user);
+            this.context.SaveChanges();
+
+            var validationResults = this.validator.Validate(model);
 
             Assert.False(validationResults.IsValid);
         }
@@ -51,18 +93,17 @@ namespace DogeNet.Tests.BLL.Features.Account
         [Fact]
         public void ValidationPasswordsNotMatch()
         {
-            CreateAccountModel model = new CreateAccountModel()
+            var model = new CreateAccountModel()
             {
-                UserName = "UserNameTest",
+                UserName = "UserNamePasswords",
                 Password = "UserPassword123#",
                 RepeatPassword = "UserPassword12efffewf3#",
                 FirstName = "UserFirstName",
                 LastName = "UserLastName",
                 Email = "test@Email.com",
             };
-            CreateAccountValidator validator = new CreateAccountValidator();
 
-            var validationResults = validator.Validate(model);
+            var validationResults = this.validator.Validate(model);
 
             Assert.False(validationResults.IsValid);
         }
@@ -70,18 +111,17 @@ namespace DogeNet.Tests.BLL.Features.Account
         [Fact]
         public void ValidationPasswordTooShort()
         {
-            CreateAccountModel model = new CreateAccountModel()
+            var model = new CreateAccountModel()
             {
-                UserName = "UserNameTest",
+                UserName = "UserNameTestTooShort",
                 Password = new string('-', AccountConstants.MinLengthForPassword - 1),
                 RepeatPassword = new string('-', AccountConstants.MinLengthForPassword - 1),
                 FirstName = "UserFirstName",
                 LastName = "UserLastName",
                 Email = "test@Email.com",
             };
-            CreateAccountValidator validator = new CreateAccountValidator();
 
-            var validationResults = validator.Validate(model);
+            var validationResults = this.validator.Validate(model);
 
             Assert.False(validationResults.IsValid);
         }
@@ -89,7 +129,7 @@ namespace DogeNet.Tests.BLL.Features.Account
         [Fact]
         public void ValidationTooLongStrings()
         {
-            CreateAccountModel model = new CreateAccountModel()
+            var model = new CreateAccountModel()
             {
                 UserName = new string('-', AccountConstants.MaxLengthForUserName + 1),
                 Password = new string('-', AccountConstants.MaxLengthForPassword + 1),
@@ -98,9 +138,8 @@ namespace DogeNet.Tests.BLL.Features.Account
                 LastName = new string('-', AccountConstants.MaxLengthForLastName + 1),
                 Email = "test@email.com",
             };
-            CreateAccountValidator validator = new CreateAccountValidator();
 
-            var validationResults = validator.Validate(model);
+            var validationResults = this.validator.Validate(model);
 
             Assert.False(validationResults.IsValid);
         }
@@ -108,7 +147,7 @@ namespace DogeNet.Tests.BLL.Features.Account
         [Fact]
         public void ValidationEmptyStrings()
         {
-            CreateAccountModel model = new CreateAccountModel()
+            var model = new CreateAccountModel()
             {
                 UserName = string.Empty,
                 Password = string.Empty,
@@ -117,9 +156,8 @@ namespace DogeNet.Tests.BLL.Features.Account
                 LastName = string.Empty,
                 Email = string.Empty,
             };
-            CreateAccountValidator validator = new CreateAccountValidator();
 
-            var validationResults = validator.Validate(model);
+            var validationResults = this.validator.Validate(model);
 
             Assert.False(validationResults.IsValid);
         }
@@ -127,7 +165,7 @@ namespace DogeNet.Tests.BLL.Features.Account
         [Fact]
         public void ValidationNullStrings()
         {
-            CreateAccountModel model = new CreateAccountModel()
+            var model = new CreateAccountModel()
             {
                 UserName = null,
                 Password = null,
@@ -136,9 +174,8 @@ namespace DogeNet.Tests.BLL.Features.Account
                 LastName = null,
                 Email = null,
             };
-            CreateAccountValidator validator = new CreateAccountValidator();
 
-            var validationResults = validator.Validate(model);
+            var validationResults = this.validator.Validate(model);
 
             Assert.False(validationResults.IsValid);
         }

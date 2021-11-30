@@ -4,9 +4,6 @@
 
 namespace DogeNet.Registration.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using DogeNet.BLL.Features.Account.CreateAccount;
     using MediatR;
