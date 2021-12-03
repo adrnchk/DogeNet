@@ -23,39 +23,23 @@ namespace DogeNet.WebApi.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string GetConversations(int id)
         {
             return "value";
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateConversationCommand command)
+        public async Task<IActionResult> CreateConversation(CreateConversationModel model)
         {
             if (this.ModelState.IsValid)
             {
-                return this.Ok(await this.mediator.Send(command));
+                return this.Ok(await this.mediator.Send(new CreateConversationCommand(model)));
             }
             else
             {
                 return this.BadRequest(this.ModelState.Values);
             }
-        }
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

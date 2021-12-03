@@ -20,5 +20,17 @@ namespace DogeNet.BLL.Features.Account
                 return false;
             }
         }
+
+        public static bool UserIdValid(DBContext db, int id)
+        {
+            if (db.AppUsers.Where(o => o.Id == id).Count() == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
