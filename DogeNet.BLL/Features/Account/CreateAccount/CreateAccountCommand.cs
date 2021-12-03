@@ -6,5 +6,5 @@ namespace DogeNet.BLL.Features.Account.CreateAccount
 {
     using MediatR;
 
-    public record CreateAccountCommand(CreateAccountModel model) : IRequest<int>;
+    public record CreateAccountCommand(CreateAccountModel model) : IRequest;
 }

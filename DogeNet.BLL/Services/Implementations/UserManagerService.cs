@@ -25,5 +25,10 @@ namespace DogeNet.BLL.Services.Implementations
         {
             return await this.userManager.CreateAsync(user, password);
         }
+
+        public async Task<IdentityUser> FindIdentityUser(string userName)
+        {
+            return await this.userManager.FindByNameAsync(userName);
+        }
     }
 }

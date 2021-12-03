@@ -14,5 +14,7 @@ namespace DogeNet.BLL.Services.Interfaces
     public interface IUserManagerService
     {
         Task<IdentityResult> CreateIdentityUser(IdentityUser user, string password);
+
+        Task<IdentityUser> FindIdentityUser(string userName);
     }
 }

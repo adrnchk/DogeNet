@@ -31,4 +31,10 @@
     <ProjectReference Include="..\DogeNet.DAL\DogeNet.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Conversations\DeleteParticipantConversation\" />
+    <Folder Include="Features\Messages\EditMessage\" />
+    <Folder Include="Features\Messages\GetMessage\" />
+  </ItemGroup>
+
 </Project>

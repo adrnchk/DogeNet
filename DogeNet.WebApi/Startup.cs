@@ -6,20 +6,21 @@ namespace DogeNet.WebApi
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using DogeNet.BLL.Features.Messages.SendMessage;
+    using DogeNet.BLL.Services.Implementations;
+    using DogeNet.BLL.Services.Interfaces;
     using DogeNet.DAL;
-    using IdentityServer4.AccessTokenValidation;
+    using FluentValidation;
+    using FluentValidation.AspNetCore;
+    using MediatR;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.HttpsPolicy;
-    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
 
     public class Startup
@@ -47,9 +48,24 @@ namespace DogeNet.WebApi
                 });
 
             var connectionString = this.AppConfiguration.GetConnectionString(nameof(DBContext));
-            services.AddDbContext<DBContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<DBContext>(options => options.UseSqlServer(connectionString))
+                .AddIdentity<IdentityUser, IdentityRole>(config =>
+                {
+                    config.Password.RequireDigit = false;
+                    config.Password.RequireLowercase = false;
+                    config.Password.RequireNonAlphanumeric = false;
+                    config.Password.RequireUppercase = false;
+                    config.Password.RequiredLength = 4;
+                })
+                .AddEntityFrameworkStores<DBContext>();
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
+            services.AddTransient<IValidator<SendMessageModel>, SendMessageValidator>();
+            services.AddAutoMapper(typeof(SendMessageModelProfile).Assembly);
+            services.AddMediatR(typeof(DogeNet.BLL.Features.Messages.SendMessage.SendMessageCommand).Assembly);
+
+            services.AddScoped<IUserManagerService, UserManagerService>();
+
             services.AddSwaggerGen(options =>
             {
                 options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
