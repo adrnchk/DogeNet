@@ -12,6 +12,7 @@ namespace DogeNet.WebApi
     using DogeNet.DAL;
     using FluentValidation;
     using FluentValidation.AspNetCore;
+    using IdentityServer4.AccessTokenValidation;
     using MediatR;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
@@ -34,37 +35,18 @@ namespace DogeNet.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddIdentityServerAuthentication(options =>
-                {
-                    options.ApiName = "DogeNetWebAPI";
-                    options.Authority = this.AppConfiguration.GetValue<string>("Services:IdentityServer");
-                    options.RequireHttpsMetadata = false;
-                });
-
-            var connectionString = this.AppConfiguration.GetConnectionString(nameof(DBContext));
-            services.AddDbContext<DBContext>(options => options.UseSqlServer(connectionString))
-                .AddIdentity<IdentityUser, IdentityRole>(config =>
-                {
-                    config.Password.RequireDigit = false;
-                    config.Password.RequireLowercase = false;
-                    config.Password.RequireNonAlphanumeric = false;
-                    config.Password.RequireUppercase = false;
-                    config.Password.RequiredLength = 4;
-                })
-                .AddEntityFrameworkStores<DBContext>();
-
-            services.AddControllers().AddFluentValidation();
-            services.AddTransient<IValidator<SendMessageModel>, SendMessageValidator>();
-            services.AddAutoMapper(typeof(SendMessageModelProfile).Assembly);
-            services.AddMediatR(typeof(DogeNet.BLL.Features.Messages.SendMessage.SendMessageCommand).Assembly);
-
-            services.AddScoped<IUserManagerService, UserManagerService>();
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            //    .AddIdentityServerAuthentication(options =>
+            //    {
+            //        options.ApiName = "DogeNetWebAPI";
+            //        options.Authority = this.AppConfiguration.GetValue<string>("Services:IdentityServer");
+            //        options.RequireHttpsMetadata = false;
+            //    });
 
             services.AddSwaggerGen(options =>
             {
@@ -105,6 +87,39 @@ namespace DogeNet.WebApi
                     },
                 });
             });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+            })
+               .AddIdentityServerAuthentication(options =>
+               {
+                   options.ApiName = "DogeNetWebAPI";
+                   options.Authority = "https://localhost:10001";
+                   options.RequireHttpsMetadata = false;
+               });
+
+            services.AddAuthorization();
+
+            var connectionString = this.AppConfiguration.GetConnectionString(nameof(DBContext));
+            services.AddDbContext<DBContext>(options => options.UseSqlServer(connectionString));
+            services.AddIdentity<IdentityUser, IdentityRole>(config =>
+                {
+                    config.Password.RequireDigit = false;
+                    config.Password.RequireLowercase = false;
+                    config.Password.RequireNonAlphanumeric = false;
+                    config.Password.RequireUppercase = false;
+                    config.Password.RequiredLength = 4;
+                })
+                .AddEntityFrameworkStores<DBContext>();
+
+            services.AddControllers().AddFluentValidation();
+            services.AddTransient<IValidator<SendMessageModel>, SendMessageValidator>();
+            services.AddAutoMapper(typeof(SendMessageModelProfile).Assembly);
+            services.AddMediatR(typeof(DogeNet.BLL.Features.Messages.SendMessage.SendMessageCommand));
+            services.AddScoped<IUserManagerService, UserManagerService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -126,7 +141,7 @@ namespace DogeNet.WebApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllers();
             });
         }
     }

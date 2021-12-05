@@ -4,15 +4,11 @@
 
 namespace DogeNet.BLL.Features.Messages.SendMessage
 {
-    using System;
-
     public class SendMessageModel
     {
         public int UserId { get; set; }
 
         public int ConversationId { get; set; }
-
-        public DateTime CreatedAt { get; set; }
 
         public string Text { get; set; }
     }

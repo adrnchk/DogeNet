@@ -30,6 +30,7 @@ namespace DogeNet.BLL.Features.Messages.SendMessage
         public async Task<Unit> Handle(SendMessageCommand request, CancellationToken cancellationToken)
         {
             var message = this.mapper.Map<Message>(request.model);
+            message.CreatedAt = DateTime.Now;
 
             await this.context.Messages.AddAsync(message);
             this.context.SaveChanges();

@@ -16,9 +16,10 @@ namespace DogeNet.WebApi.Controllers
     using DogeNet.BLL.Features.Messages.SendMessage;
     using DogeNet.DAL;
     using MediatR;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class MessagesController : ControllerBase
     {

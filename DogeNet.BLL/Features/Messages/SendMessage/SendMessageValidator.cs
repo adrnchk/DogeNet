@@ -17,8 +17,7 @@ namespace DogeNet.BLL.Features.Messages.SendMessage
                 .Must(id => AccountChecks.UserIdValid(db, id)).WithMessage("Sender not found");
             this.RuleFor(account => account.ConversationId).NotNull().NotEmpty()
                 .Must(id => ConversationChecks.ConversationIdValid(db, id)).WithMessage("Conversation not found");
-            this.RuleFor(account => account.CreatedAt).NotNull().NotEmpty();
-            this.RuleFor(account => account.Text).NotNull().NotEmpty();
+            this.RuleFor(account => account.Text).NotNull().NotEmpty().MaximumLength(MessageConstants.MaxTextSizeForMessage);
         }
     }
 }

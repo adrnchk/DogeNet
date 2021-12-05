@@ -15,12 +15,9 @@ namespace DogeNet.BLL.Features.Messages.EditMessage
     {
         private readonly DBContext context;
 
-        private readonly IMapper mapper;
-
-        public EditMessageHandler(DBContext context, IMapper mapper)
+        public EditMessageHandler(DBContext context)
         {
             this.context = context;
-            this.mapper = mapper;
         }
 
         public async Task<Unit> Handle(EditMessageCommand request, CancellationToken cancellationToken)
