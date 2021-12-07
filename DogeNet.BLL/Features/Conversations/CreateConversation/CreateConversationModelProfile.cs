@@ -14,6 +14,7 @@ namespace DogeNet.BLL.Features.Conversations.CreateConversation
         {
             this.CreateMap<CreateConversationModel, Conversation>()
                 .ForMember(src => src.CreatedAt, opt => opt.MapFrom(c => DateTime.Now));
+            this.CreateMap<Conversation, ConversationDetailsModel>();
         }
     }
 }

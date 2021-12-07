@@ -5,8 +5,8 @@
 namespace DogeNet.BLL.Features.Messages.GetMessage
 {
     using System.Collections.Generic;
-    using DogeNet.DAL.Models;
+    using DogeNet.BLL.Features.Messages.GetMessages;
     using MediatR;
 
-    public record GetMessagesQuery(int conversationId) : IRequest<List<Message>>;
+    public record GetMessagesQuery(int conversationId) : IRequest<List<MessagesDetailsModel>>;
 }

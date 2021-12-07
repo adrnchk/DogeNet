@@ -6,6 +6,7 @@ namespace DogeNet.Tests.BLL.Features.Messages.EditMessage
 {
     using AutoMapper;
     using DogeNet.BLL.Features.Messages.EditMessage;
+    using DogeNet.BLL.Features.Messages.GetMessages;
     using DogeNet.DAL;
     using DogeNet.DAL.Models;
     using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace DogeNet.Tests.BLL.Features.Messages.EditMessage
     {
         private readonly DBContext context;
         private readonly EditMessageHandler handler;
+        private readonly IMapper mapper;
 
         public EditMessageHandlerTests()
         {
@@ -29,7 +31,10 @@ namespace DogeNet.Tests.BLL.Features.Messages.EditMessage
 
             this.context = new DBContext(optionsBuilder.Options);
 
-            this.handler = new EditMessageHandler(this.context);
+            var config = new MapperConfiguration(cfg => cfg.AddProfile<GetMessageModelProfile>());
+            this.mapper = config.CreateMapper();
+
+            this.handler = new EditMessageHandler(this.context, this.mapper);
 
             var sender = new User()
             {

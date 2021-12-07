@@ -6,7 +6,9 @@ namespace DogeNet.Tests.BLL.Features.Messages.GetMessage
 {
     using System.Linq;
     using System.Threading;
+    using AutoMapper;
     using DogeNet.BLL.Features.Messages.GetMessage;
+    using DogeNet.BLL.Features.Messages.GetMessages;
     using DogeNet.DAL;
     using DogeNet.DAL.Models;
     using Microsoft.EntityFrameworkCore;
@@ -16,6 +18,7 @@ namespace DogeNet.Tests.BLL.Features.Messages.GetMessage
     {
         private readonly DBContext context;
         private readonly GetMessagesHandler handler;
+        private readonly IMapper mapper;
 
         public GetMessageHandlerTests()
         {
@@ -24,7 +27,10 @@ namespace DogeNet.Tests.BLL.Features.Messages.GetMessage
 
             this.context = new DBContext(optionsBuilder.Options);
 
-            this.handler = new GetMessagesHandler(this.context);
+            var config = new MapperConfiguration(cfg => cfg.AddProfile<GetMessageModelProfile>());
+            this.mapper = config.CreateMapper();
+
+            this.handler = new GetMessagesHandler(this.context, this.mapper);
 
             var sender = new User()
             {

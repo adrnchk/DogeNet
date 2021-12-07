@@ -7,5 +7,5 @@ namespace DogeNet.BLL.Features.Conversations.CreateConversation
     using DogeNet.DAL.Models;
     using MediatR;
 
-    public record CreateConversationCommand(CreateConversationModel model) : IRequest<Conversation>;
+    public record CreateConversationCommand(CreateConversationModel model) : IRequest<ConversationDetailsModel>;
 }

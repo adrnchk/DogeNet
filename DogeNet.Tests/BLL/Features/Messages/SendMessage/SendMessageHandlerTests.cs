@@ -86,26 +86,6 @@ namespace DogeNet.Tests.BLL.Features.Messages.SendMessage
         }
 
         [Fact]
-        public async void HandleErrorModelNull()
-        {
-            try
-            {
-                SendMessageModel model = null;
-                var command = new SendMessageCommand(model);
-
-                await this.handler.Handle(command, CancellationToken.None);
-            }
-            catch (NullReferenceException e)
-            {
-                Assert.True(true);
-            }
-            catch (Exception e)
-            {
-                Assert.True(false);
-            }
-        }
-
-        [Fact]
         public async void HandleErrorCommandNull()
         {
             try
