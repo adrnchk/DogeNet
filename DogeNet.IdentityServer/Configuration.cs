@@ -24,17 +24,31 @@ namespace DogeNet.IdentityServer
         };
 
         public static IEnumerable<ApiResource> ApiResources =>
-            new List<ApiResource>
+        new List<ApiResource>
+        {
+            new ApiResource(Startup.StaticConfig.GetValue<string>("Scopes:WebApi:Name"), new[] { JwtClaimTypes.Name })
             {
-                new ApiResource(Startup.StaticConfig.GetValue<string>("Scopes:WebApi:Name"), new[] { JwtClaimTypes.Name })
-                {
-                    Scopes = { Startup.StaticConfig.GetValue<string>("Scopes:WebApi:Name") },
-                },
-            };
+                Scopes = { Startup.StaticConfig.GetValue<string>("Scopes:WebApi:Name") },
+            },
+        };
 
         public static IEnumerable<Client> Clients =>
             new List<Client>
             {
+                new Client
+                {
+                    ClientId = "client_id_swagger",
+                    ClientSecrets = { new Secret("client_secret_swagger".ToSha256()) },
+                    AllowedGrantTypes =  GrantTypes.ResourceOwnerPassword,
+                    AllowedCorsOrigins = { "https://localhost:7001" },
+                    AllowedScopes =
+                    {
+                        "DogeNetWebAPI",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                    },
+                },
+
                 new Client
                 {
                     ClientId = Startup.StaticConfig.GetValue<string>("Clients:WebApi:Id"),

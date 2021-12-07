@@ -13,7 +13,7 @@ namespace DogeNet.BLL.Features.Account.CreateAccount
     using MediatR;
     using Microsoft.AspNetCore.Identity;
 
-    public class CreateAccountHandler : IRequestHandler<CreateAccountCommand, int>
+    public class CreateAccountHandler : IRequestHandler<CreateAccountCommand>
     {
         private readonly DBContext context;
 
@@ -28,18 +28,19 @@ namespace DogeNet.BLL.Features.Account.CreateAccount
             this.mapper = mapper;
         }
 
-        public async Task<int> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
         {
             var user = this.mapper.Map<IdentityUser>(request.model);
 
             var result = await this.userManager.CreateIdentityUser(user, request.model.Password);
 
             var appUser = this.mapper.Map<User>(request.model);
+            appUser.IdentityId = user.Id;
 
             this.context.AppUsers.Add(appUser);
             this.context.SaveChanges();
 
-            return 0;
+            return Unit.Value;
         }
     }
 }

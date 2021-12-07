@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BLL\Features\Messages\SendMeesage\**" />
+    <EmbeddedResource Remove="BLL\Features\Messages\SendMeesage\**" />
+    <None Remove="BLL\Features\Messages\SendMeesage\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="stylecop.json" />
   </ItemGroup>
 

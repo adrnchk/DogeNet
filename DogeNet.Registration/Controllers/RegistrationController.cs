@@ -21,8 +21,10 @@ namespace DogeNet.Registration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(CreateAccountCommand command)
+        public async Task<IActionResult> Register(CreateAccountModel model)
         {
+            var command = new CreateAccountCommand(model);
+
             if (this.ModelState.IsValid)
             {
                 return this.Ok(await this.mediator.Send(command));

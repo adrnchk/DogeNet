@@ -12,7 +12,9 @@ namespace DogeNet.WebApi.Controllers
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
-    public class UserController : Controller
+    [ApiController]
+    [Route("api/[controller]/[action]")]
+    public class UserController : ControllerBase
     {
         [HttpGet]
         [Authorize]

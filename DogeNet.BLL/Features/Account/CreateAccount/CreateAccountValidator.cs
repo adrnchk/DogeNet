@@ -11,14 +11,14 @@ namespace DogeNet.BLL.Features.Account.CreateAccount
     {
         public CreateAccountValidator(DBContext db)
         {
-            this.RuleFor(account => account.Password).NotEmpty().NotNull().MinimumLength(AccountConstants.MinLengthForPassword)
+            this.RuleFor(enitity => enitity.Password).NotEmpty().NotNull().MinimumLength(AccountConstants.MinLengthForPassword)
                 .MaximumLength(AccountConstants.MaxLengthForPassword);
-            this.RuleFor(account => account.Email).NotNull().NotEmpty().EmailAddress();
-            this.RuleFor(account => account.FirstName).NotNull().NotEmpty().MaximumLength(AccountConstants.MaxLengthForFirstName);
-            this.RuleFor(account => account.RepeatPassword).NotNull().NotEmpty().Equal(account => account.Password);
-            this.RuleFor(account => account.UserName).NotNull().NotEmpty().MaximumLength(AccountConstants.MaxLengthForUserName)
+            this.RuleFor(enitity => enitity.Email).NotNull().NotEmpty().EmailAddress();
+            this.RuleFor(enitity => enitity.FirstName).NotNull().NotEmpty().MaximumLength(AccountConstants.MaxLengthForFirstName);
+            this.RuleFor(enitity => enitity.RepeatPassword).NotNull().NotEmpty().Equal(enitity => enitity.Password);
+            this.RuleFor(enitity => enitity.UserName).NotNull().NotEmpty().MaximumLength(AccountConstants.MaxLengthForUserName)
                 .Must(name => AccountChecks.UniqueName(db, name)).WithMessage("Not unique UserName");
-            this.RuleFor(account => account.LastName).MaximumLength(AccountConstants.MaxLengthForLastName);
+            this.RuleFor(enitity => enitity.LastName).MaximumLength(AccountConstants.MaxLengthForLastName);
         }
     }
 }
