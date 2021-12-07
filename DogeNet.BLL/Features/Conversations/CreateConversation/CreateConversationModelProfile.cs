@@ -4,6 +4,7 @@
 
 namespace DogeNet.BLL.Features.Conversations.CreateConversation
 {
+    using System;
     using AutoMapper;
     using DogeNet.DAL.Models;
 
@@ -11,7 +12,8 @@ namespace DogeNet.BLL.Features.Conversations.CreateConversation
     {
         public CreateConversationModelProfile()
         {
-            this.CreateMap<CreateConversationModel, Conversation>();
+            this.CreateMap<CreateConversationModel, Conversation>()
+                .ForMember(src => src.CreatedAt, opt => opt.MapFrom(c => DateTime.Now));
         }
     }
 }

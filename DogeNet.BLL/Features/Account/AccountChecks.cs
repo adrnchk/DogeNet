@@ -9,14 +9,8 @@ namespace DogeNet.BLL.Features.Account
 
     public static class AccountChecks
     {
-        public static bool UniqueName(DBContext db, string name)
-        {
-            return db.Users.Where(o => o.UserName == name).Count() == 0;
-        }
+        public static bool UniqueName(DBContext db, string name) => db.Users.Any(o => o.UserName == name);
 
-        public static bool UserIdValid(DBContext db, int id)
-        {
-            return db.AppUsers.Where(o => o.Id == id).Count() == 1;
-        }
+        public static bool UserIdValid(DBContext db, int id) => db.AppUsers.Any(o => o.Id == id);
     }
 }

@@ -9,16 +9,6 @@ namespace DogeNet.BLL.Features.Conversations
 
     public static class ConversationChecks
     {
-        public static bool ConversationIdValid(DBContext db, int id)
-        {
-            if (db.Conversations.Where(o => o.Id == id).Count() == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        public static bool ConversationIdValid(DBContext db, int id) => db.Conversations.Where(o => o.Id == id).Count() == 1;
     }
 }

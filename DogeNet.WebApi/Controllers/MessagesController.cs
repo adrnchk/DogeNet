@@ -38,7 +38,7 @@ namespace DogeNet.WebApi.Controllers
         {
             if (ConversationChecks.ConversationIdValid(this.context, id))
             {
-                return this.Ok(await this.mediator.Send(new GetMessageQuery(id)));
+                return this.Ok(await this.mediator.Send(new GetMessagesQuery(id)));
             }
             else
             {

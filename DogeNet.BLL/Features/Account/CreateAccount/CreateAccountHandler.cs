@@ -36,7 +36,6 @@ namespace DogeNet.BLL.Features.Account.CreateAccount
 
             var appUser = this.mapper.Map<User>(request.model);
             appUser.IdentityId = user.Id;
-            appUser.CreatedAt = System.DateTime.Now;
 
             this.context.AppUsers.Add(appUser);
             this.context.SaveChanges();

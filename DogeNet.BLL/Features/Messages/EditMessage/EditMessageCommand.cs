@@ -4,7 +4,8 @@
 
 namespace DogeNet.BLL.Features.Messages.EditMessage
 {
+    using DogeNet.DAL.Models;
     using MediatR;
 
-    public record EditMessageCommand(EditMessageModel model) : IRequest;
+    public record EditMessageCommand(EditMessageModel model) : IRequest<Message>;
 }

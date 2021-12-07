@@ -14,18 +14,18 @@ namespace DogeNet.BLL.Features.Messages.GetMessage
     using DogeNet.DAL.Models;
     using MediatR;
 
-    public class GetMessageHandler : IRequestHandler<GetMessageQuery, List<Message>>
+    public class GetMessagesHandler : IRequestHandler<GetMessagesQuery, List<Message>>
     {
         private readonly DBContext context;
 
-        public GetMessageHandler(DBContext context)
+        public GetMessagesHandler(DBContext context)
         {
             this.context = context;
         }
 
-        public Task<List<Message>> Handle(GetMessageQuery request, CancellationToken cancellationToken)
+        public async Task<List<Message>> Handle(GetMessagesQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(this.context.Messages.Where(message => message.ConversationId == request.conversationId).OrderBy(message => message.CreatedAt).ToList());
+            return await Task.FromResult(this.context.Messages.Where(message => message.ConversationId == request.conversationId).OrderBy(message => message.CreatedAt).ToList());
         }
     }
 }

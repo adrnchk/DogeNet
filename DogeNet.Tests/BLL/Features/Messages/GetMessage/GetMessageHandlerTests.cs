@@ -15,7 +15,7 @@ namespace DogeNet.Tests.BLL.Features.Messages.GetMessage
     public class GetMessageHandlerTests
     {
         private readonly DBContext context;
-        private readonly GetMessageHandler handler;
+        private readonly GetMessagesHandler handler;
 
         public GetMessageHandlerTests()
         {
@@ -24,7 +24,7 @@ namespace DogeNet.Tests.BLL.Features.Messages.GetMessage
 
             this.context = new DBContext(optionsBuilder.Options);
 
-            this.handler = new GetMessageHandler(this.context);
+            this.handler = new GetMessagesHandler(this.context);
 
             var sender = new User()
             {
@@ -72,7 +72,7 @@ namespace DogeNet.Tests.BLL.Features.Messages.GetMessage
         [Fact]
         public async void HandleNormalMessage()
         {
-            var query = new GetMessageQuery(1);
+            var query = new GetMessagesQuery(1);
 
             await this.handler.Handle(query, CancellationToken.None);
 

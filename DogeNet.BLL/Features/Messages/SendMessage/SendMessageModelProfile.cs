@@ -4,6 +4,7 @@
 
 namespace DogeNet.BLL.Features.Messages.SendMessage
 {
+    using System;
     using AutoMapper;
     using DogeNet.DAL.Models;
 
@@ -11,7 +12,8 @@ namespace DogeNet.BLL.Features.Messages.SendMessage
     {
         public SendMessageModelProfile()
         {
-            this.CreateMap<SendMessageModel, Message>();
+            this.CreateMap<SendMessageModel, Message>()
+                .ForMember(src => src.CreatedAt, opt => opt.MapFrom(c => DateTime.Now));
         }
     }
 }

@@ -9,9 +9,10 @@ namespace DogeNet.BLL.Features.Messages.EditMessage
     using System.Threading.Tasks;
     using AutoMapper;
     using DogeNet.DAL;
+    using DogeNet.DAL.Models;
     using MediatR;
 
-    public class EditMessageHandler : IRequestHandler<EditMessageCommand>
+    public class EditMessageHandler : IRequestHandler<EditMessageCommand, Message>
     {
         private readonly DBContext context;
 
@@ -20,7 +21,7 @@ namespace DogeNet.BLL.Features.Messages.EditMessage
             this.context = context;
         }
 
-        public async Task<Unit> Handle(EditMessageCommand request, CancellationToken cancellationToken)
+        public async Task<Message> Handle(EditMessageCommand request, CancellationToken cancellationToken)
         {
             var message = this.context.Messages.Find(request.model.MessageId);
 
@@ -29,7 +30,7 @@ namespace DogeNet.BLL.Features.Messages.EditMessage
 
             this.context.SaveChanges();
 
-            return Unit.Value;
+            return message;
         }
     }
 }

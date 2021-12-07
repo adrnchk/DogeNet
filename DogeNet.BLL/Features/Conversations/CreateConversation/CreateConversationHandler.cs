@@ -13,7 +13,7 @@ namespace DogeNet.BLL.Features.Conversations.CreateConversation
     using MediatR;
     using Microsoft.AspNetCore.Identity;
 
-    public class CreateConversationHandler : IRequestHandler<CreateConversationCommand>
+    public class CreateConversationHandler : IRequestHandler<CreateConversationCommand, Conversation>
     {
         private readonly DBContext context;
 
@@ -25,12 +25,11 @@ namespace DogeNet.BLL.Features.Conversations.CreateConversation
             this.mapper = mapper;
         }
 
-        public async Task<Unit> Handle(CreateConversationCommand request, CancellationToken cancellationToken)
+        public async Task<Conversation> Handle(CreateConversationCommand request, CancellationToken cancellationToken)
         {
             var conversation = this.mapper.Map<Conversation>(request.model);
-            conversation.CreatedAt = System.DateTime.Now;
 
-            await this.context.Conversations.AddAsync(conversation);
+            this.context.Conversations.Add(conversation);
 
             var sender = new ConversationParticipant()
             {
@@ -47,8 +46,8 @@ namespace DogeNet.BLL.Features.Conversations.CreateConversation
             conversation.ConversationParticipants.Add(sender);
             conversation.ConversationParticipants.Add(reciever);
 
-            this.context.SaveChanges();
-            return Unit.Value;
+            await this.context.SaveChangesAsync();
+            return conversation;
         }
     }
 }

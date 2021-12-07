@@ -27,16 +27,14 @@ namespace DogeNet.BLL.Features.Conversations.AddParticipantConversation
             this.mapper = mapper;
         }
 
-        public Task<Unit> Handle(AddParticipantConversationCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddParticipantConversationCommand request, CancellationToken cancellationToken)
         {
             var participantConversation = this.mapper.Map<ConversationParticipant>(request.model);
 
-            participantConversation.AddedAt = DateTime.Now;
-
             this.context.ConversationParticipants.Add(participantConversation);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
 
-            return Task.FromResult(Unit.Value);
+            return Unit.Value;
         }
     }
 }

@@ -4,6 +4,7 @@
 
 namespace DogeNet.BLL.Features.Account.CreateAccount
 {
+    using System;
     using AutoMapper;
     using DogeNet.DAL.Models;
     using Microsoft.AspNetCore.Identity;
@@ -12,7 +13,8 @@ namespace DogeNet.BLL.Features.Account.CreateAccount
     {
         public CreateAccountModelProfiles()
         {
-            this.CreateMap<CreateAccountModel, User>();
+            this.CreateMap<CreateAccountModel, User>()
+                .ForMember(src => src.CreatedAt, opt => opt.MapFrom(c => DateTime.Now));
             this.CreateMap<CreateAccountModel, IdentityUser>();
         }
     }

@@ -35,18 +35,18 @@ namespace DogeNet.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //    .AddIdentityServerAuthentication(options =>
-            //    {
-            //        options.ApiName = "DogeNetWebAPI";
-            //        options.Authority = this.AppConfiguration.GetValue<string>("Services:IdentityServer");
-            //        options.RequireHttpsMetadata = false;
-            //    });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.ApiName = "DogeNetWebAPI";
+                    options.Authority = this.AppConfiguration.GetValue<string>("Services:IdentityServer");
+                    options.RequireHttpsMetadata = false;
+                });
 
             services.AddSwaggerGen(options =>
             {
@@ -88,19 +88,6 @@ namespace DogeNet.WebApi
                 });
             });
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-            })
-               .AddIdentityServerAuthentication(options =>
-               {
-                   options.ApiName = "DogeNetWebAPI";
-                   options.Authority = "https://localhost:10001";
-                   options.RequireHttpsMetadata = false;
-               });
-
             services.AddAuthorization();
 
             var connectionString = this.AppConfiguration.GetConnectionString(nameof(DBContext));
@@ -115,10 +102,11 @@ namespace DogeNet.WebApi
                 })
                 .AddEntityFrameworkStores<DBContext>();
 
-            services.AddControllers().AddFluentValidation();
+            services.AddControllers().AddFluentValidation().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddTransient<IValidator<SendMessageModel>, SendMessageValidator>();
             services.AddAutoMapper(typeof(SendMessageModelProfile).Assembly);
-            services.AddMediatR(typeof(DogeNet.BLL.Features.Messages.SendMessage.SendMessageCommand));
+            services.AddMediatR(typeof(DogeNet.BLL.Features.Messages.SendMessage.SendMessageCommand).Assembly);
             services.AddScoped<IUserManagerService, UserManagerService>();
         }
 

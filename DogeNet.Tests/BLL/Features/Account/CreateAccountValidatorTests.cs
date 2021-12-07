@@ -21,7 +21,7 @@ namespace DogeNet.Tests.BLL.Features.Account
         {
             var optionsBuilder = new DbContextOptionsBuilder<DBContext>();
 
-            optionsBuilder.UseInMemoryDatabase("TEST_ONLY");
+            optionsBuilder.UseInMemoryDatabase("TEST_CREATE_ACCOUNT");
 
             this.context = new DBContext(optionsBuilder.Options);
 

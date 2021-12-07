@@ -4,6 +4,7 @@
 
 namespace DogeNet.BLL.Features.Conversations.AddParticipantConversation
 {
+    using System;
     using AutoMapper;
     using DogeNet.DAL.Models;
 
@@ -11,7 +12,8 @@ namespace DogeNet.BLL.Features.Conversations.AddParticipantConversation
     {
         public AddParticipantConversationModelProfile()
         {
-            this.CreateMap<AddParticipantConversationModel, ConversationParticipant>();
+            this.CreateMap<AddParticipantConversationModel, ConversationParticipant>()
+                .ForMember(src => src.AddedAt, opt => opt.MapFrom(c => DateTime.Now));
         }
     }
 }
