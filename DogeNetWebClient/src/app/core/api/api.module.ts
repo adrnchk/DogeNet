@@ -6,7 +6,6 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { ConversationService } from './services/conversation.service';
 import { MessagesService } from './services/messages.service';
-import { UserService } from './services/user.service';
 
 /**
  * Module that provides all services and configuration.
@@ -18,7 +17,6 @@ import { UserService } from './services/user.service';
   providers: [
     ConversationService,
     MessagesService,
-    UserService,
     ApiConfiguration
   ],
 })
