@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { ConversationDetailsModel } from '../models/conversation-details-model';
 import { CreateConversationModel } from '../models/create-conversation-model';
 
 @Injectable({
@@ -23,21 +24,21 @@ export class ConversationService extends BaseService {
   }
 
   /**
-   * Path part for operation apiConversationIdGet
+   * Path part for operation apiConversationGetConversationsIdGet
    */
-  static readonly ApiConversationIdGetPath = '/api/Conversation/{id}';
+  static readonly ApiConversationGetConversationsIdGetPath = '/api/Conversation/GetConversations/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiConversationIdGet$Plain()` instead.
+   * To access only the response body, use `apiConversationGetConversationsIdGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiConversationIdGet$Plain$Response(params: {
+  apiConversationGetConversationsIdGet$Plain$Response(params: {
     id: number;
-  }): Observable<StrictHttpResponse<string>> {
+  }): Observable<StrictHttpResponse<Array<ConversationDetailsModel>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ConversationService.ApiConversationIdGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ConversationService.ApiConversationGetConversationsIdGetPath, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -48,37 +49,37 @@ export class ConversationService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<string>;
+        return r as StrictHttpResponse<Array<ConversationDetailsModel>>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiConversationIdGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiConversationGetConversationsIdGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiConversationIdGet$Plain(params: {
+  apiConversationGetConversationsIdGet$Plain(params: {
     id: number;
-  }): Observable<string> {
+  }): Observable<Array<ConversationDetailsModel>> {
 
-    return this.apiConversationIdGet$Plain$Response(params).pipe(
-      map((r: StrictHttpResponse<string>) => r.body as string)
+    return this.apiConversationGetConversationsIdGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<ConversationDetailsModel>>) => r.body as Array<ConversationDetailsModel>)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiConversationIdGet$Json()` instead.
+   * To access only the response body, use `apiConversationGetConversationsIdGet$Json()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiConversationIdGet$Json$Response(params: {
+  apiConversationGetConversationsIdGet$Json$Response(params: {
     id: number;
-  }): Observable<StrictHttpResponse<string>> {
+  }): Observable<StrictHttpResponse<Array<ConversationDetailsModel>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ConversationService.ApiConversationIdGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ConversationService.ApiConversationGetConversationsIdGetPath, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -89,69 +90,197 @@ export class ConversationService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<string>;
+        return r as StrictHttpResponse<Array<ConversationDetailsModel>>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiConversationIdGet$Json$Response()` instead.
+   * To access the full response (for headers, for example), `apiConversationGetConversationsIdGet$Json$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiConversationIdGet$Json(params: {
+  apiConversationGetConversationsIdGet$Json(params: {
     id: number;
-  }): Observable<string> {
+  }): Observable<Array<ConversationDetailsModel>> {
 
-    return this.apiConversationIdGet$Json$Response(params).pipe(
-      map((r: StrictHttpResponse<string>) => r.body as string)
+    return this.apiConversationGetConversationsIdGet$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<ConversationDetailsModel>>) => r.body as Array<ConversationDetailsModel>)
     );
   }
 
   /**
-   * Path part for operation apiConversationPost
+   * Path part for operation apiConversationGetConversationByIdIdGet
    */
-  static readonly ApiConversationPostPath = '/api/Conversation';
+  static readonly ApiConversationGetConversationByIdIdGetPath = '/api/Conversation/GetConversationById/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiConversationPost()` instead.
+   * To access only the response body, use `apiConversationGetConversationByIdIdGet$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConversationGetConversationByIdIdGet$Plain$Response(params: {
+    id: number;
+  }): Observable<StrictHttpResponse<ConversationDetailsModel>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ConversationService.ApiConversationGetConversationByIdIdGetPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: 'text/plain'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<ConversationDetailsModel>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiConversationGetConversationByIdIdGet$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConversationGetConversationByIdIdGet$Plain(params: {
+    id: number;
+  }): Observable<ConversationDetailsModel> {
+
+    return this.apiConversationGetConversationByIdIdGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<ConversationDetailsModel>) => r.body as ConversationDetailsModel)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiConversationGetConversationByIdIdGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConversationGetConversationByIdIdGet$Json$Response(params: {
+    id: number;
+  }): Observable<StrictHttpResponse<ConversationDetailsModel>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ConversationService.ApiConversationGetConversationByIdIdGetPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<ConversationDetailsModel>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiConversationGetConversationByIdIdGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConversationGetConversationByIdIdGet$Json(params: {
+    id: number;
+  }): Observable<ConversationDetailsModel> {
+
+    return this.apiConversationGetConversationByIdIdGet$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<ConversationDetailsModel>) => r.body as ConversationDetailsModel)
+    );
+  }
+
+  /**
+   * Path part for operation apiConversationCreateConversationPost
+   */
+  static readonly ApiConversationCreateConversationPostPath = '/api/Conversation/CreateConversation';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiConversationCreateConversationPost$Plain()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiConversationPost$Response(params?: {
+  apiConversationCreateConversationPost$Plain$Response(params?: {
     body?: CreateConversationModel
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<ConversationDetailsModel>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ConversationService.ApiConversationPostPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, ConversationService.ApiConversationCreateConversationPostPath, 'post');
     if (params) {
       rb.body(params.body, 'application/*+json');
     }
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: 'text/plain'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<ConversationDetailsModel>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiConversationPost$Response()` instead.
+   * To access the full response (for headers, for example), `apiConversationCreateConversationPost$Plain$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiConversationPost(params?: {
+  apiConversationCreateConversationPost$Plain(params?: {
     body?: CreateConversationModel
-  }): Observable<void> {
+  }): Observable<ConversationDetailsModel> {
 
-    return this.apiConversationPost$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiConversationCreateConversationPost$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<ConversationDetailsModel>) => r.body as ConversationDetailsModel)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiConversationCreateConversationPost$Json()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiConversationCreateConversationPost$Json$Response(params?: {
+    body?: CreateConversationModel
+  }): Observable<StrictHttpResponse<ConversationDetailsModel>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ConversationService.ApiConversationCreateConversationPostPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<ConversationDetailsModel>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiConversationCreateConversationPost$Json$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiConversationCreateConversationPost$Json(params?: {
+    body?: CreateConversationModel
+  }): Observable<ConversationDetailsModel> {
+
+    return this.apiConversationCreateConversationPost$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<ConversationDetailsModel>) => r.body as ConversationDetailsModel)
     );
   }
 

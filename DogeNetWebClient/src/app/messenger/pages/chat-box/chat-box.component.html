@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="header">
+    <div class="avatarSection">
+      <div class="picture">
+        <img src="{{ conversationInfo.avatarImg }}" />
+      </div>
+
+      <div class="nameSection">{{ conversationInfo.title }}</div>
+    </div>
+    <div class="actionButtons">
+      <img src="../../assets/images/attached.svg" />
+      <img src="../../assets/images/moreVertIcon.svg" />
+    </div>
+  </div>
+  <div class="body">
+    <app-message *ngFor="let item of items" [message]="item"></app-message>
+  </div>
+  <div class="footer">
+    <div class="textarea">
+      <textarea></textarea>
+    </div>
+  </div>
+</div>
