@@ -1,14 +1,23 @@
-.message {
+.message,
+.message-mine {
   margin-top: 10px;
   display: flex;
-  align-items: flex-start;
   color: #767676;
   flex-direction: column;
+}
+.message {
+  align-items: flex-start;
+}
+.message-mine {
+  align-items: flex-end;
 }
 .messageContent {
   background-color: #fff;
   border-radius: 5px;
   padding: 10px;
+}
+.message-mine .messageContent {
+  background-color: rgb(241, 149, 149);
 }
 .time {
   text-align: right;

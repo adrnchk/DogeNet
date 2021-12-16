@@ -1,6 +1,13 @@
-<div class="message">
+
+<div *ngIf = "meAuthor" class="message-mine">
   <div class="messageContent">
     {{ message.text }}
     <div class="time">{{ message.createdAt }}</div>
   </div>
 </div>
+<div *ngIf = "!meAuthor" class="message">
+    <div class="messageContent">
+      {{ message.text }}
+      <div class="time">{{ message.createdAt }}</div>
+    </div>
+  </div>

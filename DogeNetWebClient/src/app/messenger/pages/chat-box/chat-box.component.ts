@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
 import {
   ConversationDetailsModel,
   MessagesDetailsModel,
@@ -20,15 +21,18 @@ export class ChatBoxComponent implements OnInit {
 
   private routeSubscription: Subscription;
   id: any;
-  message: string = '';
+  message: MessagesDetailsModel = {};
   constructor(
+    private datepipe: DatePipe,
     private messagesService: MessagesService,
     private conversationsService: ConversationService,
     private route: ActivatedRoute
   ) {
-    this.routeSubscription = route.params.subscribe(
-      (params) => (this.id = params['id'])
-    );
+    this.routeSubscription = route.params.subscribe((params) => {
+      this.id = params['id'];
+      this.message.conversationId = this.id;
+      this.message.userId = 1; //don't forget to replace 1 - userId
+    });
   }
 
   items: MessagesDetailsModel[] = [];
@@ -36,11 +40,22 @@ export class ChatBoxComponent implements OnInit {
 
   ngOnInit(): void {
     this.messagesService.rootUrl = 'https://localhost:7001';
+    this.conversationsService.rootUrl = 'https://localhost:7001';
     this.messagesService
       .apiMessagesGetMessagesIdGet$Json({ id: this.id })
       .subscribe((list) => (this.items = list));
     this.conversationsService
       .apiConversationGetConversationByIdIdGet$Json({ id: this.id })
       .subscribe((res) => (this.conversationInfo = res));
+  }
+  getMessageValue(text: string): void {
+    this.message.text = text;
+  }
+  sendMessage(): void {
+    this.messagesService
+      .apiMessagesSendMessagePost({ body: this.message })
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 }
