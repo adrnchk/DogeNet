@@ -21,6 +21,7 @@ export class ChatBoxComponent implements OnInit {
 
   private routeSubscription: Subscription;
   id: any;
+  messageText: string = '';
   message: MessagesDetailsModel = {};
   constructor(
     private datepipe: DatePipe,
@@ -32,6 +33,7 @@ export class ChatBoxComponent implements OnInit {
       this.id = params['id'];
       this.message.conversationId = this.id;
       this.message.userId = 1; //don't forget to replace 1 - userId
+      this.message.text = '';
     });
   }
 
@@ -48,14 +50,13 @@ export class ChatBoxComponent implements OnInit {
       .apiConversationGetConversationByIdIdGet$Json({ id: this.id })
       .subscribe((res) => (this.conversationInfo = res));
   }
-  getMessageValue(text: string): void {
-    this.message.text = text;
-  }
   sendMessage(): void {
+    this.message.text = this.messageText;
     this.messagesService
       .apiMessagesSendMessagePost({ body: this.message })
       .subscribe((res) => {
         console.log(res);
+        this.messageText = '';
       });
   }
 }

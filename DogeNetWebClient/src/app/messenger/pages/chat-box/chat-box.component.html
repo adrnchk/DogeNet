@@ -15,12 +15,13 @@
     <div class="textarea">
       <textarea
         #message
-        (keyup)="getMessageValue(message.value)"
+        [(ngModel)]="messageText"
         matInput
         placeholder="Type your message here..."
+        autofocus
       ></textarea>
     </div>
-    <button (click)="sendMessage()" mat-fab color="primary">
+    <button class="send-button" (click)="sendMessage()" mat-fab color="primary">
       <mat-icon>send</mat-icon>
     </button>
   </div>

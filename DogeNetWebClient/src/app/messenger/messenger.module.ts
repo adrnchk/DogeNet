@@ -10,6 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DatePipe } from '@angular/common';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { DatePipe } from '@angular/common';
     BrowserAnimationsModule,
     MatInputModule,
     MatFormFieldModule,
+    MatMenuModule,
+    MatCardModule,
+    FormsModule,
   ],
   providers: [DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

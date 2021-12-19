@@ -11,13 +11,14 @@
 .message-mine {
   align-items: flex-end;
 }
-.messageContent {
+.message-content {
   background-color: #fff;
   border-radius: 5px;
   padding: 10px;
+  max-width: 400px;
 }
-.message-mine .messageContent {
-  background-color: rgb(241, 149, 149);
+.message-mine .message-content {
+  background-color: #5e60ce;
 }
 .time {
   text-align: right;
@@ -25,9 +26,16 @@
   font-size: 13px;
   margin-top: 5px;
 }
-.message .me {
-  align-items: flex-end;
+.message-text-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.message .me .messageContent {
-  background-color: #dcf7c5;
+.message-text {
+  padding-top: 10px;
+  padding-left: 10px;
+  background-color: inherit;
+  border: none;
+  font-size: 15px;
+  color: #000;
 }
