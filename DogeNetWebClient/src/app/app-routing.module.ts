@@ -6,7 +6,6 @@ import { ChatBoxComponent } from './messenger/pages/chat-box/chat-box.component'
 
 const routes: Routes = [
   { path: 'messages', component: ChatContainerComponent },
-  { path: 'conversation/:id', component: ChatBoxComponent },
   { path: '**', component: NotFoundComponent },
 ];
 

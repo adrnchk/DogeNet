@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import { MessengerRoutingModule } from './messenger-routing.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { FormsModule } from '@angular/forms';
     MatMenuModule,
     MatCardModule,
     FormsModule,
+    MessengerRoutingModule,
   ],
   providers: [DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
