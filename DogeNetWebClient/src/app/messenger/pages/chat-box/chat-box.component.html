@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="header">
+    <div class="avatar-section">
+      <div class="picture">
+        <img [src]="conversationInfo.avatarImg" />
+      </div>
+
+      <div class="name-section">{{ conversationInfo.title }}</div>
+    </div>
+  </div>
+  <div class="body">
+    <app-message *ngFor="let item of items" [message]="item"></app-message>
+  </div>
+  <div class="footer">
+    <div class="textarea">
+      <textarea
+        #message
+        [(ngModel)]="messageText"
+        matInput
+        placeholder="Type your message here..."
+        autofocus
+      ></textarea>
+    </div>
+    <button class="send-button" (click)="sendMessage()" mat-fab color="primary">
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</div>

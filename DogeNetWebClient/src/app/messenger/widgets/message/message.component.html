@@ -1,0 +1,68 @@
+<div [hidden]="!visible">
+  <div *ngIf="meAuthor" class="message-mine">
+    <mat-card class="message-content">
+      <mat-card-content class="message-text-line">
+        <input
+          [disabled]="!editing"
+          (focusout)="edit()"
+          type="text"
+          class="message-text"
+          [(ngModel)]="messageText"
+          name="msgTxt"
+        />
+
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button (click)="editing = true" mat-menu-item>
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button (click)="delete()" mat-menu-item>
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </mat-card-content>
+      <mat-card-subtitle>{{ message.createdAt }}</mat-card-subtitle>
+    </mat-card>
+  </div>
+  <div *ngIf="!meAuthor" class="message">
+    <mat-card class="message-content">
+      <mat-card-content class="message-text-line">
+        <input
+          [disabled]="!editing"
+          (focusout)="edit()"
+          type="text"
+          class="message-text"
+          [(ngModel)]="messageText"
+          name="msgTxt"
+        />
+
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button (click)="editing = true" mat-menu-item>
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button (click)="delete()" mat-menu-item>
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </mat-card-content>
+      <mat-card-subtitle>{{ message.createdAt }}</mat-card-subtitle>
+    </mat-card>
+  </div>
+</div>

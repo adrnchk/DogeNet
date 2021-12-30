@@ -1,0 +1,25 @@
+.chat-item {
+  position: relative;
+  height: 90px;
+  margin-top: 10px;
+  margin-left: 20px;
+  -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  border-radius: 5px;
+}
+
+.chat-item img {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  max-width: 80px;
+  border-radius: 50%;
+}
+.chat-item-title {
+  position: absolute;
+  max-width: 80px;
+  border-radius: 50%;
+  left: 100px;
+  top: 20px;
+}
