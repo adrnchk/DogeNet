@@ -102,6 +102,8 @@ namespace DogeNet.WebApi
                 })
                 .AddEntityFrameworkStores<DBContext>();
 
+            services.AddCors();
+
             services.AddControllers().AddFluentValidation().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddTransient<IValidator<SendMessageModel>, SendMessageValidator>();
@@ -122,6 +124,8 @@ namespace DogeNet.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseAuthentication();
 

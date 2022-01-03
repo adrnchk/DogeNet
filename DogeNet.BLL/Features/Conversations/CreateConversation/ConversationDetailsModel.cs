@@ -17,7 +17,5 @@ namespace DogeNet.BLL.Features.Conversations.CreateConversation
         public DateTime? CreatedAt { get; set; }
 
         public string AvatarImg { get; set; }
-
-        public int? StatusId { get; set; }
     }
 }

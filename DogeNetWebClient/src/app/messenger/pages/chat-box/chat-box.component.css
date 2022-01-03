@@ -1,18 +1,32 @@
-.container {
+.chat-box-container {
   display: flex;
-  width: 100%;
-  height: 100%;
+  border-radius: 6px;
+  width: 700px;
+  height: 600px;
   background-color: #48bfe3;
   flex-direction: column;
   max-width: 1000px;
+  box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+  -webkit-box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+  -moz-box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+}
+.messages-area {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  overflow: auto;
+  padding: 5px;
 }
 .header {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
   min-height: 67px;
   background-color: #5390d9;
   box-shadow: 2px 0px 4px #ccc;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-left: 10px;
 }
 .picture img {
   max-width: 50px;
@@ -21,11 +35,20 @@
 .avatar-section {
   display: flex;
 }
+.name-section {
+  color: white;
+  margin-top: 15px;
+  margin-left: 10px;
+}
 .footer {
   min-height: 75px;
   margin-top: 15px;
   background-color: #f0eeed;
   display: flex;
+  position: sticky;
+  bottom: 0px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .textarea {
@@ -48,4 +71,5 @@
 }
 .send-button {
   margin-top: 10px;
+  margin-right: 5px;
 }
