@@ -1,0 +1,37 @@
+<div class="edit-section">
+  <div class="card">
+    <div class="avatar-img">
+      <img
+        [src]="
+          user.avatarImg ??
+          'https://vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png'
+        "
+        alt="no_avatar"
+      />
+    </div>
+    <button class="change-avatar" mat-stroked-button color="primary">
+      Change avatar
+    </button>
+
+    <div class="edit-form">
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>{{ user.firstName }}</mat-label>
+          <input matInput placeholder="First Name" />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>{{ user.lastName }}</mat-label>
+          <input matInput placeholder="Placeholder" />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Standard form field</mat-label>
+          <input matInput placeholder="Placeholder" />
+        </mat-form-field>
+      </p>
+    </div>
+  </div>
+</div>

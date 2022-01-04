@@ -3,7 +3,7 @@
   border-radius: 6px;
   width: 700px;
   height: 600px;
-  background-color: #48bfe3;
+  background-color: #bfd1db;
   flex-direction: column;
   max-width: 1000px;
   box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
@@ -21,7 +21,7 @@
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   min-height: 67px;
-  background-color: #5390d9;
+  background-color: #9bb3d4;
   box-shadow: 2px 0px 4px #ccc;
   display: flex;
   justify-content: space-between;

@@ -1,6 +1,12 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+.header {
+  width: 100%;
+  box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+  -webkit-box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+  -moz-box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+}
 .avatar {
   width: 42px;
   height: 42px;

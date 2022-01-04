@@ -3,11 +3,11 @@ import { AccountDetailsModel } from 'src/app/core/api/models';
 import { UserService } from 'src/app/core/api/services';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  selector: 'app-edit-personal-info',
+  templateUrl: './edit-personal-info.component.html',
+  styleUrls: ['./edit-personal-info.component.css'],
 })
-export class ProfileComponent implements OnInit {
+export class EditPersonalInfoComponent implements OnInit {
   user: AccountDetailsModel = {};
   constructor(private userService: UserService) {}
 

@@ -11,15 +11,20 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { EditPersonalInfoComponent } from './pages/edit-personal-info/edit-personal-info.component';
 
 @NgModule({
-  declarations: [ProfileComponent],
+  declarations: [ProfileComponent, EditPersonalInfoComponent],
   imports: [
     CommonModule,
+    MatDividerModule,
     MatButtonModule,
     MatIconModule,
     BrowserAnimationsModule,
     MatInputModule,
+    MatListModule,
     MatFormFieldModule,
     MatMenuModule,
     MatCardModule,

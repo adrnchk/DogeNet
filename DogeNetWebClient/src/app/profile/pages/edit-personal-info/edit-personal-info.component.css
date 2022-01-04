@@ -1,0 +1,31 @@
+.card {
+  background-color: #f3effa;
+  box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+  -webkit-box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+  -moz-box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+.edit-section {
+  width: 1000px;
+  height: 1200px;
+}
+
+.avatar-img {
+  width: 200px;
+  margin-left: 15px;
+  margin-top: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.avatar-img img {
+  width: 100%;
+  height: auto;
+}
+.change-avatar {
+  margin-left: 15px;
+  margin-top: 2px;
+  margin-bottom: 10px;
+  width: 200px;
+}

@@ -303,6 +303,44 @@
           }
         }
       }
+    },
+    "/api/User/GetUserById/{id}": {
+      "get": {
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountDetailsModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountDetailsModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountDetailsModel"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -414,6 +452,68 @@
             "format": "int32"
           },
           "text": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountDetailsModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "identityId": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "statusId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "avatarImg": {
+            "type": "string",
+            "nullable": true
+          },
+          "coverImg": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "bio": {
             "type": "string",
             "nullable": true
           }
