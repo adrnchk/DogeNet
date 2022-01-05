@@ -29,3 +29,25 @@
   margin-bottom: 10px;
   width: 200px;
 }
+.edit-form {
+  margin-left: 80px;
+}
+.row {
+  display: flex;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+}
+.form-label {
+  width: 100px;
+  height: 15.75px;
+  display: block;
+}
+.form-input {
+  display: flex;
+  align-items: center;
+}
+.save-changes {
+  margin-right: 15px;
+}
