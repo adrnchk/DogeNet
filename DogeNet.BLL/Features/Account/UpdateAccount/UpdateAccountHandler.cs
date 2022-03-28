@@ -4,17 +4,17 @@
 
 namespace DogeNet.BLL.Features.Account.UpdateAccount
 {
-    using AutoMapper;
-    using DogeNet.BLL.Features.Account.GetAccount;
-    using DogeNet.DAL;
-    using DogeNet.DAL.Models;
-    using MediatR;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using AutoMapper;
+    using DogeNet.BLL.Features.Account.GetAccount;
+    using DogeNet.DAL;
+    using DogeNet.DAL.Models;
+    using MediatR;
 
     public class UpdateAccountHandler : IRequestHandler<UpdateAccountCommand, AccountDetailsModel>
     {

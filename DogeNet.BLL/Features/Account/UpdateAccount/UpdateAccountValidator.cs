@@ -4,13 +4,13 @@
 
 namespace DogeNet.BLL.Features.Account.UpdateAccount
 {
-    using DogeNet.DAL;
-    using FluentValidation;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using DogeNet.DAL;
+    using FluentValidation;
 
     public class UpdateAccountValidator : AbstractValidator<UpdateAccountDetailsModel>
     {
