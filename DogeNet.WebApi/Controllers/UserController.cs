@@ -53,6 +53,5 @@ namespace DogeNet.WebApi.Controllers
                 return this.BadRequest(this.ModelState.Values);
             }
         }
-
     }
 }

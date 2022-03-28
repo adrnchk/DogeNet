@@ -33,7 +33,7 @@ namespace DogeNet.BLL.Features.Messages.EditMessage
 
             await this.context.SaveChangesAsync();
 
-            return this.mapper.Map<Message,MessagesDetailsModel>(message);
+            return this.mapper.Map<Message, MessagesDetailsModel>(message);
         }
     }
 }
