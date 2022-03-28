@@ -31,7 +31,7 @@ namespace DogeNet.Tests.BLL.Features.Messages.EditMessage
 
             this.context = new DBContext(optionsBuilder.Options);
 
-            var config = new MapperConfiguration(cfg => cfg.AddProfile<GetMessageModelProfile>());
+            var config = new MapperConfiguration(cfg => cfg.AddProfile<GetMessagesModelProfile>());
             this.mapper = config.CreateMapper();
 
             this.handler = new EditMessageHandler(this.context, this.mapper);

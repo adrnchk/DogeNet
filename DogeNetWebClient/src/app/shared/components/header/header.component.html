@@ -1,0 +1,37 @@
+<p class="header">
+  <mat-toolbar color="primary">
+    <div class="logo-img">
+      <img
+        src="https://key0.cc/images/small/2106869_aa4088b15f09b7a706311ed69a6bc6a1.png"
+        alt="logo"
+      />
+    </div>
+    <span>Doge Net</span>
+    <span class="example-spacer"></span>
+    <span class="name">Kim Tayjong</span>
+    <div class="avatar" [matMenuTriggerFor]="menu">
+      <img
+        src="https://i.pinimg.com/originals/ff/60/db/ff60db2ccc039c296f5521f4365efa0f.jpg"
+        alt="no_avatar"
+      />
+    </div>
+    <mat-menu #menu="matMenu">
+      <a routerLink="/profile" class="menu-item" mat-menu-item>
+        <mat-icon>account_box</mat-icon>
+        <span>Profile</span>
+      </a>
+      <button class="menu-item" mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <button class="menu-item" mat-menu-item>
+        <mat-icon>info</mat-icon>
+        <span>Help</span>
+      </button>
+      <button style="background-color: #ffdab9" class="menu-item" mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Log out</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+</p>

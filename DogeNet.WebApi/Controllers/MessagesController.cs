@@ -13,6 +13,7 @@ namespace DogeNet.WebApi.Controllers
     using DogeNet.BLL.Features.Messages.DeleteMesage;
     using DogeNet.BLL.Features.Messages.EditMessage;
     using DogeNet.BLL.Features.Messages.GetMessage;
+    using DogeNet.BLL.Features.Messages.GetMessages;
     using DogeNet.BLL.Features.Messages.SendMessage;
     using DogeNet.DAL;
     using MediatR;
@@ -34,6 +35,7 @@ namespace DogeNet.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(List<MessagesDetailsModel>))]
         public async Task<IActionResult> GetMessages(int id)
         {
             if (ConversationChecks.ConversationIdValid(this.context, id))
@@ -60,6 +62,7 @@ namespace DogeNet.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(200, Type = typeof(MessagesDetailsModel))]
         public async Task<IActionResult> EditMessage(EditMessageModel model)
         {
             if (this.ModelState.IsValid)

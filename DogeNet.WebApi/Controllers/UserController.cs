@@ -4,23 +4,55 @@
 
 namespace DogeNet.WebApi.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
+    using DogeNet.BLL.Features.Account;
+    using DogeNet.BLL.Features.Account.GetAccount;
+    using DogeNet.BLL.Features.Account.UpdateAccount;
+    using DogeNet.DAL;
+    using MediatR;
     using Microsoft.AspNetCore.Mvc;
 
-    [ApiController]
     [Route("api/[controller]/[action]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
-        [HttpGet]
-        [Authorize]
-        public string GetSecretTest()
+        private readonly IMediator mediator;
+
+        private readonly DBContext context;
+
+        public UserController(IMediator mediator, DBContext context)
         {
-            return "Secret info";
+            this.mediator = mediator;
+            this.context = context;
         }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(AccountDetailsModel))]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            if (AccountChecks.UserIdValid(this.context, id))
+            {
+                return this.Ok(await this.mediator.Send(new GetAccountQuery(id)));
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
+
+        [HttpPut]
+        [ProducesResponseType(200, Type = typeof(AccountDetailsModel))]
+        public async Task<IActionResult> ChangeUserInfo(UpdateAccountDetailsModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                return this.Ok(await this.mediator.Send(new UpdateAccountCommand(model)));
+            }
+            else
+            {
+                return this.BadRequest(this.ModelState.Values);
+            }
+        }
+
     }
 }

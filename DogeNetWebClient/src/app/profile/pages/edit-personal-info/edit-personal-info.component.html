@@ -1,0 +1,85 @@
+<div class="edit-section">
+  <div class="card">
+    <div class="row">
+      <div class="col">
+        <div class="avatar-img">
+          <img
+            [src]="
+              user.avatarImg ??
+              'https://vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png'
+            "
+            alt="no_avatar"
+          />
+        </div>
+        <button class="change-avatar" mat-stroked-button color="primary">
+          Change avatar
+        </button>
+      </div>
+
+      <div class="col">
+        <div class="edit-form">
+          <p class="form-input">
+            <mat-label class="form-label">First Name: </mat-label>
+            <mat-form-field appearance="standard">
+              <mat-label>{{ user.firstName }}</mat-label>
+              <input
+                [(ngModel)]="newInfo.firstName"
+                matInput
+                placeholder="New first Name"
+              />
+            </mat-form-field>
+          </p>
+          <p class="form-input">
+            <mat-label class="form-label">Last name: </mat-label>
+            <mat-form-field appearance="standard">
+              <mat-label>{{ user.lastName }}</mat-label>
+              <input
+                [(ngModel)]="newInfo.lastName"
+                matInput
+                placeholder="New last Name"
+              />
+            </mat-form-field>
+          </p>
+          <p class="form-input">
+            <mat-label class="form-label">Title: </mat-label>
+            <mat-form-field appearance="standard">
+              <mat-label>{{ user.title }}</mat-label>
+              <input
+                [(ngModel)]="newInfo.title"
+                matInput
+                placeholder="New title"
+              />
+            </mat-form-field>
+          </p>
+          <p class="form-input">
+            <mat-label class="form-label">Bio: </mat-label>
+            <mat-form-field appearance="standard">
+              <mat-label>{{ user.bio }}</mat-label>
+              <textarea
+                [(ngModel)]="newInfo.bio"
+                matInput
+                placeholder="New Bio"
+              ></textarea>
+            </mat-form-field>
+          </p>
+          <button
+            (click)="saveChanges()"
+            class="save-changes"
+            mat-stroked-button
+            color="primary"
+          >
+            Save Changes
+          </button>
+          <a
+            routerLink="/profile"
+            class="save-changes"
+            mat-stroked-button
+            color="warn"
+          >
+            Discard Changes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

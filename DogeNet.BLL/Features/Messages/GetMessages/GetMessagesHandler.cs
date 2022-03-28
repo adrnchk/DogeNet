@@ -1,4 +1,4 @@
-﻿// <copyright file="GetMessageHandler.cs" company="Leobit">
+﻿// <copyright file="GetMessagesHandler.cs" company="Leobit">
 // Copyright (c) Leobit. All rights reserved.
 // </copyright>
 
