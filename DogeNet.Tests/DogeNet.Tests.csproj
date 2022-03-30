@@ -43,4 +43,9 @@
     <ProjectReference Include="..\DogeNet.BLL\DogeNet.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BLL\Features\Posts\EditPost\" />
+    <Folder Include="BLL\Features\Posts\GetPost\" />
+  </ItemGroup>
+
 </Project>
