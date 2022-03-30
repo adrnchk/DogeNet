@@ -35,7 +35,7 @@ namespace DogeNet.WebApi.Controllers
         [ProducesResponseType(200, Type = typeof(PostDetailsModel))]
         public async Task<IActionResult> GetPostById(int id)
         {
-            if (PostChecks.PostIdValid(this.context, id))
+            if (this.ModelState.IsValid)
             {
                 return this.Ok(await this.mediator.Send(new GetPostQuery(id)));
             }
@@ -75,7 +75,7 @@ namespace DogeNet.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePost(int id)
         {
-            if (PostChecks.PostIdValid(this.context, id))
+            if (this.ModelState.IsValid)
             {
                 return this.Ok(await this.mediator.Send(new DeletePostCommand(id)));
             }

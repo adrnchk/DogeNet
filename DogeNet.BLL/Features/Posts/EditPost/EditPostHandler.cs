@@ -32,11 +32,7 @@ namespace DogeNet.BLL.Features.Posts.EditPost
         public async Task<PostDetailsModel> Handle(EditPostCommand request, CancellationToken cancellationToken)
         {
             var post = this.context.Posts.Find(request.model.Id);
-
-            post.Text = request.model.Text;
-            post.Title = request.model.Title;
-            post.IsCommentAvailable = request.model.IsCommentAvailable;
-
+            post = this.mapper.Map<EditPostModel, Post>(request.model, post);
             await this.context.SaveChangesAsync();
 
             return this.mapper.Map<Post, PostDetailsModel>(post);
