@@ -16,7 +16,7 @@ namespace DogeNet.BLL.Features.Conversations.GetConversationById
     using DogeNet.DAL.Models;
     using MediatR;
 
-    public class GetConversationByIdHandler : IRequestHandler<GetConversationByIdQuery,ConversationDetailsModel>
+    public class GetConversationByIdHandler : IRequestHandler<GetConversationByIdQuery, ConversationDetailsModel>
     {
         private readonly DBContext context;
         private readonly IMapper mapper;

@@ -7,4 +7,5 @@ namespace DogeNet.BLL.Features.Conversations.AddParticipantConversation
     using MediatR;
 
     public record AddParticipantConversationCommand(AddParticipantConversationModel model) : IRequest;
+
 }
