@@ -4,18 +4,14 @@
 
 namespace DogeNet.Tests.BLL.Features.Messages.EditMessage
 {
+    using System;
+    using System.Threading;
     using AutoMapper;
     using DogeNet.BLL.Features.Messages.EditMessage;
     using DogeNet.BLL.Features.Messages.GetMessages;
     using DogeNet.DAL;
     using DogeNet.DAL.Models;
     using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Xunit;
 
     public class EditMessageHandlerTests
