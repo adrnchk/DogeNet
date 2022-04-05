@@ -4,14 +4,15 @@
 
 namespace DogeNet.BLL.Features.Posts.GetPost
 {
-    using DogeNet.DAL;
+    using DogeNet.DAL;   
     using FluentValidation;
+    using DogeNet.BLL.Extentions;
 
     public class GetPostQueryValidator : AbstractValidator<GetPostQuery>
     {
         public GetPostQueryValidator(DBContext db)
         {
-            this.RuleFor(entity => entity.id).NotNull().Must(id => PostChecks.PostIdValid(db, id)).WithMessage("Post not found"); ;
+            this.RuleFor(entity => entity.id).NotNull().Must(id => PostChecks.PostIdValid(db, id)).NotFound();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace DogeNet.Tests.BLL.Features.Messages.GetMessage
                 UserName = "user2",
             };
 
-            var conversation = new Conversation();
+            var conversation = new Conversation() { Title = "test_get" };
 
             this.context.Conversations.Add(conversation);
             this.context.AppUsers.Add(sender);

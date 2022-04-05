@@ -35,7 +35,10 @@ namespace DogeNet.Tests.BLL.Features.Messages.DeleteMessage
                 UserName = "user2",
             };
 
-            var conversation = new Conversation();
+            var conversation = new Conversation()
+            {
+                Title = "test_delete",
+            };
 
             this.context.Conversations.Add(conversation);
             this.context.AppUsers.Add(sender);

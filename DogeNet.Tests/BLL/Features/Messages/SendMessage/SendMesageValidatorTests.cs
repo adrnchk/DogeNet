@@ -36,7 +36,7 @@ namespace DogeNet.Tests.BLL.Features.Messages.SendMessage
                 UserName = "user2",
             };
 
-            var conversation = new Conversation();
+            var conversation = new Conversation() { Title = "test_validate_message"};
 
             this.context.Conversations.Add(conversation);
             this.context.AppUsers.Add(sender);

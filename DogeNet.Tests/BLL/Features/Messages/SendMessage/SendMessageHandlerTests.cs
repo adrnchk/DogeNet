@@ -44,7 +44,7 @@ namespace DogeNet.Tests.BLL.Features.Messages.SendMessage
                 UserName = "user2",
             };
 
-            var conversation = new Conversation();
+            var conversation = new Conversation() { Title = "Test_send_message" };
 
             this.context.Conversations.Add(conversation);
             this.context.AppUsers.Add(sender);
