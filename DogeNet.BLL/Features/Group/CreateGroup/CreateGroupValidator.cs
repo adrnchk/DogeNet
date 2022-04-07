@@ -20,6 +20,8 @@ namespace DogeNet.BLL.Features.Group.CreateGroup
             this.RuleFor(enitity => enitity.Title).NotNull().MaximumLength(GroupConstants.MaxLengthForTitle);
             this.RuleFor(enitity => enitity.CreatorId).NotNull();
             this.RuleFor(enitity => enitity.StatusId).NotNull();
+            this.RuleFor(entity => entity.CoverImg).Must(source => source == string.Empty || GroupChecks.IsUrlImgCorrect(source)).WithMessage("Invalid ImgUrl");
+            this.RuleFor(entity => entity.AvatarImg).Must(source => source == string.Empty || GroupChecks.IsUrlImgCorrect(source)).WithMessage("Invalid ImgUrl");
         }
     }
 }

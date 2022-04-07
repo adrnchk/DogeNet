@@ -1,8 +1,8 @@
-﻿// <copyright file="GetGroupQueryValidator.cs" company="Leobit">
+﻿// <copyright file="DeleteGroupValidator.cs" company="Leobit">
 // Copyright (c) Leobit. All rights reserved.
 // </copyright>
 
-namespace DogeNet.BLL.Features.Group.GetGroup
+namespace DogeNet.BLL.Features.Group.DeleteGroup
 {
     using System;
     using System.Collections.Generic;
@@ -12,9 +12,9 @@ namespace DogeNet.BLL.Features.Group.GetGroup
     using DogeNet.DAL;
     using FluentValidation;
 
-    public class GetGroupQueryValidator : AbstractValidator<GetGroupQuery>
+    public class DeleteGroupCommandValidator : AbstractValidator<DeleteGroupCommand>
     {
-        public GetGroupQueryValidator(DBContext db)
+        public DeleteGroupCommandValidator(DBContext db)
         {
             this.RuleFor(entity => entity.id).NotNull().Must(id => GroupChecks.DoesGroupExist(db, id)).WithMessage("Group not found");
         }

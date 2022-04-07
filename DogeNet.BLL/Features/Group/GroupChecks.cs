@@ -13,6 +13,8 @@ namespace DogeNet.BLL.Features.Group
 
     public class GroupChecks
     {
-        public static bool PostIdValid(DBContext db, int id) => db.Groups.Any(o => o.Id == id);
+        public static bool DoesGroupExist(DBContext db, int id) => db.Groups.Any(o => o.Id == id);
+
+        public static bool IsUrlImgCorrect(string source) => Uri.TryCreate(source, UriKind.Absolute, out Uri uriResult) && uriResult.Scheme == Uri.UriSchemeHttps;
     }
 }

@@ -25,8 +25,8 @@ namespace DogeNet.Tests.BLL.Features.Groups.CreateGroup
                 Title = "Group1",
                 Name = "Group1",
                 StatusId = 1,
-                AvatarImg = "group1",
-                CoverImg = "group1",
+                AvatarImg = "https://www.hollywoodreporter.com/wp-content/uploads/2019/03/avatar-publicity_still-h_2019.jpg",
+                CoverImg = string.Empty,
                 CreatorId = 1,
             };
             var validationResults = this.validator.Validate(model);
