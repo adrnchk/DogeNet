@@ -1,43 +1,39 @@
-﻿// <copyright file="PostController.cs" company="Leobit">
+﻿// <copyright file="GroupController.cs" company="Leobit">
 // Copyright (c) Leobit. All rights reserved.
 // </copyright>
 
 namespace DogeNet.WebApi.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
-    using DogeNet.BLL.Features.Posts;
-    using DogeNet.BLL.Features.Posts.CreatePost;
-    using DogeNet.BLL.Features.Posts.DeletePost;
-    using DogeNet.BLL.Features.Posts.EditPost;
-    using DogeNet.BLL.Features.Posts.GetPost;
+    using DogeNet.BLL.Features.Group.CreateGroup;
+    using DogeNet.BLL.Features.Group.DeleteGroup;
+    using DogeNet.BLL.Features.Group.EditGroup;
+    using DogeNet.BLL.Features.Group.GetGroup;
     using DogeNet.DAL;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class PostController : ControllerBase
+    public class GroupController : ControllerBase
     {
         private readonly IMediator mediator;
 
         private readonly DBContext context;
 
-        public PostController(IMediator mediator, DBContext context)
+        public GroupController(IMediator mediator, DBContext context)
         {
             this.mediator = mediator;
             this.context = context;
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(200, Type = typeof(PostDetailsModel))]
-        public async Task<IActionResult> GetPostById(int id)
+        [ProducesResponseType(200, Type = typeof(GroupDetailsModel))]
+        public async Task<IActionResult> GetGroupById(int id)
         {
             if (this.ModelState.IsValid)
             {
-                return this.Ok(await this.mediator.Send(new GetPostQuery(id)));
+                return this.Ok(await this.mediator.Send(new GetGroupQuery(id)));
             }
             else
             {
@@ -46,11 +42,11 @@ namespace DogeNet.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePost(CreatePostModel model)
+        public async Task<IActionResult> CreateGroup(CreateGroupModel model)
         {
             if (this.ModelState.IsValid)
             {
-                return this.Ok(await this.mediator.Send(new CreatePostCommand(model)));
+                return this.Ok(await this.mediator.Send(new CreateGroupCommand(model)));
             }
             else
             {
@@ -59,12 +55,12 @@ namespace DogeNet.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(200, Type = typeof(PostDetailsModel))]
-        public async Task<IActionResult> EditPost(EditPostModel model)
+        [ProducesResponseType(200, Type = typeof(GroupDetailsModel))]
+        public async Task<IActionResult> EditGroup(EditGroupModel model)
         {
             if (this.ModelState.IsValid)
             {
-                return this.Ok(await this.mediator.Send(new EditPostCommand(model)));
+                return this.Ok(await this.mediator.Send(new EditGroupCommand(model)));
             }
             else
             {
@@ -73,16 +69,17 @@ namespace DogeNet.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePost(int id)
+        public async Task<IActionResult> DeleteGroup(int id)
         {
             if (this.ModelState.IsValid)
             {
-                return this.Ok(await this.mediator.Send(new DeletePostCommand(id)));
+                return this.Ok(await this.mediator.Send(new DeleteGroupCommand(id)));
             }
             else
             {
                 return this.BadRequest();
             }
         }
+
     }
 }
