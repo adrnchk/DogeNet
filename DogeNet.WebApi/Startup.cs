@@ -108,7 +108,7 @@ namespace DogeNet.WebApi
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddTransient<IValidator<SendMessageModel>, SendMessageValidator>();
             services.AddAutoMapper(typeof(SendMessageModelProfile).Assembly);
-            services.AddMediatR(typeof(DogeNet.BLL.Features.Messages.SendMessage.SendMessageCommand).Assembly);
+            services.AddMediatR(typeof(SendMessageCommand).Assembly);
             services.AddScoped<IUserManagerService, UserManagerService>();
         }
 
