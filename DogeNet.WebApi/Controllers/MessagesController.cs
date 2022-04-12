@@ -19,6 +19,7 @@ namespace DogeNet.WebApi.Controllers
     using MediatR;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
 
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -26,12 +27,15 @@ namespace DogeNet.WebApi.Controllers
     {
         private readonly IMediator mediator;
 
+        private readonly ILogger<MessagesController> logger;
+
         private readonly DBContext context;
 
-        public MessagesController(IMediator mediator, DBContext context)
+        public MessagesController(IMediator mediator, DBContext context, ILogger<MessagesController> logger)
         {
             this.mediator = mediator;
             this.context = context;
+            this.logger = logger;
         }
 
         [HttpGet("{id}")]
@@ -40,10 +44,21 @@ namespace DogeNet.WebApi.Controllers
         {
             if (ConversationChecks.ConversationIdValid(this.context, id))
             {
-                return this.Ok(await this.mediator.Send(new GetMessagesQuery(id)));
+                try
+                {
+                    var result = await this.mediator.Send(new GetMessagesQuery(id));
+                    this.logger.LogInformation($"command: {typeof(GetMessagesQuery).Name}");
+                    return this.Ok(result);
+                }
+                catch (Exception ex)
+                {
+                    this.logger.LogError(ex, $"command: {typeof(GetMessagesQuery).Name}");
+                    return this.BadRequest();
+                }
             }
             else
             {
+                this.logger.LogError($"command: {typeof(GetMessagesQuery).Name}, Invalid model.");
                 return this.BadRequest();
             }
         }
@@ -53,11 +68,22 @@ namespace DogeNet.WebApi.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                return this.Ok(await this.mediator.Send(new SendMessageCommand(model)));
+                try
+                {
+                    var result = await this.mediator.Send(new SendMessageCommand(model));
+                    this.logger.LogInformation($"command: {typeof(SendMessageCommand).Name}");
+                    return this.Ok(result);
+                }
+                catch (Exception ex)
+                {
+                    this.logger.LogError(ex, $"command: {typeof(SendMessageCommand).Name}");
+                    return this.BadRequest();
+                }
             }
             else
             {
-                return this.BadRequest(this.ModelState.Values);
+                this.logger.LogError($"command: {typeof(SendMessageCommand).Name}, Invalid model.");
+                return this.BadRequest();
             }
         }
 
@@ -67,11 +93,22 @@ namespace DogeNet.WebApi.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                return this.Ok(await this.mediator.Send(new EditMessageCommand(model)));
+                try
+                {
+                    var result = await this.mediator.Send(new EditMessageCommand(model));
+                    this.logger.LogInformation($"command: {typeof(EditMessageCommand).Name}");
+                    return this.Ok(result);
+                }
+                catch (Exception ex)
+                {
+                    this.logger.LogError(ex, $"command: {typeof(EditMessageCommand).Name}");
+                    return this.BadRequest();
+                }
             }
             else
             {
-                return this.BadRequest(this.ModelState.Values);
+                this.logger.LogError($"command: {typeof(EditMessageCommand).Name}, Invalid model.");
+                return this.BadRequest();
             }
         }
 
@@ -80,10 +117,21 @@ namespace DogeNet.WebApi.Controllers
         {
             if (MessageChecks.MessageIdValid(this.context, id))
             {
-                return this.Ok(await this.mediator.Send(new DeleteMessageCommand(id)));
+                try
+                {
+                    var result = await this.mediator.Send(new DeleteMessageCommand(id));
+                    this.logger.LogInformation($"command: {typeof(DeleteMessageCommand).Name}");
+                    return this.Ok(result);
+                }
+                catch (Exception ex)
+                {
+                    this.logger.LogError(ex, $"command: {typeof(DeleteMessageCommand).Name}");
+                    return this.BadRequest();
+                }
             }
             else
             {
+                this.logger.LogError($"command: {typeof(DeleteMessageCommand).Name}, Invalid model.");
                 return this.BadRequest();
             }
         }

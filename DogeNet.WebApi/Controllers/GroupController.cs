@@ -41,18 +41,18 @@ namespace DogeNet.WebApi.Controllers
                 try
                 {
                     var group = await this.mediator.Send(new GetGroupQuery(id));
-                    this.logger.LogInformation($"command: {typeof(GetGroupQuery).Name} status: Ok, GroupId: {group.Id.ToString()}");
+                    this.logger.LogInformation($"command: {typeof(GetGroupQuery).Name}");
                     return this.Ok(group);
                 }
                 catch (Exception e)
                 {
-                    this.logger.LogError($"command: {typeof(GetGroupQuery).Name} status: Error, {e.Message}");
+                    this.logger.LogError(e, $"command: {typeof(GetGroupQuery).Name}");
                     return this.BadRequest();
                 }
             }
             else
             {
-                this.logger.LogError($"command: {typeof(GetGroupQuery).Name} status: Error, Invalid model");
+                this.logger.LogError($"command: {typeof(GetGroupQuery).Name}, Invalid model");
                 return this.BadRequest();
             }
         }
@@ -65,19 +65,19 @@ namespace DogeNet.WebApi.Controllers
                 try
                 {
                     var result = await this.mediator.Send(new CreateGroupCommand(model));
-                    this.logger.LogInformation($"command: {typeof(CreateGroupCommand).Name} status: Ok, Group created");
+                    this.logger.LogInformation($"command: {typeof(CreateGroupCommand).Name}, Group created");
 
                     return this.Ok();
                 }
                 catch (Exception e)
                 {
-                    this.logger.LogError($"command: {typeof(CreateGroupCommand).Name} status: Error, {e.Message}");
+                    this.logger.LogError(e, $"command: {typeof(CreateGroupCommand).Name}");
                     return this.BadRequest();
                 }
             }
             else
             {
-                this.logger.LogError($"command: {typeof(CreateGroupCommand).Name} status: Error, Invalid model");
+                this.logger.LogError($"command: {typeof(CreateGroupCommand).Name}, Invalid model");
                 return this.BadRequest(this.ModelState.Values);
             }
         }
@@ -91,18 +91,18 @@ namespace DogeNet.WebApi.Controllers
                 try
                 {
                     var result = await this.mediator.Send(new EditGroupCommand(model));
-                    this.logger.LogInformation($"command: {typeof(EditGroupCommand).Name} status: Ok");
+                    this.logger.LogInformation($"command: {typeof(EditGroupCommand).Name}");
                     return this.Ok(result);
                 }
                 catch (Exception e)
                 {
-                    this.logger.LogError($"command: {typeof(EditGroupCommand).Name} status: Error, {e.Message}");
+                    this.logger.LogError(e, $"command: {typeof(EditGroupCommand).Name}");
                     return this.BadRequest();
                 }
             }
             else
             {
-                this.logger.LogError($"command: {typeof(EditGroupCommand).Name} status: Error, Invalid model");
+                this.logger.LogError($"command: {typeof(EditGroupCommand).Name}, Invalid model");
                 return this.BadRequest(this.ModelState.Values);
             }
         }
@@ -115,18 +115,18 @@ namespace DogeNet.WebApi.Controllers
                 try
                 {
                     var result = await this.mediator.Send(new DeleteGroupCommand(id));
-                    this.logger.LogInformation($"command: {typeof(DeleteGroupCommand).Name} status: Ok");
+                    this.logger.LogInformation($"command: {typeof(DeleteGroupCommand).Name}");
                     return this.Ok(result);
                 }
                 catch (Exception e)
                 {
-                    this.logger.LogError($"command: {typeof(DeleteGroupCommand).Name} status: Error, {e.Message}");
+                    this.logger.LogError(e, $"command: {typeof(DeleteGroupCommand).Name}");
                     return this.BadRequest();
                 }
             }
             else
             {
-                this.logger.LogError($"command: {typeof(DeleteGroupCommand).Name} status: Error, Invalid model");
+                this.logger.LogError($"command: {typeof(DeleteGroupCommand).Name}, Invalid model");
                 return this.BadRequest();
             }
         }
