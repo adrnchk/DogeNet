@@ -14,20 +14,7 @@ namespace DogeNet.WebApi
     {
         public static void Main(string[] args)
         {
-            var logger = NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
-            try
-            {
-                logger.Debug("Application started...");
                 CreateHostBuilder(args).Build().Run();
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "Exception during execution.");
-            }
-            finally
-            {
-                NLog.LogManager.Shutdown();
-            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

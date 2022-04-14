@@ -13,11 +13,5 @@ namespace DogeNet.BLL.Extentions
             var type = typeof(T);
             return rule.WithMessage("{type} entity is not found");
         }
-
-        public static IRuleBuilderOptions<T, TProperty> ImgUrlValid<T, TProperty>(this IRuleBuilderOptions<T, TProperty> rule)
-        {
-            var type = typeof(T);
-            return rule.WithMessage("{type} entity is not found");
-        }
     }
 }
