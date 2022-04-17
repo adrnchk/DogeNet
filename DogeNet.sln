@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeNet.BLL", "DogeNet.BLL\DogeNet.BLL.csproj", "{FCD773CB-9268-4CB4-9D53-43E1A6142232}"
 EndProject
@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeNet.IdentityServer", "D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeNet.Registration", "DogeNet.Registration\DogeNet.Registration.csproj", "{B41560E9-75B1-4234-8DC4-1EBB3D1624DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogeNet.Tests", "DogeNet.Tests\DogeNet.Tests.csproj", "{FD1F58A2-76E2-46F4-A39C-8FA308CDAF6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeNet.Tests", "DogeNet.Tests\DogeNet.Tests.csproj", "{FD1F58A2-76E2-46F4-A39C-8FA308CDAF6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
