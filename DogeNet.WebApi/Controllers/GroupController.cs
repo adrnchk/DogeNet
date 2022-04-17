@@ -21,105 +21,25 @@ namespace DogeNet.WebApi.Controllers
     public class GroupController : ControllerBase
     {
         private readonly IMediator mediator;
-        private readonly ILogger<GroupController> logger;
 
-        private readonly DBContext context;
-
-        public GroupController(IMediator mediator, DBContext context, ILogger<GroupController> logger)
-        {
-            this.mediator = mediator;
-            this.context = context;
-            this.logger = logger;
-        }
+        public GroupController(IMediator mediator) => this.mediator = mediator;
 
         [HttpGet("{id}")]
         [ProducesResponseType(200, Type = typeof(GroupDetailsModel))]
-        public async Task<IActionResult> GetGroupById(int id)
-        {
-            if (this.ModelState.IsValid)
-            {
-                try
-                {
-                    var group = await this.mediator.Send(new GetGroupQuery(id));
-                    this.logger.LogInformation($"command: {typeof(GetGroupQuery).Name}");
-                    return this.Ok(group);
-                }
-                catch (Exception e)
-                {
-                    this.logger.LogError(e, $"command: {typeof(GetGroupQuery).Name}");
-                    return this.BadRequest();
-                }
-            }
-            else
-            {
-                this.logger.LogError($"command: {typeof(GetGroupQuery).Name}, Invalid model");
-                return this.BadRequest();
-            }
-        }
+        public async Task<IActionResult> GetGroupById(int id) =>
+            this.Ok(await this.mediator.Send(new GetGroupQuery(id)));
 
         [HttpPost]
-        public async Task<IActionResult> CreateGroup(CreateGroupModel model)
-        {
-            if (this.ModelState.IsValid)
-            {
-                var result = await this.mediator.Send(new CreateGroupCommand(model));
-
-                return this.Ok();
-            }
-            else
-            {
-                this.logger.LogError($"command: {typeof(CreateGroupCommand).Name}, Invalid model");
-                return this.BadRequest(this.ModelState.Values);
-            }
-        }
+        public async Task<IActionResult> CreateGroup(CreateGroupModel model) =>
+            this.Ok(await this.mediator.Send(new CreateGroupCommand(model)));
 
         [HttpPut("{id}")]
         [ProducesResponseType(200, Type = typeof(GroupDetailsModel))]
-        public async Task<IActionResult> EditGroup(EditGroupModel model)
-        {
-            if (this.ModelState.IsValid)
-            {
-                try
-                {
-                    var result = await this.mediator.Send(new EditGroupCommand(model));
-                    this.logger.LogInformation($"command: {typeof(EditGroupCommand).Name}");
-                    return this.Ok(result);
-                }
-                catch (Exception e)
-                {
-                    this.logger.LogError(e, $"command: {typeof(EditGroupCommand).Name}");
-                    return this.BadRequest();
-                }
-            }
-            else
-            {
-                this.logger.LogError($"command: {typeof(EditGroupCommand).Name}, Invalid model");
-                return this.BadRequest(this.ModelState.Values);
-            }
-        }
+        public async Task<IActionResult> EditGroup(EditGroupModel model) =>
+            this.Ok(await this.mediator.Send(new EditGroupCommand(model)));
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGroup(int id)
-        {
-            if (this.ModelState.IsValid)
-            {
-                try
-                {
-                    var result = await this.mediator.Send(new DeleteGroupCommand(id));
-                    this.logger.LogInformation($"command: {typeof(DeleteGroupCommand).Name}");
-                    return this.Ok(result);
-                }
-                catch (Exception e)
-                {
-                    this.logger.LogError(e, $"command: {typeof(DeleteGroupCommand).Name}");
-                    return this.BadRequest();
-                }
-            }
-            else
-            {
-                this.logger.LogError($"command: {typeof(DeleteGroupCommand).Name}, Invalid model");
-                return this.BadRequest();
-            }
-        }
+        public async Task<IActionResult> DeleteGroup(int id) =>
+            this.Ok(await this.mediator.Send(new DeleteGroupCommand(id)));
     }
 }
