@@ -6,6 +6,7 @@ namespace DogeNet.WebApi
 {
     using System;
     using System.Collections.Generic;
+    using DogeNet.BLL.Extentions;
     using DogeNet.BLL.Features.Messages.SendMessage;
     using DogeNet.BLL.Services.Implementations;
     using DogeNet.BLL.Services.Interfaces;
@@ -120,6 +121,8 @@ namespace DogeNet.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "DogeNet.WebApi v1"));
             }
+
+            app.UseCustomExceptionHandler();
 
             app.UseHttpsRedirection();
 

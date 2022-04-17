@@ -62,18 +62,9 @@ namespace DogeNet.WebApi.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                try
-                {
-                    var result = await this.mediator.Send(new CreateGroupCommand(model));
-                    this.logger.LogInformation($"command: {typeof(CreateGroupCommand).Name}, Group created");
+                var result = await this.mediator.Send(new CreateGroupCommand(model));
 
-                    return this.Ok();
-                }
-                catch (Exception e)
-                {
-                    this.logger.LogError(e, $"command: {typeof(CreateGroupCommand).Name}");
-                    return this.BadRequest();
-                }
+                return this.Ok();
             }
             else
             {
