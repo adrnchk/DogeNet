@@ -12,12 +12,17 @@ namespace DogeNet.BLL.Middleware
     using DogeNet.BLL.Responses;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
+    using Microsoft.Extensions.Logging;
 
     public class ValidationFilterMiddleware : IActionFilter
     {
+        private readonly ILogger<ValidationFilterMiddleware> logger;
+
+        public ValidationFilterMiddleware(ILogger<ValidationFilterMiddleware> logger) => this.logger = logger;
+
         public void OnActionExecuted(ActionExecutedContext context)
         {
-
+            this.logger.LogInformation(typeof(ValidationFilterMiddleware).Name, context.ModelState.Values);
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
