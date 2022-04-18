@@ -13,8 +13,10 @@ namespace DogeNet.WebApi.Controllers
     using DogeNet.BLL.Features.Posts.DeletePost;
     using DogeNet.BLL.Features.Posts.EditPost;
     using DogeNet.BLL.Features.Posts.GetPost;
+    using DogeNet.BLL.Middleware;
     using DogeNet.DAL;
     using MediatR;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]/[action]")]
@@ -26,6 +28,7 @@ namespace DogeNet.WebApi.Controllers
         public PostController(IMediator mediator) => this.mediator = mediator;
 
         [HttpGet("{id}")]
+        [Authorize]
         [ProducesResponseType(200, Type = typeof(PostDetailsModel))]
         public async Task<IActionResult> GetPostById(int id) =>
             this.Ok(await this.mediator.Send(new GetPostQuery(id)));

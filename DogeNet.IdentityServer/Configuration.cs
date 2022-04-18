@@ -39,7 +39,7 @@ namespace DogeNet.IdentityServer
                 {
                     ClientId = "client_id_swagger",
                     ClientSecrets = { new Secret("client_secret_swagger".ToSha256()) },
-                    AllowedGrantTypes =  GrantTypes.ResourceOwnerPassword,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     AllowedCorsOrigins = { "https://localhost:7001" },
                     AllowedScopes =
                     {
