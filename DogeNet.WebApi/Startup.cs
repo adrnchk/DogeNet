@@ -6,7 +6,9 @@ namespace DogeNet.WebApi
 {
     using System;
     using System.Collections.Generic;
+    using DogeNet.BLL.Extentions;
     using DogeNet.BLL.Features.Messages.SendMessage;
+    using DogeNet.BLL.Middleware;
     using DogeNet.BLL.Services.Implementations;
     using DogeNet.BLL.Services.Interfaces;
     using DogeNet.DAL;
@@ -104,7 +106,9 @@ namespace DogeNet.WebApi
 
             services.AddCors();
 
-            services.AddControllers().AddFluentValidation().AddNewtonsoftJson(options =>
+            services.AddControllers(options => options.Filters.Add<ValidationFilterMiddleware>())
+                .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<ExceptionHandlerMiddleware>())
+                .AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddTransient<IValidator<SendMessageModel>, SendMessageValidator>();
             services.AddAutoMapper(typeof(SendMessageModelProfile).Assembly);
@@ -120,6 +124,8 @@ namespace DogeNet.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "DogeNet.WebApi v1"));
             }
+
+            app.UseCustomExceptionHandler();
 
             app.UseHttpsRedirection();
 

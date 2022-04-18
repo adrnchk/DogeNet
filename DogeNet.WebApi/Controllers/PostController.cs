@@ -23,66 +23,24 @@ namespace DogeNet.WebApi.Controllers
     {
         private readonly IMediator mediator;
 
-        private readonly DBContext context;
-
-        public PostController(IMediator mediator, DBContext context)
-        {
-            this.mediator = mediator;
-            this.context = context;
-        }
+        public PostController(IMediator mediator) => this.mediator = mediator;
 
         [HttpGet("{id}")]
         [ProducesResponseType(200, Type = typeof(PostDetailsModel))]
-        public async Task<IActionResult> GetPostById(int id)
-        {
-            if (this.ModelState.IsValid)
-            {
-                return this.Ok(await this.mediator.Send(new GetPostQuery(id)));
-            }
-            else
-            {
-                return this.BadRequest();
-            }
-        }
+        public async Task<IActionResult> GetPostById(int id) =>
+            this.Ok(await this.mediator.Send(new GetPostQuery(id)));
 
         [HttpPost]
-        public async Task<IActionResult> CreatePost(CreatePostModel model)
-        {
-            if (this.ModelState.IsValid)
-            {
-                return this.Ok(await this.mediator.Send(new CreatePostCommand(model)));
-            }
-            else
-            {
-                return this.BadRequest(this.ModelState.Values);
-            }
-        }
+        public async Task<IActionResult> CreatePost(CreatePostModel model) =>
+            this.Ok(await this.mediator.Send(new CreatePostCommand(model)));
 
         [HttpPut("{id}")]
         [ProducesResponseType(200, Type = typeof(PostDetailsModel))]
-        public async Task<IActionResult> EditPost(EditPostModel model)
-        {
-            if (this.ModelState.IsValid)
-            {
-                return this.Ok(await this.mediator.Send(new EditPostCommand(model)));
-            }
-            else
-            {
-                return this.BadRequest(this.ModelState.Values);
-            }
-        }
+        public async Task<IActionResult> EditPost(EditPostModel model) => 
+            this.Ok(await this.mediator.Send(new EditPostCommand(model)));
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePost(int id)
-        {
-            if (this.ModelState.IsValid)
-            {
-                return this.Ok(await this.mediator.Send(new DeletePostCommand(id)));
-            }
-            else
-            {
-                return this.BadRequest();
-            }
-        }
+        public async Task<IActionResult> DeletePost(int id) =>
+            this.Ok(await this.mediator.Send(new DeletePostCommand(id)));
     }
 }

@@ -18,40 +18,15 @@ namespace DogeNet.WebApi.Controllers
     {
         private readonly IMediator mediator;
 
-        private readonly DBContext context;
-
-        public UserController(IMediator mediator, DBContext context)
-        {
-            this.mediator = mediator;
-            this.context = context;
-        }
+        public UserController(IMediator mediator) => this.mediator = mediator;
 
         [HttpGet("{id}")]
         [ProducesResponseType(200, Type = typeof(AccountDetailsModel))]
-        public async Task<IActionResult> GetUserById(int id)
-        {
-            if (AccountChecks.UserIdValid(this.context, id))
-            {
-                return this.Ok(await this.mediator.Send(new GetAccountQuery(id)));
-            }
-            else
-            {
-                return this.BadRequest();
-            }
-        }
+        public async Task<IActionResult> GetUserById(int id) => this.Ok(await this.mediator.Send(new GetAccountQuery(id)));
 
         [HttpPut]
         [ProducesResponseType(200, Type = typeof(AccountDetailsModel))]
-        public async Task<IActionResult> ChangeUserInfo(UpdateAccountDetailsModel model)
-        {
-            if (this.ModelState.IsValid)
-            {
-                return this.Ok(await this.mediator.Send(new UpdateAccountCommand(model)));
-            }
-            else
-            {
-                return this.BadRequest(this.ModelState.Values);
-            }
-        }
+        public async Task<IActionResult> ChangeUserInfo(UpdateAccountDetailsModel model) =>
+            this.Ok(await this.mediator.Send(new UpdateAccountCommand(model)));
     }
 }
