@@ -45,7 +45,7 @@ namespace DogeNet.WebApi
             })
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.ApiName = "DogeNetWebAPI";
+                    options.ApiName = "DogeNet Web Api";
                     options.Authority = this.AppConfiguration.GetValue<string>("Services:IdentityServer");
                     options.RequireHttpsMetadata = false;
                 });
@@ -107,6 +107,7 @@ namespace DogeNet.WebApi
             services.AddCors();
 
             services.AddControllers(options => options.Filters.Add<ValidationFilterMiddleware>())
+                .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true)
                 .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<ExceptionHandlerMiddleware>())
                 .AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
