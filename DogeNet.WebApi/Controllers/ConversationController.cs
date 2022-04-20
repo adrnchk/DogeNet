@@ -4,19 +4,13 @@
 
 namespace DogeNet.WebApi.Controllers
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
-    using DogeNet.BLL.Features.Account;
-    using DogeNet.BLL.Features.Conversations;
     using DogeNet.BLL.Features.Conversations.CreateConversation;
     using DogeNet.BLL.Features.Conversations.GetConversationById;
     using DogeNet.BLL.Features.Conversations.GetConversations;
-    using DogeNet.DAL;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
 
     [Route("api/[controller]/[action]")]
     [ApiController]
