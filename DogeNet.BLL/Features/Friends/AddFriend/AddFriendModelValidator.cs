@@ -15,6 +15,8 @@ namespace DogeNet.BLL.Features.Friends.AddFriend
             this.RuleFor(enitity => enitity.UserId).NotEmpty().NotNull();
             this.RuleFor(enitity => enitity).NotNull()
                 .Must(source =>
+                source.UserId != source.FriendId).WithMessage("Same user")
+                .Must(source =>
                 !FriendChecks.IsAlreadyFriends(context, source.UserId, source.FriendId)).WithMessage("Already in friend list")
                 .Must(source =>
                 !FriendChecks.IsInBlackList(context, source.UserId, source.FriendId)).WithMessage("User is in black list");

@@ -7,7 +7,6 @@ namespace DogeNet.Tests.BLL.Features.Groups.CreateGroup
     using System;
     using AutoMapper;
     using DogeNet.BLL.Features.Group.CreateGroup;
-    using DogeNet.BLL.Features.Posts.CreatePost;
     using DogeNet.DAL.Models;
     using Microsoft.AspNetCore.Identity;
     using Xunit;

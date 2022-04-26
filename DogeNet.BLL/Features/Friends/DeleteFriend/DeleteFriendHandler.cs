@@ -10,12 +10,12 @@ namespace DogeNet.BLL.Features.Friends.DeleteFriend
     using DogeNet.DAL;
     using MediatR;
 
-    public class DeleteFriandHandler : IRequestHandler<DeleteFriendCommand>
+    public class DeleteFriendHandler : IRequestHandler<DeleteFriendCommand>
     {
 
         private readonly DBContext context;
 
-        public DeleteFriandHandler(DBContext context)
+        public DeleteFriendHandler(DBContext context)
         {
             this.context = context;
         }
@@ -23,8 +23,7 @@ namespace DogeNet.BLL.Features.Friends.DeleteFriend
         public Task<Unit> Handle(DeleteFriendCommand request, CancellationToken cancellationToken)
         {
             var list = this.context.Friends.Where(source =>
-            (source.UserId == request.model.UserId && source.FriendId == request.model.FriendId)
-            ||
+            (source.UserId == request.model.UserId && source.FriendId == request.model.FriendId) ||
             (source.UserId == request.model.FriendId && source.FriendId == request.model.UserId));
 
             foreach (var item in list)
