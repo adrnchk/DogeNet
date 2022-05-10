@@ -7,7 +7,6 @@ namespace DogeNet.BLL.Features.Account.CreateAccount
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
-    using DogeNet.BLL.Services.Interfaces;
     using DogeNet.DAL;
     using DogeNet.DAL.Models;
     using MediatR;
@@ -17,28 +16,20 @@ namespace DogeNet.BLL.Features.Account.CreateAccount
     {
         private readonly DBContext context;
 
-        private readonly IUserManagerService userManager;
-
         private readonly IMapper mapper;
 
-        public CreateAccountHandler(DBContext context, IUserManagerService userManager, IMapper mapper)
+        public CreateAccountHandler(DBContext context,  IMapper mapper)
         {
             this.context = context;
-            this.userManager = userManager;
             this.mapper = mapper;
         }
 
         public async Task<Unit> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
         {
-            var user = this.mapper.Map<IdentityUser>(request.model);
-
-            var result = await this.userManager.CreateIdentityUser(user, request.model.Password);
-
             var appUser = this.mapper.Map<User>(request.model);
-            appUser.IdentityId = user.Id;
 
             this.context.AppUsers.Add(appUser);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
 
             return Unit.Value;
         }

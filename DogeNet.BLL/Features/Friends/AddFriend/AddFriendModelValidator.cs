@@ -20,7 +20,6 @@ namespace DogeNet.BLL.Features.Friends.AddFriend
                 !FriendChecks.IsAlreadyFriends(context, source.UserId, source.FriendId)).WithMessage("Already in friend list")
                 .Must(source =>
                 !FriendChecks.IsInBlackList(context, source.UserId, source.FriendId)).WithMessage("User is in black list");
-
         }
     }
 }

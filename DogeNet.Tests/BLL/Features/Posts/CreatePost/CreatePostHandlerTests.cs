@@ -10,7 +10,6 @@ namespace DogeNet.Tests.BLL.Features.Posts.CreatePost
     using System.Threading;
     using AutoMapper;
     using DogeNet.BLL.Features.Posts.CreatePost;
-    using DogeNet.BLL.Services.Implementations;
     using DogeNet.DAL;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;

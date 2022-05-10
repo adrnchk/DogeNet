@@ -12,7 +12,6 @@ namespace DogeNet.BLL.Features.Group.EditGroup
     using System.Threading.Tasks;
     using AutoMapper;
     using DogeNet.BLL.Features.Group.GetGroup;
-    using DogeNet.BLL.Services.Interfaces;
     using DogeNet.DAL;
     using DogeNet.DAL.Models;
     using MediatR;

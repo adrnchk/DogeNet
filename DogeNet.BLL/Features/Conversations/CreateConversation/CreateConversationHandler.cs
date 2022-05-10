@@ -7,7 +7,6 @@ namespace DogeNet.BLL.Features.Conversations.CreateConversation
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
-    using DogeNet.BLL.Services.Interfaces;
     using DogeNet.DAL;
     using DogeNet.DAL.Models;
     using MediatR;

@@ -32,7 +32,7 @@ namespace DogeNet.BLL.Features.Friends.GetFriends
 
             foreach (var item in list)
             {
-                friends.Add(this.mapper.Map<FriendsDetailsModel>(await this.context.Users.FindAsync(item.FriendId)));
+                friends.Add(this.mapper.Map<FriendsDetailsModel>(await this.context.AppUsers.FindAsync(item.FriendId)));
             }
 
             return friends;

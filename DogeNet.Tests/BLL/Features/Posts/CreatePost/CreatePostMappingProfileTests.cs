@@ -20,7 +20,6 @@ namespace DogeNet.Tests.BLL.Features.Posts.CreatePost
             this.mapper = config.CreateMapper();
         }
 
-
         [Fact]
         public void ToPost()
         {

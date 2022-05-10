@@ -12,7 +12,6 @@ namespace DogeNet.BLL.Features.Posts.EditPost
     using System.Threading.Tasks;
     using AutoMapper;
     using DogeNet.BLL.Features.Posts.GetPost;
-    using DogeNet.BLL.Services.Interfaces;
     using DogeNet.DAL;
     using DogeNet.DAL.Models;
     using MediatR;

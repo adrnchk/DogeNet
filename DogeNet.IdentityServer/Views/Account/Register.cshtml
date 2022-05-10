@@ -4,27 +4,40 @@
     <link href=@Url.Content("~/styles/app.css") rel="stylesheet" type="text/css" />
 
 </head>
-<h1>Register</h1>
+<div class="container-login">
+    <div class="wrap-login">
+        <span class="login-form-title p-b-26">Register</span>
+        <form asp-controller="Account" asp-action="Register" method="post">
 
-<form asp-controller="Account" asp-action="Register" method="post">
-
-    <input hidden name="ReturnUrl" />
-    <div>
-        <label>UserName</label>
-        <input name="UserName" />
-        <span asp-validation-for="UserName"></span>
-    </div>
-    <div>
-        <label>Password</label>
-        <input name="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label>Confirm Password</label>
-        <input name="ConfirmPassword" />
-        <span asp-validation-for="ConfirmPassword"></span>
-    </div>
-    <p>
-        <button type="submit">Sign up</button>
-    </p>
-</form>
+            <input hidden name="ReturnUrl" />
+            <div>
+                <label>UserName</label>
+                <input class="wrap-input" name="UserName" />
+                <span asp-validation-for="UserName"></span>
+            </div>
+            <div>
+                <label>First Name</label>
+                <input class="wrap-input" name="FirstName" />
+                <span asp-validation-for="FirstName"></span>
+            </div>
+            <div>
+                <label>Last Name</label>
+                <input class="wrap-input" name="LastName" />
+                <span asp-validation-for="LastName"></span>
+            </div>
+            <div>
+                <label>Password</label>
+                <input class="wrap-input" type="password" name="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div>
+                <label>Confirm Password</label>
+                <input class="wrap-input"  type="password" name="ConfirmPassword" />
+                <span asp-validation-for="ConfirmPassword"></span>
+            </div>
+            <p>
+                <button class="gradient-button" type="submit">Sign up</button>
+            </p>
+        </form>
+      </div>
+</div>

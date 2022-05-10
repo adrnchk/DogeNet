@@ -10,10 +10,12 @@ namespace DogeNet.WebApi.Controllers
     using DogeNet.BLL.Features.Conversations.GetConversationById;
     using DogeNet.BLL.Features.Conversations.GetConversations;
     using MediatR;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class ConversationController : ControllerBase
     {
         private readonly IMediator mediator;

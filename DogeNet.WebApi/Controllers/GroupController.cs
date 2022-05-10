@@ -10,14 +10,15 @@ namespace DogeNet.WebApi.Controllers
     using DogeNet.BLL.Features.Group.DeleteGroup;
     using DogeNet.BLL.Features.Group.EditGroup;
     using DogeNet.BLL.Features.Group.GetGroup;
-    using DogeNet.BLL.Services.Interfaces;
     using DogeNet.DAL;
     using MediatR;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class GroupController : ControllerBase
     {
         private readonly IMediator mediator;

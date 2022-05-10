@@ -20,6 +20,11 @@ namespace DogeNet.IdentityServer.ViewModels
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
-        public string ReturnUrl { get; set; } = "https://localhost:7001/swagger/index.html";
+        [Required]
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string ReturnUrl { get; set; }
     }
 }
