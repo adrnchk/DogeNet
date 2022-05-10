@@ -10,10 +10,12 @@ namespace DogeNet.WebApi.Controllers
     using DogeNet.BLL.Features.Account.UpdateAccount;
     using DogeNet.DAL;
     using MediatR;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IMediator mediator;

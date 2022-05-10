@@ -43,9 +43,9 @@ namespace DogeNet.IdentityServer
                     AllowedCorsOrigins = { "https://localhost:7001" },
                     AllowedScopes =
                     {
-                        "DogeNetWebAPI",
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
+                        Startup.StaticConfig.GetValue<string>("Scopes:WebApi:Name"),
                     },
                 },
 
@@ -60,11 +60,7 @@ namespace DogeNet.IdentityServer
                         new Secret(Startup.StaticConfig.GetValue<string>("Clients:WebApi:Secret").ToSha256()),
                     },
 
-                    AllowedGrantTypes = GrantTypes.Code,
-
-                    AllowedCorsOrigins = { "https://localhost:7001", "http://localhost:7000" },
-
-                    RedirectUris = { "https://localhost:7001" },
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
 
                     AllowedScopes =
                     {
@@ -81,12 +77,12 @@ namespace DogeNet.IdentityServer
 
                     ClientName = Startup.StaticConfig.GetValue<string>("Clients:WebApp:Name"),
 
-                    ClientSecrets =
-                    {
-                        new Secret(Startup.StaticConfig.GetValue<string>("Clients:WebApp:Secret").ToSha256()),
-                    },
+                    RequireClientSecret = false,
+                    AllowedGrantTypes = GrantTypes.Code,
 
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    RedirectUris = { "http://localhost:4200" },
+                    PostLogoutRedirectUris = { "http://localhost:4200" },
+                    AllowedCorsOrigins = { "http://localhost:4200" },
 
                     AllowedScopes =
                     {
@@ -95,7 +91,10 @@ namespace DogeNet.IdentityServer
                         Startup.StaticConfig.GetValue<string>("Scopes:WebApi:Name"),
                     },
 
+                    AccessTokenLifetime = 1,
+
                     AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
                 },
             };
     }

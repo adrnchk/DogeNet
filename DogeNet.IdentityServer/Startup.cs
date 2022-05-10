@@ -5,8 +5,12 @@
 namespace DogeNet.IdentityServer
 {
     using System.IO;
+    using DogeNet.BLL.Extentions;
+    using DogeNet.BLL.Features.Messages.SendMessage;
     using DogeNet.DAL;
     using DogeNet.DAL.Models;
+    using DogeNet.IdentityServer.ViewModels;
+    using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -15,7 +19,6 @@ namespace DogeNet.IdentityServer
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.FileProviders;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.OpenApi.Models;
 
     public class Startup
     {
@@ -42,30 +45,38 @@ namespace DogeNet.IdentityServer
                     config.Password.RequireLowercase = false;
                     config.Password.RequireNonAlphanumeric = false;
                     config.Password.RequireUppercase = false;
-                    config.Password.RequiredLength = 4;
+                    config.Password.RequiredLength = 6;
                 })
-                 .AddEntityFrameworkStores<DBContext>();
+                .AddEntityFrameworkStores<DBContext>();
 
             services.AddIdentityServer()
               .AddAspNetIdentity<IdentityUser>()
-              .AddInMemoryClients(Configuration.Clients)
               .AddInMemoryIdentityResources(Configuration.IdentityResources)
+              .AddInMemoryClients(Configuration.Clients)
               .AddInMemoryApiResources(Configuration.ApiResources)
               .AddInMemoryApiScopes(Configuration.ApiScopes)
               .AddDeveloperSigningCredential();
 
             services.ConfigureApplicationCookie(config =>
             {
-                config.Cookie.Name = "Doge.Identity.Cookie";
+                config.Cookie.Name = "IdentityServer.Cookie";
                 config.LoginPath = "/Account/Login";
                 config.LogoutPath = "/Account/Logout";
             });
 
-            services.ConfigureApplicationCookie(config =>
+            services.AddCors(options =>
             {
-                config.Cookie.Name = "IdentityServer.Cookies";
+                options.AddPolicy("default", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             });
 
+            System.Reflection.Assembly[] assemblies = { typeof(SendMessageModelProfile).Assembly, typeof(Startup).Assembly };
+            services.AddAutoMapper(assemblies);
+            services.AddMediatR(typeof(SendMessageCommand).Assembly);
             services.AddControllersWithViews();
         }
 
@@ -84,9 +95,13 @@ namespace DogeNet.IdentityServer
                 RequestPath = "/styles",
             });
 
+            app.UseCustomExceptionHandler();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("default");
 
             app.UseIdentityServer();
 
@@ -94,7 +109,7 @@ namespace DogeNet.IdentityServer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllers();
             });
         }
     }

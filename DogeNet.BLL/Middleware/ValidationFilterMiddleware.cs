@@ -27,28 +27,31 @@ namespace DogeNet.BLL.Middleware
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            var errors = context.ModelState
+            if (!context.ModelState.IsValid)
+            {
+                var errors = context.ModelState
                 .Where(x => x.Value.Errors.Count > 0)
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(x => x.ErrorMessage))
                 .ToArray();
 
-            var errorResponse = new ErrorResponse();
+                var errorResponse = new ErrorResponse();
 
-            foreach (var error in errors)
-            {
-                foreach (var subError in error.Value)
+                foreach (var error in errors)
                 {
-                    var errorModel = new ErrorModel
+                    foreach (var subError in error.Value)
                     {
-                        FieldName = error.Key,
-                        Message = subError,
-                    };
+                        var errorModel = new ErrorModel
+                        {
+                            FieldName = error.Key,
+                            Message = subError,
+                        };
 
-                    errorResponse.Errors.Add(errorModel);
+                        errorResponse.Errors.Add(errorModel);
+                    }
                 }
-            }
 
-            context.Result = new BadRequestObjectResult(errorResponse);
+                context.Result = new BadRequestObjectResult(errorResponse);
+            }
         }
     }
 }

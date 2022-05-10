@@ -1,4 +1,4 @@
-﻿// <copyright file="DeleteFriandHandler.cs" company="Leobit">
+﻿// <copyright file="DeleteFriendHandler.cs" company="Leobit">
 // Copyright (c) Leobit. All rights reserved.
 // </copyright>
 
@@ -12,7 +12,6 @@ namespace DogeNet.BLL.Features.Friends.DeleteFriend
 
     public class DeleteFriendHandler : IRequestHandler<DeleteFriendCommand>
     {
-
         private readonly DBContext context;
 
         public DeleteFriendHandler(DBContext context)

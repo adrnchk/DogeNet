@@ -23,6 +23,7 @@ namespace DogeNet.WebApi.Controllers
 
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class MessagesController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -40,11 +41,11 @@ namespace DogeNet.WebApi.Controllers
 
         [HttpPut("{id}")]
         [ProducesResponseType(200, Type = typeof(MessagesDetailsModel))]
-        public async Task<IActionResult> EditMessage(EditMessageModel model) => 
+        public async Task<IActionResult> EditMessage(EditMessageModel model) =>
             this.Ok(await this.mediator.Send(new EditMessageCommand(model)));
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMessage(int id) => 
+        public async Task<IActionResult> DeleteMessage(int id) =>
             this.Ok(await this.mediator.Send(new DeleteMessageCommand(id)));
     }
 }

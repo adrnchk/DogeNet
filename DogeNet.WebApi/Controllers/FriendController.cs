@@ -12,10 +12,12 @@ namespace DogeNet.WebApi.Controllers
     using DogeNet.BLL.Features.Friends.GetFriendRequests;
     using DogeNet.BLL.Features.Friends.GetFriends;
     using MediatR;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class FriendController : ControllerBase
     {
         private readonly IMediator mediator;

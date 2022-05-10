@@ -10,7 +10,6 @@ namespace DogeNet.Tests.BLL.Features.Account
     using System.Threading;
     using AutoMapper;
     using DogeNet.BLL.Features.Account.CreateAccount;
-    using DogeNet.BLL.Services.Implementations;
     using DogeNet.DAL;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -34,20 +33,11 @@ namespace DogeNet.Tests.BLL.Features.Account
             this.users = new List<IdentityUser>();
 
             var store = new Mock<IUserStore<IdentityUser>>();
-            var mockUserManager = new Mock<UserManager<IdentityUser>>(store.Object, null, null, null, null, null, null, null, null);
-            mockUserManager.Object.UserValidators.Add(new UserValidator<IdentityUser>());
-            mockUserManager.Object.PasswordValidators.Add(new PasswordValidator<IdentityUser>());
-
-            mockUserManager.Setup(x => x.DeleteAsync(It.IsAny<IdentityUser>())).ReturnsAsync(IdentityResult.Success);
-            mockUserManager.Setup(x => x.CreateAsync(It.IsAny<IdentityUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<IdentityUser, string>((x, y) => this.users.Add(x));
-            mockUserManager.Setup(x => x.UpdateAsync(It.IsAny<IdentityUser>())).ReturnsAsync(IdentityResult.Success);
-
-            var userManagerService = new UserManagerService(mockUserManager.Object);
 
             var config = new MapperConfiguration(cfg => cfg.AddProfile<CreateAccountModelProfiles>());
             this.mapper = config.CreateMapper();
 
-            this.handler = new CreateAccountHandler(this.context, userManagerService, this.mapper);
+            this.handler = new CreateAccountHandler(this.context, this.mapper);
         }
 
         [Fact]
@@ -60,7 +50,6 @@ namespace DogeNet.Tests.BLL.Features.Account
                 RepeatPassword = "UserPassword123#",
                 FirstName = "UserFirstName",
                 LastName = "UserLastName",
-                Email = "test@Email.com",
             };
 
             var command = new CreateAccountCommand(model);
@@ -80,7 +69,6 @@ namespace DogeNet.Tests.BLL.Features.Account
                 RepeatPassword = "UserPassword123#",
                 FirstName = "UserFirstName",
                 LastName = "UserLastName",
-                Email = "test@Email.com",
             };
 
             var command = new CreateAccountCommand(model);

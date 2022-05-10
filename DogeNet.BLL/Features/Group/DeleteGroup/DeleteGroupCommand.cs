@@ -1,4 +1,4 @@
-﻿// <copyright file="DeleteGroupQuery.cs" company="Leobit">
+﻿// <copyright file="DeleteGroupCommand.cs" company="Leobit">
 // Copyright (c) Leobit. All rights reserved.
 // </copyright>
 

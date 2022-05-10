@@ -14,6 +14,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { ProfileModule } from './profile/profile.module';
+import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,19 @@ import { ProfileModule } from './profile/profile.module';
     MatBadgeModule,
     MatIconModule,
     MatToolbarModule,
+    AuthModule.forRoot({
+      config: {
+        authority: 'https://localhost:10001',
+        redirectUrl: 'http://localhost:4200',
+        postLogoutRedirectUri: window.location.origin,
+        clientId: 'DogeNet-web-app',
+        scope: 'openid DogeNetWebAPI',
+        responseType: 'code',
+        silentRenew: true,
+        useRefreshToken: true,
+        logLevel: LogLevel.Debug,
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -21,6 +21,7 @@ namespace DogeNet.WebApi.Controllers
 
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class PostController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -28,7 +29,6 @@ namespace DogeNet.WebApi.Controllers
         public PostController(IMediator mediator) => this.mediator = mediator;
 
         [HttpGet("{id}")]
-        [Authorize]
         [ProducesResponseType(200, Type = typeof(PostDetailsModel))]
         public async Task<IActionResult> GetPostById(int id) =>
             this.Ok(await this.mediator.Send(new GetPostQuery(id)));
@@ -39,7 +39,7 @@ namespace DogeNet.WebApi.Controllers
 
         [HttpPut("{id}")]
         [ProducesResponseType(200, Type = typeof(PostDetailsModel))]
-        public async Task<IActionResult> EditPost(EditPostModel model) => 
+        public async Task<IActionResult> EditPost(EditPostModel model) =>
             this.Ok(await this.mediator.Send(new EditPostCommand(model)));
 
         [HttpDelete("{id}")]

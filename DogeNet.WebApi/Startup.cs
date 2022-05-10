@@ -9,8 +9,6 @@ namespace DogeNet.WebApi
     using DogeNet.BLL.Extentions;
     using DogeNet.BLL.Features.Messages.SendMessage;
     using DogeNet.BLL.Middleware;
-    using DogeNet.BLL.Services.Implementations;
-    using DogeNet.BLL.Services.Interfaces;
     using DogeNet.DAL;
     using FluentValidation;
     using FluentValidation.AspNetCore;
@@ -24,6 +22,7 @@ namespace DogeNet.WebApi
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
 
     public class Startup
@@ -37,17 +36,14 @@ namespace DogeNet.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddIdentityServerAuthentication(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, config =>
                 {
-                    options.ApiName = "DogeNet Web Api";
-                    options.Authority = this.AppConfiguration.GetValue<string>("Services:IdentityServer");
-                    options.RequireHttpsMetadata = false;
+                    config.Authority = this.AppConfiguration.GetValue<string>("Services:IdentityServer");
+                    config.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false,
+                    };
                 });
 
             services.AddSwaggerGen(options =>
@@ -94,27 +90,17 @@ namespace DogeNet.WebApi
 
             var connectionString = this.AppConfiguration.GetConnectionString(nameof(DBContext));
             services.AddDbContext<DBContext>(options => options.UseSqlServer(connectionString));
-            services.AddIdentity<IdentityUser, IdentityRole>(config =>
-                {
-                    config.Password.RequireDigit = false;
-                    config.Password.RequireLowercase = false;
-                    config.Password.RequireNonAlphanumeric = false;
-                    config.Password.RequireUppercase = false;
-                    config.Password.RequiredLength = 4;
-                })
-                .AddEntityFrameworkStores<DBContext>();
 
             services.AddCors();
 
             services.AddControllers(options => options.Filters.Add<ValidationFilterMiddleware>())
                 .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true)
                 .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<ExceptionHandlerMiddleware>())
-                .AddNewtonsoftJson(options =>
-            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddTransient<IValidator<SendMessageModel>, SendMessageValidator>();
             services.AddAutoMapper(typeof(SendMessageModelProfile).Assembly);
             services.AddMediatR(typeof(SendMessageCommand).Assembly);
-            services.AddScoped<IUserManagerService, UserManagerService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

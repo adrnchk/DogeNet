@@ -15,7 +15,6 @@ namespace DogeNet.BLL.Features.Account.CreateAccount
         {
             this.CreateMap<CreateAccountModel, User>()
                 .ForMember(src => src.CreatedAt, opt => opt.MapFrom(c => DateTime.Now));
-            this.CreateMap<CreateAccountModel, IdentityUser>();
         }
     }
 }
