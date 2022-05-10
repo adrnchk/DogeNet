@@ -38,10 +38,10 @@ import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
     AuthModule.forRoot({
       config: {
         authority: 'https://localhost:10001',
-        redirectUrl: 'http://localhost:4200',
+        redirectUrl: window.location.origin,
         postLogoutRedirectUri: window.location.origin,
         clientId: 'DogeNet-web-app',
-        scope: 'openid DogeNetWebAPI',
+        scope: 'openid profile DogeNetWebAPI',
         responseType: 'code',
         silentRenew: true,
         useRefreshToken: true,

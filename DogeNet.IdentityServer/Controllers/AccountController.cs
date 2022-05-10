@@ -117,10 +117,6 @@ namespace DogeNet.IdentityServer.Controllers
         {
             await this.signInManager.SignOutAsync();
             var logoutResult = await this.interaction.GetLogoutContextAsync(logoutId);
-            if(string.IsNullOrEmpty(logoutResult.PostLogoutRedirectUri))
-            {
-                return this.RedirectToAction("Login");
-            }
             return this.Redirect(logoutResult.PostLogoutRedirectUri);
         }
     }
