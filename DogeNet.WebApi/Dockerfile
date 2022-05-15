@@ -1,14 +1,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /source
+WORKDIR /api
 
 COPY . .
 
 RUN dotnet restore --disable-parallel
-RUN dotnet publish -c Debug -o /app --no-restore
+RUN dotnet publish -c Debug -o /api --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
-WORKDIR /app
-COPY --from=build /app ./
+WORKDIR /api
+COPY --from=build /api ./
 
 EXPOSE 7001
 

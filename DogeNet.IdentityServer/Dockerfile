@@ -1,15 +1,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
-WORKDIR .
+WORKDIR /identity
 
 COPY . .
 
-RUN dotnet restore
+RUN dotnet restore --disable-parallel
 
-RUN dotnet publish -c Debug -o out
+RUN dotnet publish -c Debug -o /identity --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
-WORKDIR .
-COPY --from=build-env /app/out .
+WORKDIR /identity
+COPY --from=build-env /identity .
 
 EXPOSE 10001
 

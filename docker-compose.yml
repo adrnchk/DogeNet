@@ -5,7 +5,7 @@ services:
     build:
       context: ./DogeNetWebClient
       dockerfile: Dockerfile
-    working_dir: /app
+    working_dir: /usr/src/app
     ports:
       - 4200:4200
 
@@ -14,6 +14,7 @@ services:
     build:
       context: ./DogeNet.IdentityServer
       dockerfile: Dockerfile
+    working_dir: /identity
     ports:
       - 10001:10001
 
@@ -22,6 +23,7 @@ services:
     build:
       context: ./DogeNet.WebApi
       dockerfile: Dockerfile
+    working_dir: /api
     ports:
       - 7001:7001
 
