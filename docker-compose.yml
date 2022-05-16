@@ -9,7 +9,6 @@ services:
     ports:
       - 4200:4200
 
-
   dogenet-web-api:
     container_name: dogenet-web-api
     build:
