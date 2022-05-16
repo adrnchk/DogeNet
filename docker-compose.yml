@@ -9,21 +9,20 @@ services:
     ports:
       - 4200:4200
 
-  dogenet-identity:
-    container_name: dogenet-identity
-    build:
-      context: ./DogeNet.IdentityServer
-      dockerfile: Dockerfile
-    working_dir: /identity
-    ports:
-      - 10001:10001
 
   dogenet-web-api:
     container_name: dogenet-web-api
     build:
-      context: ./DogeNet.WebApi
-      dockerfile: Dockerfile
-    working_dir: /api
+      context: ./
+      dockerfile: Api.Dockerfile
     ports:
       - 7001:7001
+
+  dogenet-identity:
+    container_name: dogenet-identity
+    build:
+      context: ./
+      dockerfile: Identity.Dockerfile
+    ports:
+      - 10001:10001
 

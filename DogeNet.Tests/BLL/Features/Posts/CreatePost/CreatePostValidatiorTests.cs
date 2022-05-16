@@ -11,7 +11,6 @@ namespace DogeNet.Tests.BLL.Features.Posts.CreatePost
     using System.Threading.Tasks;
     using DogeNet.BLL.Features.Posts;
     using DogeNet.BLL.Features.Posts.CreatePost;
-    using DogeNet.BLL.Services.Implementations;
     using DogeNet.DAL;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;

@@ -75,7 +75,7 @@ namespace DogeNet.Tests.BLL.Features.Account
 
             await this.handler.Handle(command, CancellationToken.None);
 
-            Assert.Single(this.users.Where(user => user.UserName.Equals(model.UserName)));
+            Assert.Single(this.context.AppUsers.Where(user => user.UserName.Equals(model.UserName)));
         }
 
         [Fact]

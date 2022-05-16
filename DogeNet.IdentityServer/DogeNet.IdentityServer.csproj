@@ -39,4 +39,8 @@
     <ProjectReference Include="..\DogeNet.DAL\DogeNet.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Styles\app.css" />
+  </ItemGroup>
+
 </Project>
