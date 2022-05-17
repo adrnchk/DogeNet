@@ -1,0 +1,27 @@
+services:
+
+  dogenet-web-client:
+    container_name: dogenet-web-client
+    build:
+      context: ./DogeNetWebClient
+      dockerfile: Dockerfile
+    working_dir: /usr/src/app
+    ports:
+      - 4200:4200
+
+  dogenet-web-api:
+    container_name: dogenet-web-api
+    build:
+      context: ./
+      dockerfile: Api.Dockerfile
+    ports:
+      - 7001:7001
+
+  dogenet-identity:
+    container_name: dogenet-identity
+    build:
+      context: ./
+      dockerfile: Identity.Dockerfile
+    ports:
+      - 10001:10001
+

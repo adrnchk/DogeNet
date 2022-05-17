@@ -21,26 +21,6 @@ namespace DogeNet.Tests.BLL.Features.Account
         }
 
         [Fact]
-        public void ToIdentityUserMap()
-        {
-            var model = new CreateAccountModel()
-            {
-                UserName = "UserNameTest",
-                Password = "UserPassword123#",
-                RepeatPassword = "UserPassword123#",
-                FirstName = "UserFirstName",
-                LastName = "UserLastName",
-                Email = "test@Email.com",
-            };
-
-            var user = new IdentityUser();
-
-            user = this.mapper.Map<CreateAccountModel, IdentityUser>(model);
-
-            Assert.True(user.UserName == model.UserName && user.Email == model.Email);
-        }
-
-        [Fact]
         public void ToAppUserMap()
         {
             var model = new CreateAccountModel()
@@ -50,7 +30,6 @@ namespace DogeNet.Tests.BLL.Features.Account
                 RepeatPassword = "UserPassword123#",
                 FirstName = "UserFirstName",
                 LastName = "UserLastName",
-                Email = "test@Email.com",
             };
 
             var user = new User();

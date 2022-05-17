@@ -9,8 +9,6 @@ namespace DogeNet.Registration
     using System.Linq;
     using System.Threading.Tasks;
     using DogeNet.BLL.Features.Account.CreateAccount;
-    using DogeNet.BLL.Services.Implementations;
-    using DogeNet.BLL.Services.Interfaces;
     using DogeNet.DAL;
     using FluentValidation;
     using FluentValidation.AspNetCore;
@@ -54,8 +52,6 @@ namespace DogeNet.Registration
             services.AddControllers().AddFluentValidation();
             services.AddTransient<IValidator<CreateAccountModel>, CreateAccountValidator>();
             services.AddAutoMapper(typeof(CreateAccountModelProfiles).Assembly);
-
-            services.AddScoped<IUserManagerService, UserManagerService>();
 
             services.AddSwaggerGen(c =>
             {
