@@ -10,6 +10,7 @@ namespace DogeNet.WebApi
     using DogeNet.BLL.Features.Messages.SendMessage;
     using DogeNet.BLL.Middleware;
     using DogeNet.DAL;
+    using DogeNet.WebApi.Hubs;
     using FluentValidation;
     using FluentValidation.AspNetCore;
     using IdentityServer4.AccessTokenValidation;
@@ -92,6 +93,7 @@ namespace DogeNet.WebApi
             services.AddDbContext<DBContext>(options => options.UseSqlServer(connectionString));
 
             services.AddCors();
+            services.AddSignalR();
 
             services.AddControllers(options => options.Filters.Add<ValidationFilterMiddleware>())
                 .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true)
@@ -127,6 +129,7 @@ namespace DogeNet.WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<CommunicationHub>("/chat");
             });
         }
     }
