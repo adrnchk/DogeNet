@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
       .subscribe(({ isAuthenticated, userData }) => {});
 
     this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      console.log('token: ', token);
       this.signalrService.startConnection(token);
       this.signalrService.addMessageListener();
     });
