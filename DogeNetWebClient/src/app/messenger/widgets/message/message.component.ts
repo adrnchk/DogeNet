@@ -5,6 +5,8 @@ import {
 } from 'src/app/core/api/models';
 import { MatCardModule } from '@angular/material/card';
 import { MessagesService } from 'src/app/core/api/services';
+import { SignalrService } from 'src/app/core/services/signalr.service';
+
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -17,12 +19,30 @@ export class MessageComponent implements OnInit {
   visible = true;
   editing = false;
   messageText: string;
-  constructor(private messageService: MessagesService) {
+  constructor(
+    public signalrService: SignalrService,
+    private messageService: MessagesService
+  ) {
     this.messageText = '';
   }
   ngOnInit(): void {
     this.message.userId == 1 && (this.meAuthor = true);
     this.messageText = this.message.text ?? '';
+    this.signalrService.hubConnection?.on(
+      'EditMessageAsync',
+      (messageId, message) => {
+        if (this.message.id === messageId) {
+          this.message.text = message;
+          this.messageText = message;
+        }
+      }
+    );
+
+    this.signalrService.hubConnection?.on('DeleteMessageAsync', (messageId) => {
+      if (this.message.id === messageId) {
+        this.delete();
+      }
+    });
   }
   edit(): void {
     this.messageService

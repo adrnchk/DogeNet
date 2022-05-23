@@ -10,6 +10,7 @@ import {
   ConversationService,
   MessagesService,
 } from 'src/app/core/api/services';
+import { SignalrService } from 'src/app/core/services/signalr.service';
 
 @Component({
   selector: 'app-chat-box',
@@ -25,6 +26,7 @@ export class ChatBoxComponent implements OnInit {
   message: MessagesDetailsModel = {};
   constructor(
     private datepipe: DatePipe,
+    public signalrService: SignalrService,
     private messagesService: MessagesService,
     private conversationsService: ConversationService,
     private route: ActivatedRoute
@@ -55,7 +57,7 @@ export class ChatBoxComponent implements OnInit {
     this.messagesService
       .apiMessagesSendMessagePost({ body: this.message })
       .subscribe((res) => {
-        console.log(res);
+        this.signalrService.sendMessage('us1', this.messageText);
         this.messageText = '';
       });
   }

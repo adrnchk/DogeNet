@@ -17,17 +17,15 @@ import { SendMessageModel } from '../models/send-message-model';
   providedIn: 'root',
 })
 export class MessagesService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
   /**
    * Path part for operation apiMessagesGetMessagesIdGet
    */
-  static readonly ApiMessagesGetMessagesIdGetPath = '/api/Messages/GetMessages/{id}';
+  static readonly ApiMessagesGetMessagesIdGetPath =
+    '/api/Messages/GetMessages/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -38,21 +36,28 @@ export class MessagesService extends BaseService {
   apiMessagesGetMessagesIdGet$Plain$Response(params: {
     id: number;
   }): Observable<StrictHttpResponse<Array<MessagesDetailsModel>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesGetMessagesIdGetPath, 'get');
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      MessagesService.ApiMessagesGetMessagesIdGetPath,
+      'get'
+    );
     if (params) {
       rb.path('id', params.id, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: 'text/plain'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<MessagesDetailsModel>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: 'text/plain',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<MessagesDetailsModel>>;
+        })
+      );
   }
 
   /**
@@ -64,9 +69,11 @@ export class MessagesService extends BaseService {
   apiMessagesGetMessagesIdGet$Plain(params: {
     id: number;
   }): Observable<Array<MessagesDetailsModel>> {
-
     return this.apiMessagesGetMessagesIdGet$Plain$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<MessagesDetailsModel>>) => r.body as Array<MessagesDetailsModel>)
+      map(
+        (r: StrictHttpResponse<Array<MessagesDetailsModel>>) =>
+          r.body as Array<MessagesDetailsModel>
+      )
     );
   }
 
@@ -79,21 +86,28 @@ export class MessagesService extends BaseService {
   apiMessagesGetMessagesIdGet$Json$Response(params: {
     id: number;
   }): Observable<StrictHttpResponse<Array<MessagesDetailsModel>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesGetMessagesIdGetPath, 'get');
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      MessagesService.ApiMessagesGetMessagesIdGetPath,
+      'get'
+    );
     if (params) {
       rb.path('id', params.id, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'text/json'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<MessagesDetailsModel>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'text/json',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<MessagesDetailsModel>>;
+        })
+      );
   }
 
   /**
@@ -105,9 +119,11 @@ export class MessagesService extends BaseService {
   apiMessagesGetMessagesIdGet$Json(params: {
     id: number;
   }): Observable<Array<MessagesDetailsModel>> {
-
     return this.apiMessagesGetMessagesIdGet$Json$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<MessagesDetailsModel>>) => r.body as Array<MessagesDetailsModel>)
+      map(
+        (r: StrictHttpResponse<Array<MessagesDetailsModel>>) =>
+          r.body as Array<MessagesDetailsModel>
+      )
     );
   }
 
@@ -123,23 +139,32 @@ export class MessagesService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   apiMessagesSendMessagePost$Response(params?: {
-    body?: SendMessageModel
+    body?: SendMessageModel;
   }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesSendMessagePostPath, 'post');
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      MessagesService.ApiMessagesSendMessagePostPath,
+      'post'
+    );
     if (params) {
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -149,9 +174,8 @@ export class MessagesService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   apiMessagesSendMessagePost(params?: {
-    body?: SendMessageModel
+    body?: SendMessageModel;
   }): Observable<void> {
-
     return this.apiMessagesSendMessagePost$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
@@ -160,7 +184,8 @@ export class MessagesService extends BaseService {
   /**
    * Path part for operation apiMessagesEditMessageIdPut
    */
-  static readonly ApiMessagesEditMessageIdPutPath = '/api/Messages/EditMessage/{id}';
+  static readonly ApiMessagesEditMessageIdPutPath =
+    '/api/Messages/EditMessage/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -170,24 +195,31 @@ export class MessagesService extends BaseService {
    */
   apiMessagesEditMessageIdPut$Plain$Response(params: {
     id: string;
-    body?: EditMessageModel
+    body?: EditMessageModel;
   }): Observable<StrictHttpResponse<MessagesDetailsModel>> {
-
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesEditMessageIdPutPath, 'put');
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      MessagesService.ApiMessagesEditMessageIdPutPath,
+      'put'
+    );
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: 'text/plain'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MessagesDetailsModel>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: 'text/plain',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<MessagesDetailsModel>;
+        })
+      );
   }
 
   /**
@@ -198,11 +230,13 @@ export class MessagesService extends BaseService {
    */
   apiMessagesEditMessageIdPut$Plain(params: {
     id: string;
-    body?: EditMessageModel
+    body?: EditMessageModel;
   }): Observable<MessagesDetailsModel> {
-
     return this.apiMessagesEditMessageIdPut$Plain$Response(params).pipe(
-      map((r: StrictHttpResponse<MessagesDetailsModel>) => r.body as MessagesDetailsModel)
+      map(
+        (r: StrictHttpResponse<MessagesDetailsModel>) =>
+          r.body as MessagesDetailsModel
+      )
     );
   }
 
@@ -214,24 +248,31 @@ export class MessagesService extends BaseService {
    */
   apiMessagesEditMessageIdPut$Json$Response(params: {
     id: string;
-    body?: EditMessageModel
+    body?: EditMessageModel;
   }): Observable<StrictHttpResponse<MessagesDetailsModel>> {
-
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesEditMessageIdPutPath, 'put');
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      MessagesService.ApiMessagesEditMessageIdPutPath,
+      'put'
+    );
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'text/json'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MessagesDetailsModel>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'text/json',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<MessagesDetailsModel>;
+        })
+      );
   }
 
   /**
@@ -242,18 +283,21 @@ export class MessagesService extends BaseService {
    */
   apiMessagesEditMessageIdPut$Json(params: {
     id: string;
-    body?: EditMessageModel
+    body?: EditMessageModel;
   }): Observable<MessagesDetailsModel> {
-
     return this.apiMessagesEditMessageIdPut$Json$Response(params).pipe(
-      map((r: StrictHttpResponse<MessagesDetailsModel>) => r.body as MessagesDetailsModel)
+      map(
+        (r: StrictHttpResponse<MessagesDetailsModel>) =>
+          r.body as MessagesDetailsModel
+      )
     );
   }
 
   /**
    * Path part for operation apiMessagesDeleteMessageIdDelete
    */
-  static readonly ApiMessagesDeleteMessageIdDeletePath = '/api/Messages/DeleteMessage/{id}';
+  static readonly ApiMessagesDeleteMessageIdDeletePath =
+    '/api/Messages/DeleteMessage/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -264,21 +308,30 @@ export class MessagesService extends BaseService {
   apiMessagesDeleteMessageIdDelete$Response(params: {
     id: number;
   }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesDeleteMessageIdDeletePath, 'delete');
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      MessagesService.ApiMessagesDeleteMessageIdDeletePath,
+      'delete'
+    );
     if (params) {
       rb.path('id', params.id, {});
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -287,13 +340,9 @@ export class MessagesService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesDeleteMessageIdDelete(params: {
-    id: number;
-  }): Observable<void> {
-
+  apiMessagesDeleteMessageIdDelete(params: { id: number }): Observable<void> {
     return this.apiMessagesDeleteMessageIdDelete$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
-
 }
