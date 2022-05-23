@@ -92,7 +92,16 @@ namespace DogeNet.WebApi
             var connectionString = this.AppConfiguration.GetConnectionString(nameof(DBContext));
             services.AddDbContext<DBContext>(options => options.UseSqlServer(connectionString));
 
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .SetIsOriginAllowed((host) => true) //allow all connections (including Signalr)
+                    );
+            });
             services.AddSignalR();
 
             services.AddControllers(options => options.Filters.Add<ValidationFilterMiddleware>())
@@ -120,7 +129,7 @@ namespace DogeNet.WebApi
 
             app.UseRouting();
 
-            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
 

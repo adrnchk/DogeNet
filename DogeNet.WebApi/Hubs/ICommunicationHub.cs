@@ -11,6 +11,10 @@ namespace DogeNet.WebApi.Hubs
     {
         Task SendMessageAsync(string userName, string message);
 
+        Task EditMessageAsync(string userName, int messageId, string message);
+
+        Task DeleteMessageAsync(string userName, int messageId);
+
         Task UpdateUsersAsync(IEnumerable<string> users);
     }
 }

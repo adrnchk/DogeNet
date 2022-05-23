@@ -51,5 +51,11 @@ namespace DogeNet.WebApi.Hubs
 
         public async Task SendMessageAsync(string userName, string message) =>
             await this.Clients.All.SendMessageAsync(userName, message);
+
+        public async Task EditMessageAsync(string userName, int messageId, string message) =>
+             await this.Clients.All.EditMessageAsync(userName, messageId, message);
+
+        public async Task DeleteMessageAsync(string userName, int messageId) =>
+            await this.Clients.All.DeleteMessageAsync(userName, messageId);
     }
 }
