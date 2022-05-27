@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeNet.Registration", "Dog
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeNet.Tests", "DogeNet.Tests\DogeNet.Tests.csproj", "{FD1F58A2-76E2-46F4-A39C-8FA308CDAF6C}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2691386D-03DE-4111-B046-0534663F1CF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{FD1F58A2-76E2-46F4-A39C-8FA308CDAF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD1F58A2-76E2-46F4-A39C-8FA308CDAF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD1F58A2-76E2-46F4-A39C-8FA308CDAF6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2691386D-03DE-4111-B046-0534663F1CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2691386D-03DE-4111-B046-0534663F1CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2691386D-03DE-4111-B046-0534663F1CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2691386D-03DE-4111-B046-0534663F1CF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

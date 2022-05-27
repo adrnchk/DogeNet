@@ -128,7 +128,7 @@ namespace DogeNet.WebApi
 
             app.UseCustomExceptionHandler();
 
-            app.UseHttpsRedirection();
+            app.UseRouting();
 
             app.UseCors("CorsPolicy");
 

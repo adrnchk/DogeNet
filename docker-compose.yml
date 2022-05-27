@@ -1,4 +1,17 @@
+version: '3.4'
+
 services:
+  dogenet.webapi:
+    image: ${DOCKER_REGISTRY-}dogenetwebapi
+    build:
+      context: .
+      dockerfile: DogeNet.WebApi/Dockerfile    
+
+  dogenet.identityserver:
+    image: ${DOCKER_REGISTRY-}dogenetidentityserver
+    build:
+      context: .
+      dockerfile: DogeNet.IdentityServer/Dockerfile
 
   dogenet-web-client:
     container_name: dogenet-web-client
@@ -8,20 +21,14 @@ services:
     working_dir: /usr/src/app
     ports:
       - 4200:4200
-
-  dogenet-web-api:
-    container_name: dogenet-web-api
-    build:
-      context: ./
-      dockerfile: Api.Dockerfile
+      
+  sql-server-db:
+    container_name: sql-server-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
     ports:
-      - 7001:7001
+      - 1433:1433
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "!dogenet2022#"
 
-  dogenet-identity:
-    container_name: dogenet-identity
-    build:
-      context: ./
-      dockerfile: Identity.Dockerfile
-    ports:
-      - 10001:10001
 
