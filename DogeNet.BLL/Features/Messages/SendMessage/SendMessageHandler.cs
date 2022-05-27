@@ -15,7 +15,7 @@ namespace DogeNet.BLL.Features.Messages.SendMessage
     using DogeNet.DAL.Models;
     using MediatR;
 
-    public class SendMessageHandler : IRequestHandler<SendMessageCommand>
+    public class SendMessageHandler : IRequestHandler<SendMessageCommand, int>
     {
         private readonly DBContext context;
 
@@ -27,14 +27,14 @@ namespace DogeNet.BLL.Features.Messages.SendMessage
             this.mapper = mapper;
         }
 
-        public async Task<Unit> Handle(SendMessageCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(SendMessageCommand request, CancellationToken cancellationToken)
         {
             var message = this.mapper.Map<Message>(request.model);
 
             this.context.Messages.Add(message);
             await this.context.SaveChangesAsync();
 
-            return Unit.Value;
+            return message.Id;
         }
     }
 }

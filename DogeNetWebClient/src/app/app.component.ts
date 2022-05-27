@@ -17,10 +17,8 @@ export class AppComponent implements OnInit {
     this.oidcSecurityService
       .checkAuth()
       .subscribe(({ isAuthenticated, userData }) => {});
-
     this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      this.signalrService.startConnection(token);
-      this.signalrService.addMessageListener();
+      this.signalrService.joinRoom(token, 'us1', 'g1');
     });
   }
 

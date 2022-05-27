@@ -6,10 +6,11 @@ namespace DogeNet.WebApi.Hubs
 {
     using System;
 
-    public class ChatConnection
+    public class UserConnection
     {
-        public DateTime ConnectedAt { get; set; }
+        public string User { get; set; }
 
-        public string ConnectionId { get; set; } = null!;
+        public string Room { get; set; }
     }
+
 }

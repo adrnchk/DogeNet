@@ -28,21 +28,6 @@ export class MessageComponent implements OnInit {
   ngOnInit(): void {
     this.message.userId == 1 && (this.meAuthor = true);
     this.messageText = this.message.text ?? '';
-    this.signalrService.hubConnection?.on(
-      'EditMessageAsync',
-      (messageId, message) => {
-        if (this.message.id === messageId) {
-          this.message.text = message;
-          this.messageText = message;
-        }
-      }
-    );
-
-    this.signalrService.hubConnection?.on('DeleteMessageAsync', (messageId) => {
-      if (this.message.id === messageId) {
-        this.delete();
-      }
-    });
   }
   edit(): void {
     this.messageService
@@ -51,7 +36,7 @@ export class MessageComponent implements OnInit {
         body: { messageId: this.message.id ?? 0, text: this.messageText },
       })
       .subscribe((res) => {
-        console.log(res);
+        this.signalrService.editMessage(this.message.id ?? 0, this.messageText);
         this.editing = false;
       });
   }
@@ -59,8 +44,11 @@ export class MessageComponent implements OnInit {
     this.messageService
       .apiMessagesDeleteMessageIdDelete({ id: this.message.id ?? 0 })
       .subscribe((res) => {
-        console.log(res);
-        this.visible = false;
+        this.signalrService.deleteMessage(
+          this.message.id ?? 0,
+          this.messageText
+        );
       });
+    this.visible = false;
   }
 }

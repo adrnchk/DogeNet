@@ -51,13 +51,20 @@ export class ChatBoxComponent implements OnInit {
     this.conversationsService
       .apiConversationGetConversationByIdIdGet$Json({ id: this.id })
       .subscribe((res) => (this.conversationInfo = res));
+    // this.signalrService.hubConnection?.on(
+    //   'SendMessageAsync',
+    //   (user, message) => {
+    //     //add new message to state
+    //     console.log(user, message);
+    //   }
+    // );
   }
   sendMessage(): void {
     this.message.text = this.messageText;
     this.messagesService
       .apiMessagesSendMessagePost({ body: this.message })
       .subscribe((res) => {
-        this.signalrService.sendMessage('us1', this.messageText);
+        this.signalrService.sendMessage(this.messageText);
         this.messageText = '';
       });
   }
