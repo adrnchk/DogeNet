@@ -11,5 +11,5 @@ namespace DogeNet.BLL.Features.Messages.SendMessage
     using System.Threading.Tasks;
     using MediatR;
 
-    public record SendMessageCommand(SendMessageModel model) : IRequest;
+    public record SendMessageCommand(SendMessageModel model) : IRequest<int>;
 }

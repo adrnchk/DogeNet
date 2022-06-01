@@ -18,6 +18,7 @@ namespace DogeNet.WebApi
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http.Connections;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -94,7 +95,8 @@ namespace DogeNet.WebApi
 
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
+                options.AddPolicy(
+                    "CorsPolicy",
                     builder => builder
                         .AllowAnyMethod()
                         .AllowAnyHeader()
@@ -103,6 +105,7 @@ namespace DogeNet.WebApi
                     );
             });
             services.AddSignalR();
+            services.AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>());
 
             services.AddControllers(options => options.Filters.Add<ValidationFilterMiddleware>())
                 .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true)
@@ -129,6 +132,8 @@ namespace DogeNet.WebApi
 
             app.UseCors("CorsPolicy");
 
+            app.UseRouting();
+
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -136,7 +141,12 @@ namespace DogeNet.WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<CommunicationHub>("/chat");
+                endpoints.MapHub<CommunicationHub>("/chat", options =>
+                {
+                    options.Transports =
+                    HttpTransportType.WebSockets |
+                    HttpTransportType.LongPolling;
+                });
             });
         }
     }

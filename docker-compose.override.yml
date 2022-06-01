@@ -4,10 +4,10 @@ services:
   dogenet.webapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=https://+:7001;http://+:7000
     ports:
-      - "7000:80"
-      - "7001:443"
+      - "7000:7000"
+      - "7001:7001"
       
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro

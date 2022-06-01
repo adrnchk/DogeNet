@@ -5,7 +5,9 @@ services:
     image: ${DOCKER_REGISTRY-}dogenetwebapi
     build:
       context: .
-      dockerfile: DogeNet.WebApi/Dockerfile    
+      dockerfile: DogeNet.WebApi/Dockerfile          
+    links:
+      - dogenet.identityserver
 
   dogenet.identityserver:
     image: ${DOCKER_REGISTRY-}dogenetidentityserver

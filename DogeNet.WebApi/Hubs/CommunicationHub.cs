@@ -11,51 +11,71 @@ namespace DogeNet.WebApi.Hubs
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
 
-    [Authorize]
-    public class CommunicationHub : Hub<ICommunicationHub>
+    public class CommunicationHub : Hub
     {
-        private const string DefaultGroupName = "General";
-        private readonly ChatManager chatManager;
+        private readonly string _botUser;
+        private readonly IDictionary<string, UserConnection> _connections;
 
-        public CommunicationHub(ChatManager chatManager)
-            => this.chatManager = chatManager;
-
-        public override async Task OnConnectedAsync()
+        public CommunicationHub(IDictionary<string, UserConnection> connections)
         {
-            var userName = this.Context.User?.Identity?.Name ?? "Anonymous";
-            var connectionId = this.Context.ConnectionId;
-            this.chatManager.ConnectUser(userName, connectionId);
-            await this.Groups.AddToGroupAsync(connectionId, DefaultGroupName);
-            await this.UpdateUsersAsync();
-            await base.OnConnectedAsync();
+            _botUser = "MyChat Bot";
+            _connections = connections;
         }
 
-        public override async Task OnDisconnectedAsync(Exception? exception)
+        public override Task OnDisconnectedAsync(Exception exception)
         {
-            var isUserRemoved = this.chatManager.DisconnectUser(this.Context.ConnectionId);
-            if (!isUserRemoved)
+            if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
-                await base.OnDisconnectedAsync(exception);
+                _connections.Remove(Context.ConnectionId);
+                Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", _botUser, $"{userConnection.User} has left");
+                SendUsersConnected(userConnection.Room);
             }
 
-            await this.Groups.RemoveFromGroupAsync(this.Context.ConnectionId, DefaultGroupName);
-            await this.UpdateUsersAsync();
-            await base.OnDisconnectedAsync(exception);
+            return base.OnDisconnectedAsync(exception);
         }
 
-        public async Task UpdateUsersAsync()
+        public async Task JoinRoom(UserConnection userConnection)
         {
-            var users = this.chatManager.Users.Select(x => x.UserName).ToList();
-            await this.Clients.All.UpdateUsersAsync(users);
+            await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.Room);
+
+            _connections[Context.ConnectionId] = userConnection;
+
+            await Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", _botUser, $"{userConnection.User} has joined {userConnection.Room}");
+
+            await SendUsersConnected(userConnection.Room);
         }
 
-        public async Task SendMessageAsync(string userName, string message) =>
-            await this.Clients.All.SendMessageAsync(userName, message);
+        public async Task SendMessage(string message)
+        {
+            if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
+            {
+                await Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", userConnection.User, message);
+            }
+        }
 
-        public async Task EditMessageAsync(string userName, int messageId, string message) =>
-             await this.Clients.All.EditMessageAsync(userName, messageId, message);
+        public async Task DeleteMessage(int id, string message)
+        {
+            if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
+            {
+                await Clients.Group(userConnection.Room).SendAsync("DeletedMessage", id, userConnection.User, message);
+            }
+        }
 
-        public async Task DeleteMessageAsync(string userName, int messageId) =>
-            await this.Clients.All.DeleteMessageAsync(userName, messageId);
+        public async Task EditMessage(int id, string message)
+        {
+            if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
+            {
+                await this.Clients.Group(userConnection.Room).SendAsync("EditedMessage", id, userConnection.User, message);
+            }
+        }
+
+        public Task SendUsersConnected(string room)
+        {
+            var users = _connections.Values
+                .Where(c => c.Room == room)
+                .Select(c => c.User);
+
+            return this.Clients.Group(room).SendAsync("UsersInRoom", users);
+        }
     }
 }

@@ -57,7 +57,7 @@ export class ChatBoxComponent implements OnInit {
     this.messagesService
       .apiMessagesSendMessagePost({ body: this.message })
       .subscribe((res) => {
-        this.signalrService.sendMessage('us1', this.messageText);
+        this.signalrService.sendMessage(this.messageText);
         this.messageText = '';
       });
   }
