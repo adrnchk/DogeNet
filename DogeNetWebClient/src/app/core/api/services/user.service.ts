@@ -111,6 +111,93 @@ export class UserService extends BaseService {
   }
 
   /**
+   * Path part for operation apiUserGetUserByIdentityIdGet
+   */
+  static readonly ApiUserGetUserByIdentityIdGetPath = '/api/User/GetUserByIdentity/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiUserGetUserByIdentityIdGet$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiUserGetUserByIdentityIdGet$Plain$Response(params: {
+    id: string;
+  }): Observable<StrictHttpResponse<AccountDetailsModel>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UserService.ApiUserGetUserByIdentityIdGetPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: 'text/plain'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<AccountDetailsModel>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiUserGetUserByIdentityIdGet$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiUserGetUserByIdentityIdGet$Plain(params: {
+    id: string;
+  }): Observable<AccountDetailsModel> {
+
+    return this.apiUserGetUserByIdentityIdGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<AccountDetailsModel>) => r.body as AccountDetailsModel)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiUserGetUserByIdentityIdGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiUserGetUserByIdentityIdGet$Json$Response(params: {
+    id: string;
+  }): Observable<StrictHttpResponse<AccountDetailsModel>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UserService.ApiUserGetUserByIdentityIdGetPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<AccountDetailsModel>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiUserGetUserByIdentityIdGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiUserGetUserByIdentityIdGet$Json(params: {
+    id: string;
+  }): Observable<AccountDetailsModel> {
+
+    return this.apiUserGetUserByIdentityIdGet$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<AccountDetailsModel>) => r.body as AccountDetailsModel)
+    );
+  }
+
+  /**
    * Path part for operation apiUserChangeUserInfoPut
    */
   static readonly ApiUserChangeUserInfoPutPath = '/api/User/ChangeUserInfo';

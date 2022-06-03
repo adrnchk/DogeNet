@@ -5,7 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { ConversationService } from './services/conversation.service';
+import { FriendService } from './services/friend.service';
+import { GroupService } from './services/group.service';
 import { MessagesService } from './services/messages.service';
+import { PostService } from './services/post.service';
 import { UserService } from './services/user.service';
 
 /**
@@ -17,7 +20,10 @@ import { UserService } from './services/user.service';
   declarations: [],
   providers: [
     ConversationService,
+    FriendService,
+    GroupService,
     MessagesService,
+    PostService,
     UserService,
     ApiConfiguration
   ],

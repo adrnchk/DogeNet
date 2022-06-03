@@ -9,14 +9,14 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { EditMessageModel } from '../models/edit-message-model';
-import { MessagesDetailsModel } from '../models/messages-details-model';
-import { SendMessageModel } from '../models/send-message-model';
+import { CreatePostModel } from '../models/create-post-model';
+import { EditPostModel } from '../models/edit-post-model';
+import { PostDetailsModel } from '../models/post-details-model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MessagesService extends BaseService {
+export class PostService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -25,21 +25,21 @@ export class MessagesService extends BaseService {
   }
 
   /**
-   * Path part for operation apiMessagesGetMessagesIdGet
+   * Path part for operation apiPostGetPostByIdIdGet
    */
-  static readonly ApiMessagesGetMessagesIdGetPath = '/api/Messages/GetMessages/{id}';
+  static readonly ApiPostGetPostByIdIdGetPath = '/api/Post/GetPostById/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesGetMessagesIdGet$Plain()` instead.
+   * To access only the response body, use `apiPostGetPostByIdIdGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesGetMessagesIdGet$Plain$Response(params: {
+  apiPostGetPostByIdIdGet$Plain$Response(params: {
     id: number;
-  }): Observable<StrictHttpResponse<Array<MessagesDetailsModel>>> {
+  }): Observable<StrictHttpResponse<PostDetailsModel>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesGetMessagesIdGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, PostService.ApiPostGetPostByIdIdGetPath, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -50,37 +50,37 @@ export class MessagesService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<MessagesDetailsModel>>;
+        return r as StrictHttpResponse<PostDetailsModel>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesGetMessagesIdGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiPostGetPostByIdIdGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesGetMessagesIdGet$Plain(params: {
+  apiPostGetPostByIdIdGet$Plain(params: {
     id: number;
-  }): Observable<Array<MessagesDetailsModel>> {
+  }): Observable<PostDetailsModel> {
 
-    return this.apiMessagesGetMessagesIdGet$Plain$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<MessagesDetailsModel>>) => r.body as Array<MessagesDetailsModel>)
+    return this.apiPostGetPostByIdIdGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<PostDetailsModel>) => r.body as PostDetailsModel)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesGetMessagesIdGet$Json()` instead.
+   * To access only the response body, use `apiPostGetPostByIdIdGet$Json()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesGetMessagesIdGet$Json$Response(params: {
+  apiPostGetPostByIdIdGet$Json$Response(params: {
     id: number;
-  }): Observable<StrictHttpResponse<Array<MessagesDetailsModel>>> {
+  }): Observable<StrictHttpResponse<PostDetailsModel>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesGetMessagesIdGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, PostService.ApiPostGetPostByIdIdGetPath, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -91,42 +91,42 @@ export class MessagesService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<MessagesDetailsModel>>;
+        return r as StrictHttpResponse<PostDetailsModel>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesGetMessagesIdGet$Json$Response()` instead.
+   * To access the full response (for headers, for example), `apiPostGetPostByIdIdGet$Json$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesGetMessagesIdGet$Json(params: {
+  apiPostGetPostByIdIdGet$Json(params: {
     id: number;
-  }): Observable<Array<MessagesDetailsModel>> {
+  }): Observable<PostDetailsModel> {
 
-    return this.apiMessagesGetMessagesIdGet$Json$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<MessagesDetailsModel>>) => r.body as Array<MessagesDetailsModel>)
+    return this.apiPostGetPostByIdIdGet$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<PostDetailsModel>) => r.body as PostDetailsModel)
     );
   }
 
   /**
-   * Path part for operation apiMessagesSendMessagePost
+   * Path part for operation apiPostCreatePostPost
    */
-  static readonly ApiMessagesSendMessagePostPath = '/api/Messages/SendMessage';
+  static readonly ApiPostCreatePostPostPath = '/api/Post/CreatePost';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesSendMessagePost()` instead.
+   * To access only the response body, use `apiPostCreatePostPost()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesSendMessagePost$Response(params?: {
-    body?: SendMessageModel
+  apiPostCreatePostPost$Response(params?: {
+    body?: CreatePostModel
   }): Observable<StrictHttpResponse<void>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesSendMessagePostPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, PostService.ApiPostCreatePostPostPath, 'post');
     if (params) {
       rb.body(params.body, 'application/*+json');
     }
@@ -144,36 +144,36 @@ export class MessagesService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesSendMessagePost$Response()` instead.
+   * To access the full response (for headers, for example), `apiPostCreatePostPost$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesSendMessagePost(params?: {
-    body?: SendMessageModel
+  apiPostCreatePostPost(params?: {
+    body?: CreatePostModel
   }): Observable<void> {
 
-    return this.apiMessagesSendMessagePost$Response(params).pipe(
+    return this.apiPostCreatePostPost$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 
   /**
-   * Path part for operation apiMessagesEditMessageIdPut
+   * Path part for operation apiPostEditPostIdPut
    */
-  static readonly ApiMessagesEditMessageIdPutPath = '/api/Messages/EditMessage/{id}';
+  static readonly ApiPostEditPostIdPutPath = '/api/Post/EditPost/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesEditMessageIdPut$Plain()` instead.
+   * To access only the response body, use `apiPostEditPostIdPut$Plain()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesEditMessageIdPut$Plain$Response(params: {
+  apiPostEditPostIdPut$Plain$Response(params: {
     id: string;
-    body?: EditMessageModel
-  }): Observable<StrictHttpResponse<MessagesDetailsModel>> {
+    body?: EditPostModel
+  }): Observable<StrictHttpResponse<PostDetailsModel>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesEditMessageIdPutPath, 'put');
+    const rb = new RequestBuilder(this.rootUrl, PostService.ApiPostEditPostIdPutPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
@@ -185,39 +185,39 @@ export class MessagesService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MessagesDetailsModel>;
+        return r as StrictHttpResponse<PostDetailsModel>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesEditMessageIdPut$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiPostEditPostIdPut$Plain$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesEditMessageIdPut$Plain(params: {
+  apiPostEditPostIdPut$Plain(params: {
     id: string;
-    body?: EditMessageModel
-  }): Observable<MessagesDetailsModel> {
+    body?: EditPostModel
+  }): Observable<PostDetailsModel> {
 
-    return this.apiMessagesEditMessageIdPut$Plain$Response(params).pipe(
-      map((r: StrictHttpResponse<MessagesDetailsModel>) => r.body as MessagesDetailsModel)
+    return this.apiPostEditPostIdPut$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<PostDetailsModel>) => r.body as PostDetailsModel)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesEditMessageIdPut$Json()` instead.
+   * To access only the response body, use `apiPostEditPostIdPut$Json()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesEditMessageIdPut$Json$Response(params: {
+  apiPostEditPostIdPut$Json$Response(params: {
     id: string;
-    body?: EditMessageModel
-  }): Observable<StrictHttpResponse<MessagesDetailsModel>> {
+    body?: EditPostModel
+  }): Observable<StrictHttpResponse<PostDetailsModel>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesEditMessageIdPutPath, 'put');
+    const rb = new RequestBuilder(this.rootUrl, PostService.ApiPostEditPostIdPutPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
@@ -229,43 +229,43 @@ export class MessagesService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MessagesDetailsModel>;
+        return r as StrictHttpResponse<PostDetailsModel>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesEditMessageIdPut$Json$Response()` instead.
+   * To access the full response (for headers, for example), `apiPostEditPostIdPut$Json$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesEditMessageIdPut$Json(params: {
+  apiPostEditPostIdPut$Json(params: {
     id: string;
-    body?: EditMessageModel
-  }): Observable<MessagesDetailsModel> {
+    body?: EditPostModel
+  }): Observable<PostDetailsModel> {
 
-    return this.apiMessagesEditMessageIdPut$Json$Response(params).pipe(
-      map((r: StrictHttpResponse<MessagesDetailsModel>) => r.body as MessagesDetailsModel)
+    return this.apiPostEditPostIdPut$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<PostDetailsModel>) => r.body as PostDetailsModel)
     );
   }
 
   /**
-   * Path part for operation apiMessagesDeleteMessageIdDelete
+   * Path part for operation apiPostDeletePostIdDelete
    */
-  static readonly ApiMessagesDeleteMessageIdDeletePath = '/api/Messages/DeleteMessage/{id}';
+  static readonly ApiPostDeletePostIdDeletePath = '/api/Post/DeletePost/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesDeleteMessageIdDelete()` instead.
+   * To access only the response body, use `apiPostDeletePostIdDelete()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesDeleteMessageIdDelete$Response(params: {
+  apiPostDeletePostIdDelete$Response(params: {
     id: number;
   }): Observable<StrictHttpResponse<void>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesDeleteMessageIdDeletePath, 'delete');
+    const rb = new RequestBuilder(this.rootUrl, PostService.ApiPostDeletePostIdDeletePath, 'delete');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -283,15 +283,15 @@ export class MessagesService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesDeleteMessageIdDelete$Response()` instead.
+   * To access the full response (for headers, for example), `apiPostDeletePostIdDelete$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesDeleteMessageIdDelete(params: {
+  apiPostDeletePostIdDelete(params: {
     id: number;
   }): Observable<void> {
 
-    return this.apiMessagesDeleteMessageIdDelete$Response(params).pipe(
+    return this.apiPostDeletePostIdDelete$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

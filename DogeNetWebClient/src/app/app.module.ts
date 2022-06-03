@@ -21,6 +21,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { AppEffects } from './app.effects';
+import { metaReducers, reducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -54,9 +56,18 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
         logLevel: LogLevel.Debug,
       },
     }),
-    StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictActionImmutability: true,
+        strictStateImmutability: true,
+      },
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([AppEffects]),
     StoreRouterConnectingModule.forRoot(),
   ],
   providers: [
