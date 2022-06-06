@@ -3,9 +3,9 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AccountDetailsModel } from 'src/app/core/api/models';
 import { UserService } from 'src/app/core/api/services';
-import { UserState } from 'src/app/reducers/user-info/user-info.reducer';
-import { selectUser } from 'src/app/selectors/user-info/user-info.selectors';
-import * as UserActions from 'src/app/actions/user-info/user-info.actions';
+import { UserState } from 'src/app/reducers/user-info.reducer';
+import { selectUser } from 'src/app/selectors/user-info.selectors';
+import * as UserActions from 'src/app/actions/user-info.actions';
 
 @Component({
   selector: 'app-profile',

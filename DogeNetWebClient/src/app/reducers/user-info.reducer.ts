@@ -1,25 +1,10 @@
 import { Action } from '@ngrx/store';
-import * as UserActions from 'src/app/actions/user-info/user-info.actions';
+import * as UserActions from 'src/app/actions/user-info.actions';
 import { AccountDetailsModel } from 'src/app/core/api/models';
 
 export interface UserState {
   info: AccountDetailsModel;
 }
-// export interface UserInfo {
-//   id: number;
-//   userName: string;
-//   identityId: string;
-//   firstName: string;
-//   lastName: string;
-//   title: string;
-//   createdAt: string;
-//   updatedAt: string;
-//   statusId: number;
-//   avatarImg: string;
-//   coverImg: string;
-//   cityId: number;
-//   bio: string;
-// }
 
 const initialState: UserState = {
   info: {
@@ -41,7 +26,10 @@ const initialState: UserState = {
 
 export const userNode = 'user';
 
-export const userReducer = (state = initialState, action: UserActions.All) => {
+export const userReducer = (
+  state = initialState,
+  action: UserActions.All
+): UserState => {
   switch (action.type) {
     case UserActions.SET_USER_INFO:
       return { ...state, info: action.payload };

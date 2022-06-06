@@ -1,19 +1,29 @@
-import { ActionReducerMap, MetaReducer } from '@ngrx/store';
-import * as UserActions from 'src/app/actions/user-info/user-info.actions';
+import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 import {
-  userNode,
-  userReducer,
-  UserState,
-} from './user-info/user-info.reducer';
+  conversationsNode,
+  conversationsReducer,
+  ConversationsState,
+} from './conversations.reducer';
+import {
+  messagesNode,
+  messagesReducer,
+  MessagesState,
+} from './messages.reducer';
+import { userNode, userReducer, UserState } from './user-info.reducer';
 
 export interface State {
   [userNode]: UserState;
+  [conversationsNode]: ConversationsState;
+  [messagesNode]: MessagesState;
 }
 
-export const reducers: ActionReducerMap<State, UserActions.All> = {
+export const reducers: ActionReducerMap<State, any> = {
   [userNode]: userReducer,
+  [conversationsNode]: conversationsReducer,
+  [messagesNode]: messagesReducer,
 };
 
-export const metaReducers: MetaReducer<State, UserActions.All>[] =
-  !environment.production ? [] : [];
+export const metaReducers: MetaReducer<State, any>[] = !environment.production
+  ? []
+  : [];

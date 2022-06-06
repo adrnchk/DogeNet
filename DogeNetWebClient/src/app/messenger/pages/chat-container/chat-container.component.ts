@@ -3,6 +3,15 @@ import { ConversationService } from 'src/app/core/api/services';
 import { ConversationDetailsModel } from 'src/app/core/api/models/conversation-details-model';
 import { HttpHeaders } from '@angular/common/http';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { ConversationsState } from 'src/app/reducers/conversations.reducer';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { selectConversations } from 'src/app/selectors/conversations.selectors';
+import * as ConversationActions from 'src/app/actions/conversation.actions';
+import { SignalrService } from 'src/app/core/services/signalr.service';
+import { selectUser } from 'src/app/selectors/user-info.selectors';
+import { UserState } from 'src/app/reducers/user-info.reducer';
+import { AccountDetailsModel } from 'src/app/core/api/models';
 
 @Component({
   selector: 'app-chat-container',
@@ -11,28 +20,24 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
   providers: [ConversationService],
 })
 export class ChatContainerComponent implements OnInit {
+  public items$: Observable<ConversationDetailsModel[]> =
+    this.conversationStore.pipe(select(selectConversations));
   constructor(
     private conversationService: ConversationService,
-    public oidcSecurityService: OidcSecurityService
+    public oidcSecurityService: OidcSecurityService,
+    public signalrService: SignalrService,
+    private conversationStore: Store<ConversationsState>
   ) {}
-  items: ConversationDetailsModel[] = [];
 
-  //Not forget to replace '1' with userID
   ngOnInit(): void {
     this.conversationService.rootUrl = 'https://localhost:7001';
 
-    const token = this.oidcSecurityService
-      .getAccessToken()
-      .subscribe((token) => {
-        const httpOptions = {
-          headers: new HttpHeaders({
-            Authorization: 'Bearer ' + token,
-          }),
-        };
-      });
-
     this.conversationService
       .apiConversationGetConversationsIdGet$Json({ id: 1 })
-      .subscribe((list) => (this.items = list));
+      .subscribe((list) => {
+        this.conversationStore.dispatch(
+          new ConversationActions.SetConversations(list)
+        );
+      });
   }
 }
