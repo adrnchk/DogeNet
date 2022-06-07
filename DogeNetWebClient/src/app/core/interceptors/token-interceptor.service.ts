@@ -18,13 +18,10 @@ export class TokenInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    let tokenResult = '';
-    const res = this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      tokenResult = token ?? '';
-    });
+    let token = localStorage.getItem('AccessToken');
     let tokenizedReq = req.clone({
       setHeaders: {
-        Authorization: 'Bearer ' + tokenResult,
+        Authorization: 'Bearer ' + token,
       },
     });
     return next.handle(tokenizedReq);

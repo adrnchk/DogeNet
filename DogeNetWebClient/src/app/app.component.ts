@@ -34,6 +34,9 @@ export class AppComponent implements OnInit {
   login() {
     this.userService.rootUrl = 'https://localhost:7001';
     this.oidcSecurityService.authorize();
+    const res = this.oidcSecurityService.getAccessToken().subscribe((token) => {
+      localStorage.setItem('AccessToken', token);
+    });
     this.oidcSecurityService.getUserData().subscribe((data) => {
       this.userService
         .apiUserGetUserByIdentityIdGet$Json({ id: data.sub })
