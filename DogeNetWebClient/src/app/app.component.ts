@@ -43,10 +43,5 @@ export class AppComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.oidcSecurityService.logoff();
-    this.store.dispatch(UserActions.ClearUserInfo());
-  }
-
   title = 'DogeNetWebClient';
 }
