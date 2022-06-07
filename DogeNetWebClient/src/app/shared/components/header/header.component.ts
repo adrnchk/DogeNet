@@ -7,6 +7,7 @@ import { SignalrService } from 'src/app/core/services/signalr.service';
 import { selectUser } from 'src/app/store/selectors/user-info.selectors';
 import { UserState } from 'src/app/store/states/UserState';
 import * as UserActions from 'src/app/store/actions/user-info.actions';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -20,13 +21,13 @@ export class HeaderComponent implements OnInit {
   constructor(
     private store: Store<UserState>,
     public oidcSecurityService: OidcSecurityService,
-    public signalrService: SignalrService
+    public signalrService: SignalrService,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {}
 
   logout() {
-    this.oidcSecurityService.logoff();
-    this.store.dispatch(UserActions.ClearUserInfo());
+    this.authService.logout();
   }
 }

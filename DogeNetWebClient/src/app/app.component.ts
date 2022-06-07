@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { selectUser } from './store/selectors/user-info.selectors';
 import { AccountDetailsModel } from './core/api/models';
 import { UserState } from './store/states/UserState';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,8 @@ export class AppComponent implements OnInit {
     public oidcSecurityService: OidcSecurityService,
     public signalrService: SignalrService,
     private userService: UserService,
-    private store: Store<UserState>
+    private store: Store<UserState>,
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -32,18 +34,7 @@ export class AppComponent implements OnInit {
   }
 
   login() {
-    this.userService.rootUrl = 'https://localhost:7001';
-    this.oidcSecurityService.authorize();
-    const res = this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      localStorage.setItem('AccessToken', token);
-    });
-    this.oidcSecurityService.getUserData().subscribe((data) => {
-      this.userService
-        .apiUserGetUserByIdentityIdGet$Json({ id: data.sub })
-        .subscribe((res) => {
-          this.store.dispatch(UserActions.SetUserInfo({ payload: res }));
-        });
-    });
+    this.authService.login();
   }
 
   title = 'DogeNetWebClient';
