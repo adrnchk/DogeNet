@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AccountDetailsModel } from 'src/app/core/api/models';
-import { UserState } from 'src/app/reducers/user-info.reducer';
-import { selectUser } from 'src/app/selectors/user-info.selectors';
-import * as UserActions from 'src/app/actions/user-info.actions';
+import { selectUser } from 'src/app/store/selectors/user-info.selectors';
+import { UserState } from 'src/app/store/states/UserState';
 
 @Component({
   selector: 'app-header',

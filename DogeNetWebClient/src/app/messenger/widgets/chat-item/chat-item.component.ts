@@ -5,11 +5,11 @@ import {
 } from 'src/app/core/api/models';
 import { RouterLink } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { selectUser } from 'src/app/selectors/user-info.selectors';
+import { selectUser } from 'src/app/store/selectors/user-info.selectors';
 import { Observable } from 'rxjs';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { SignalrService } from 'src/app/core/services/signalr.service';
-import { UserState } from 'src/app/reducers/user-info.reducer';
+import { UserState } from 'src/app/store/states/UserState';
 
 @Component({
   selector: 'app-chat-item',

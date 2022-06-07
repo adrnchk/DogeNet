@@ -3,11 +3,11 @@ import { select, Store } from '@ngrx/store';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { UserService } from './core/api/services';
 import { SignalrService } from './core/services/signalr.service';
-import { UserState } from './reducers/user-info.reducer';
-import * as UserActions from 'src/app/actions/user-info.actions';
+import * as UserActions from 'src/app/store/actions/user-info.actions';
 import { Observable } from 'rxjs';
-import { selectUser } from './selectors/user-info.selectors';
+import { selectUser } from './store/selectors/user-info.selectors';
 import { AccountDetailsModel } from './core/api/models';
+import { UserState } from './store/states/UserState';
 
 @Component({
   selector: 'app-root',
@@ -38,14 +38,14 @@ export class AppComponent implements OnInit {
       this.userService
         .apiUserGetUserByIdentityIdGet$Json({ id: data.sub })
         .subscribe((res) => {
-          this.store.dispatch(new UserActions.SetUserInfo(res));
+          this.store.dispatch(UserActions.SetUserInfo({ payload: res }));
         });
     });
   }
 
   logout() {
     this.oidcSecurityService.logoff();
-    this.store.dispatch(new UserActions.ClearUserInfo());
+    this.store.dispatch(UserActions.ClearUserInfo());
   }
 
   title = 'DogeNetWebClient';

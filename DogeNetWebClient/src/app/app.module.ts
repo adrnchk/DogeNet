@@ -22,7 +22,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AppEffects } from './app.effects';
-import { metaReducers, reducers } from './reducers';
+import { metaReducers, reducers } from './store/reducers';
 
 @NgModule({
   declarations: [

@@ -1,8 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import {
-  conversationsNode,
-  ConversationsState,
-} from '../reducers/conversations.reducer';
+import { conversationsNode } from '../reducers/conversations.reducer';
+import { ConversationsState } from '../states/ConversationsState';
 
 export const selectConversationsFeature =
   createFeatureSelector<ConversationsState>(conversationsNode);

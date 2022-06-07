@@ -3,15 +3,14 @@ import { ConversationService } from 'src/app/core/api/services';
 import { ConversationDetailsModel } from 'src/app/core/api/models/conversation-details-model';
 import { HttpHeaders } from '@angular/common/http';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { ConversationsState } from 'src/app/reducers/conversations.reducer';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { selectConversations } from 'src/app/selectors/conversations.selectors';
-import * as ConversationActions from 'src/app/actions/conversation.actions';
+import { selectConversations } from 'src/app/store/selectors/conversations.selectors';
+import * as ConversationActions from 'src/app/store/actions/conversation.actions';
 import { SignalrService } from 'src/app/core/services/signalr.service';
-import { selectUser } from 'src/app/selectors/user-info.selectors';
-import { UserState } from 'src/app/reducers/user-info.reducer';
+import { selectUser } from 'src/app/store/selectors/user-info.selectors';
 import { AccountDetailsModel } from 'src/app/core/api/models';
+import { ConversationsState } from 'src/app/store/states/ConversationsState';
 
 @Component({
   selector: 'app-chat-container',
@@ -36,7 +35,7 @@ export class ChatContainerComponent implements OnInit {
       .apiConversationGetConversationsIdGet$Json({ id: 1 })
       .subscribe((list) => {
         this.conversationStore.dispatch(
-          new ConversationActions.SetConversations(list)
+          ConversationActions.SetConversations({ payload: list })
         );
       });
   }
