@@ -1,11 +1,6 @@
 import * as Actions from 'src/app/store/actions/conversation.actions';
-import { ConversationDetailsModel } from 'src/app/core/api/models';
-import { ConversationsState } from '../states/ConversationsState';
+import { initialState } from '../states/ConversationsState';
 import { createReducer, on } from '@ngrx/store';
-
-const initialState: ConversationsState = {
-  items: new Array<ConversationDetailsModel>(),
-};
 
 export const conversationsNode = 'conversations';
 

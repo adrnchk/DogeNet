@@ -22,7 +22,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AppEffects } from './app.effects';
-import { metaReducers, reducers } from './store/reducers';
+import { reducers } from './store/reducers';
 
 @NgModule({
   declarations: [
@@ -57,7 +57,6 @@ import { metaReducers, reducers } from './store/reducers';
       },
     }),
     StoreModule.forRoot(reducers, {
-      metaReducers,
       runtimeChecks: {
         strictActionImmutability: true,
         strictStateImmutability: true,

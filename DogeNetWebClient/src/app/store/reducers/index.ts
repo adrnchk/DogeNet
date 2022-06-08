@@ -21,7 +21,3 @@ export const reducers: ActionReducerMap<State, any> = {
   [conversationsNode]: conversationsReducer,
   [messagesNode]: messagesReducer,
 };
-
-export const metaReducers: MetaReducer<State, any>[] = !environment.production
-  ? []
-  : [];
