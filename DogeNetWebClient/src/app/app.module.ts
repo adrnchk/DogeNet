@@ -23,6 +23,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AppEffects } from './app.effects';
 import { metaReducers, reducers } from './store/reducers';
+import { AuthGuard } from './core/guards/auth.guard';
+import { LoginComponent } from './shared/components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { metaReducers, reducers } from './store/reducers';
     NotFoundComponent,
     NavBarComponent,
     HeaderComponent,
+    LoginComponent,
   ],
   imports: [
     MessengerModule,
@@ -76,6 +79,7 @@ import { metaReducers, reducers } from './store/reducers';
       useClass: TokenInterceptorService,
       multi: true,
     },
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

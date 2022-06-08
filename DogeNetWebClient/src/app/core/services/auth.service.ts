@@ -19,15 +19,14 @@ export class AuthService {
     public oidcSecurityService: OidcSecurityService,
     private userService: UserService,
     private store: Store<UserState>
-  ) {}
+  ) {
+    this.setToken();
+  }
   ngOnInit() {
     this.userService.rootUrl = 'https://localhost:7001';
     this.oidcSecurityService
       .checkAuth()
       .subscribe(({ isAuthenticated, userData }) => {});
-    this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      localStorage.setItem('AccessToken', token);
-    });
     this.oidcSecurityService.getUserData().subscribe((data) => {
       this.userService
         .apiUserGetUserByIdentityIdGet$Json({ id: data.sub })
@@ -36,16 +35,25 @@ export class AuthService {
         });
     });
   }
+  setToken() {
+    this.oidcSecurityService.getAccessToken().subscribe((token) => {
+      localStorage.removeItem('AccessToken');
+      localStorage.setItem('AccessToken', token);
+    });
+  }
 
   login() {
     this.oidcSecurityService.authorize();
+    this.setToken();
   }
 
   logout() {
-    this.oidcSecurityService.logoff();
     this.store.dispatch(UserActions.ClearUserInfo());
+    localStorage.removeItem('AccessToken');
+    this.oidcSecurityService.logoff();
   }
+
   loggedIn() {
-    return !!localStorage.getItem('AccessToken');
+    return localStorage.getItem('AccessToken') !== null ? true : false;
   }
 }
