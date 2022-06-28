@@ -1,107 +1,103 @@
-<div class="profile-container">
-  <div class="col">
-    <div class="avatar-section">
-      <div class="card">
-        <div class="avatar-img">
-          <img
-            [src]="
-              user.avatarImg ??
-              'https://vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png'
-            "
-            alt="no_avatar"
-          />
-        </div>
-        <button class="change-avatar" mat-stroked-button color="primary">
-          Change avatar
-        </button>
-      </div>
-    </div>
-    <div class="profile-actions">
-      <div class="card">
-        <mat-selection-list class="nav-bar" [multiple]="false">
-          <a routerLink="/profile/edit"
-            ><mat-list-option>
-              <p>Edit profile info</p>
-            </mat-list-option></a
-          >
-          <a routerLink="/profile"
-            ><mat-list-option>
-              <p>Change privacy policy</p>
-            </mat-list-option></a
-          >
-          <a routerLink="/profile"
-            ><mat-list-option>
-              <p>Manage blacklist</p>
-            </mat-list-option></a
-          >
-        </mat-selection-list>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="user-info-section">
-      <div class="card">
-        <div class="user-info">
-          <p class="user-name">{{ user.firstName }} {{ user.lastName }}</p>
-          <p class="user-title">{{ user.title }}</p>
-
-          <mat-divider></mat-divider>
-          <br />
-          <div class="city">
-            <p>City:</p>
-            <span>Seoul</span>
-          </div>
-          <span>Bio:</span>
-          <p class="bio">{{ user.bio }}</p>
-          <mat-divider></mat-divider>
-          <div class="metrics">
-            <div class="column">
-              <p class="number">13 423</p>
-              <p>folowers</p>
-            </div>
-            <div class="column">
-              <p class="number">1 813</p>
-              <p>friends</p>
-            </div>
-            <div class="column">
-              <p class="number">12</p>
-              <p>posts</p>
-            </div>
-            <div class="column">
-              <p class="number">1</p>
-              <p>groups</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="post-section">
-      <div class="create-post">
+<div *ngIf="user$ | async as user">
+  <div class="profile-container">
+    <div class="col">
+      <div class="avatar-section">
         <div class="card">
-          <div class="textarea">
-            <textarea
-              #message
-              matInput
-              placeholder="Share what you think..."
-              autofocus
-            ></textarea>
-            <button class="send-button" mat-fab color="primary">
-              <mat-icon>send</mat-icon>
-            </button>
+          <div class="avatar-img">
+            <img [src]="user.avatarImg" alt="no_avatar" />
           </div>
-          <div class="row">
-            <div class="attach">
-              <mat-icon>keyboard_voice</mat-icon>
-              <mat-icon class="material-icons-outlined"
-                >add_photo_alternate</mat-icon
-              >
-              <mat-icon>attach_file</mat-icon>
+          <button class="change-avatar" mat-stroked-button color="primary">
+            Change avatar
+          </button>
+        </div>
+      </div>
+      <div class="profile-actions">
+        <div class="card">
+          <mat-selection-list class="nav-bar" [multiple]="false">
+            <a routerLink="/profile/edit"
+              ><mat-list-option>
+                <p>Edit profile info</p>
+              </mat-list-option></a
+            >
+            <a routerLink="/profile"
+              ><mat-list-option>
+                <p>Change privacy policy</p>
+              </mat-list-option></a
+            >
+            <a routerLink="/profile"
+              ><mat-list-option>
+                <p>Manage blacklist</p>
+              </mat-list-option></a
+            >
+          </mat-selection-list>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="user-info-section">
+        <div class="card">
+          <div class="user-info">
+            <p class="user-name">{{ user.firstName }} {{ user.lastName }}</p>
+            <p class="user-title">{{ user.title }}</p>
+
+            <mat-divider></mat-divider>
+            <br />
+            <div class="city">
+              <p>City:</p>
+              <span>Seoul</span>
             </div>
-            <span class="tip">600 symbols left</span>
+            <span>Bio:</span>
+            <p class="bio">{{ user.bio }}</p>
+            <mat-divider></mat-divider>
+            <div class="metrics">
+              <div class="column">
+                <p class="number">13 423</p>
+                <p>folowers</p>
+              </div>
+              <div class="column">
+                <p class="number">1 813</p>
+                <p>friends</p>
+              </div>
+              <div class="column">
+                <p class="number">12</p>
+                <p>posts</p>
+              </div>
+              <div class="column">
+                <p class="number">1</p>
+                <p>groups</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="post"></div>
+      <div class="post-section">
+        <div class="create-post">
+          <div class="card">
+            <div class="textarea">
+              <textarea
+                #message
+                matInput
+                placeholder="Share what you think..."
+                autofocus
+              ></textarea>
+              <button class="send-button" mat-fab color="primary">
+                <mat-icon>send</mat-icon>
+              </button>
+            </div>
+            <div class="row">
+              <div class="attach">
+                <mat-icon>keyboard_voice</mat-icon>
+                <mat-icon class="material-icons-outlined"
+                  >add_photo_alternate</mat-icon
+                >
+                <mat-icon>attach_file</mat-icon>
+              </div>
+              <span class="tip">600 symbols left</span>
+            </div>
+          </div>
+        </div>
+        <div class="post"></div>
+      </div>
     </div>
   </div>
 </div>

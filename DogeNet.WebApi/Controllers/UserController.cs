@@ -5,8 +5,8 @@
 namespace DogeNet.WebApi.Controllers
 {
     using System.Threading.Tasks;
-    using DogeNet.BLL.Features.Account;
     using DogeNet.BLL.Features.Account.GetAccount;
+    using DogeNet.BLL.Features.Account.GetAccountByIdentity;
     using DogeNet.BLL.Features.Account.UpdateAccount;
     using DogeNet.DAL;
     using MediatR;
@@ -24,6 +24,10 @@ namespace DogeNet.WebApi.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200, Type = typeof(AccountDetailsModel))]
         public async Task<IActionResult> GetUserById(int id) => this.Ok(await this.mediator.Send(new GetAccountQuery(id)));
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(AccountDetailsModel))]
+        public async Task<IActionResult> GetUserByIdentity(string id) => this.Ok(await this.mediator.Send(new GetAccountByIdentityQuery(id)));
 
         [HttpPut]
         [ProducesResponseType(200, Type = typeof(AccountDetailsModel))]

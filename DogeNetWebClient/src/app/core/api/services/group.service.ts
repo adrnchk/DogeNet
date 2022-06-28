@@ -9,14 +9,14 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { EditMessageModel } from '../models/edit-message-model';
-import { MessagesDetailsModel } from '../models/messages-details-model';
-import { SendMessageModel } from '../models/send-message-model';
+import { CreateGroupModel } from '../models/create-group-model';
+import { EditGroupModel } from '../models/edit-group-model';
+import { GroupDetailsModel } from '../models/group-details-model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MessagesService extends BaseService {
+export class GroupService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -25,21 +25,21 @@ export class MessagesService extends BaseService {
   }
 
   /**
-   * Path part for operation apiMessagesGetMessagesIdGet
+   * Path part for operation apiGroupGetGroupByIdIdGet
    */
-  static readonly ApiMessagesGetMessagesIdGetPath = '/api/Messages/GetMessages/{id}';
+  static readonly ApiGroupGetGroupByIdIdGetPath = '/api/Group/GetGroupById/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesGetMessagesIdGet$Plain()` instead.
+   * To access only the response body, use `apiGroupGetGroupByIdIdGet$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesGetMessagesIdGet$Plain$Response(params: {
+  apiGroupGetGroupByIdIdGet$Plain$Response(params: {
     id: number;
-  }): Observable<StrictHttpResponse<Array<MessagesDetailsModel>>> {
+  }): Observable<StrictHttpResponse<GroupDetailsModel>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesGetMessagesIdGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, GroupService.ApiGroupGetGroupByIdIdGetPath, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -50,37 +50,37 @@ export class MessagesService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<MessagesDetailsModel>>;
+        return r as StrictHttpResponse<GroupDetailsModel>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesGetMessagesIdGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiGroupGetGroupByIdIdGet$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesGetMessagesIdGet$Plain(params: {
+  apiGroupGetGroupByIdIdGet$Plain(params: {
     id: number;
-  }): Observable<Array<MessagesDetailsModel>> {
+  }): Observable<GroupDetailsModel> {
 
-    return this.apiMessagesGetMessagesIdGet$Plain$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<MessagesDetailsModel>>) => r.body as Array<MessagesDetailsModel>)
+    return this.apiGroupGetGroupByIdIdGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<GroupDetailsModel>) => r.body as GroupDetailsModel)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesGetMessagesIdGet$Json()` instead.
+   * To access only the response body, use `apiGroupGetGroupByIdIdGet$Json()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesGetMessagesIdGet$Json$Response(params: {
+  apiGroupGetGroupByIdIdGet$Json$Response(params: {
     id: number;
-  }): Observable<StrictHttpResponse<Array<MessagesDetailsModel>>> {
+  }): Observable<StrictHttpResponse<GroupDetailsModel>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesGetMessagesIdGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, GroupService.ApiGroupGetGroupByIdIdGetPath, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -91,42 +91,42 @@ export class MessagesService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<MessagesDetailsModel>>;
+        return r as StrictHttpResponse<GroupDetailsModel>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesGetMessagesIdGet$Json$Response()` instead.
+   * To access the full response (for headers, for example), `apiGroupGetGroupByIdIdGet$Json$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesGetMessagesIdGet$Json(params: {
+  apiGroupGetGroupByIdIdGet$Json(params: {
     id: number;
-  }): Observable<Array<MessagesDetailsModel>> {
+  }): Observable<GroupDetailsModel> {
 
-    return this.apiMessagesGetMessagesIdGet$Json$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<MessagesDetailsModel>>) => r.body as Array<MessagesDetailsModel>)
+    return this.apiGroupGetGroupByIdIdGet$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<GroupDetailsModel>) => r.body as GroupDetailsModel)
     );
   }
 
   /**
-   * Path part for operation apiMessagesSendMessagePost
+   * Path part for operation apiGroupCreateGroupPost
    */
-  static readonly ApiMessagesSendMessagePostPath = '/api/Messages/SendMessage';
+  static readonly ApiGroupCreateGroupPostPath = '/api/Group/CreateGroup';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesSendMessagePost()` instead.
+   * To access only the response body, use `apiGroupCreateGroupPost()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesSendMessagePost$Response(params?: {
-    body?: SendMessageModel
+  apiGroupCreateGroupPost$Response(params?: {
+    body?: CreateGroupModel
   }): Observable<StrictHttpResponse<void>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesSendMessagePostPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, GroupService.ApiGroupCreateGroupPostPath, 'post');
     if (params) {
       rb.body(params.body, 'application/*+json');
     }
@@ -144,36 +144,36 @@ export class MessagesService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesSendMessagePost$Response()` instead.
+   * To access the full response (for headers, for example), `apiGroupCreateGroupPost$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesSendMessagePost(params?: {
-    body?: SendMessageModel
+  apiGroupCreateGroupPost(params?: {
+    body?: CreateGroupModel
   }): Observable<void> {
 
-    return this.apiMessagesSendMessagePost$Response(params).pipe(
+    return this.apiGroupCreateGroupPost$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 
   /**
-   * Path part for operation apiMessagesEditMessageIdPut
+   * Path part for operation apiGroupEditGroupIdPut
    */
-  static readonly ApiMessagesEditMessageIdPutPath = '/api/Messages/EditMessage/{id}';
+  static readonly ApiGroupEditGroupIdPutPath = '/api/Group/EditGroup/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesEditMessageIdPut$Plain()` instead.
+   * To access only the response body, use `apiGroupEditGroupIdPut$Plain()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesEditMessageIdPut$Plain$Response(params: {
+  apiGroupEditGroupIdPut$Plain$Response(params: {
     id: string;
-    body?: EditMessageModel
-  }): Observable<StrictHttpResponse<MessagesDetailsModel>> {
+    body?: EditGroupModel
+  }): Observable<StrictHttpResponse<GroupDetailsModel>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesEditMessageIdPutPath, 'put');
+    const rb = new RequestBuilder(this.rootUrl, GroupService.ApiGroupEditGroupIdPutPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
@@ -185,39 +185,39 @@ export class MessagesService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MessagesDetailsModel>;
+        return r as StrictHttpResponse<GroupDetailsModel>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesEditMessageIdPut$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiGroupEditGroupIdPut$Plain$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesEditMessageIdPut$Plain(params: {
+  apiGroupEditGroupIdPut$Plain(params: {
     id: string;
-    body?: EditMessageModel
-  }): Observable<MessagesDetailsModel> {
+    body?: EditGroupModel
+  }): Observable<GroupDetailsModel> {
 
-    return this.apiMessagesEditMessageIdPut$Plain$Response(params).pipe(
-      map((r: StrictHttpResponse<MessagesDetailsModel>) => r.body as MessagesDetailsModel)
+    return this.apiGroupEditGroupIdPut$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<GroupDetailsModel>) => r.body as GroupDetailsModel)
     );
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesEditMessageIdPut$Json()` instead.
+   * To access only the response body, use `apiGroupEditGroupIdPut$Json()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesEditMessageIdPut$Json$Response(params: {
+  apiGroupEditGroupIdPut$Json$Response(params: {
     id: string;
-    body?: EditMessageModel
-  }): Observable<StrictHttpResponse<MessagesDetailsModel>> {
+    body?: EditGroupModel
+  }): Observable<StrictHttpResponse<GroupDetailsModel>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesEditMessageIdPutPath, 'put');
+    const rb = new RequestBuilder(this.rootUrl, GroupService.ApiGroupEditGroupIdPutPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/*+json');
@@ -229,43 +229,43 @@ export class MessagesService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<MessagesDetailsModel>;
+        return r as StrictHttpResponse<GroupDetailsModel>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesEditMessageIdPut$Json$Response()` instead.
+   * To access the full response (for headers, for example), `apiGroupEditGroupIdPut$Json$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesEditMessageIdPut$Json(params: {
+  apiGroupEditGroupIdPut$Json(params: {
     id: string;
-    body?: EditMessageModel
-  }): Observable<MessagesDetailsModel> {
+    body?: EditGroupModel
+  }): Observable<GroupDetailsModel> {
 
-    return this.apiMessagesEditMessageIdPut$Json$Response(params).pipe(
-      map((r: StrictHttpResponse<MessagesDetailsModel>) => r.body as MessagesDetailsModel)
+    return this.apiGroupEditGroupIdPut$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<GroupDetailsModel>) => r.body as GroupDetailsModel)
     );
   }
 
   /**
-   * Path part for operation apiMessagesDeleteMessageIdDelete
+   * Path part for operation apiGroupDeleteGroupIdDelete
    */
-  static readonly ApiMessagesDeleteMessageIdDeletePath = '/api/Messages/DeleteMessage/{id}';
+  static readonly ApiGroupDeleteGroupIdDeletePath = '/api/Group/DeleteGroup/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesDeleteMessageIdDelete()` instead.
+   * To access only the response body, use `apiGroupDeleteGroupIdDelete()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesDeleteMessageIdDelete$Response(params: {
+  apiGroupDeleteGroupIdDelete$Response(params: {
     id: number;
   }): Observable<StrictHttpResponse<void>> {
 
-    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesDeleteMessageIdDeletePath, 'delete');
+    const rb = new RequestBuilder(this.rootUrl, GroupService.ApiGroupDeleteGroupIdDeletePath, 'delete');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -283,15 +283,15 @@ export class MessagesService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesDeleteMessageIdDelete$Response()` instead.
+   * To access the full response (for headers, for example), `apiGroupDeleteGroupIdDelete$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiMessagesDeleteMessageIdDelete(params: {
+  apiGroupDeleteGroupIdDelete(params: {
     id: number;
   }): Observable<void> {
 
-    return this.apiMessagesDeleteMessageIdDelete$Response(params).pipe(
+    return this.apiGroupDeleteGroupIdDelete$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

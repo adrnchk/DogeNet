@@ -1,6 +1,8 @@
-<div class="chat-container">
-  <app-chat-item
-    *ngFor="let item of items"
-    [conversationInfo]="item"
-  ></app-chat-item>
+<div *ngIf="items$ | async as items">
+  <div class="chat-container">
+    <app-chat-item
+      *ngFor="let item of items"
+      [conversationInfo]="item"
+    ></app-chat-item>
+  </div>
 </div>
