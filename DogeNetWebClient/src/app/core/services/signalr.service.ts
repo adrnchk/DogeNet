@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SignalrService {
-  constructor(public oidcSecurityService: OidcSecurityService) {}
+  constructor(public oidcSecurityService: OAuthService) {}
 
   connection: signalR.HubConnection | undefined;
   joinRoom = async (token: string, user: string, room: string) => {

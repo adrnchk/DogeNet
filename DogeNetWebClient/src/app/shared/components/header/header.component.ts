@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable } from 'rxjs';
 import { AccountDetailsModel } from 'src/app/core/api/models';
 import { SignalrService } from 'src/app/core/services/signalr.service';
@@ -20,7 +19,6 @@ export class HeaderComponent implements OnInit {
   );
   constructor(
     private store: Store<UserState>,
-    public oidcSecurityService: OidcSecurityService,
     public signalrService: SignalrService,
     public authService: AuthService
   ) {}

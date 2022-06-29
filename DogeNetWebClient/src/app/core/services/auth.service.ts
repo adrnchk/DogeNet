@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import * as UserActions from 'src/app/store/actions/user-info.actions';
-import { Observable } from 'rxjs';
+import { Observable, timeout } from 'rxjs';
 import { UserState } from 'src/app/store/states/UserState';
 import { select, Store } from '@ngrx/store';
 import { UserService } from '../api/services';
 import { AccountDetailsModel } from '../api/models';
 import { selectUser } from 'src/app/store/selectors/user-info.selectors';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { authCodeFlowConfig } from 'src/app/shared/configs/OAuthConfig';
 
 @Injectable({
   providedIn: 'root',
@@ -16,44 +17,25 @@ export class AuthService {
     select(selectUser)
   );
   constructor(
-    public oidcSecurityService: OidcSecurityService,
+    public oauthService: OAuthService,
     private userService: UserService,
     private store: Store<UserState>
   ) {
-    this.setToken();
-  }
-  ngOnInit() {
-    this.userService.rootUrl = 'https://localhost:7001';
-    this.oidcSecurityService
-      .checkAuth()
-      .subscribe(({ isAuthenticated, userData }) => {});
-    this.oidcSecurityService.getUserData().subscribe((data) => {
-      this.userService
-        .apiUserGetUserByIdentityIdGet$Json({ id: data.sub })
-        .subscribe((res) => {
-          this.store.dispatch(UserActions.SetUserInfo({ payload: res }));
-        });
-    });
-  }
-  setToken() {
-    this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      localStorage.removeItem('AccessToken');
-      localStorage.setItem('AccessToken', token);
-    });
+    this.oauthService.configure(authCodeFlowConfig);
+    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+    this.oauthService.setupAutomaticSilentRefresh();
   }
 
   login() {
-    this.oidcSecurityService.authorize();
-    this.setToken();
+    this.oauthService.initCodeFlow();
   }
 
   logout() {
     this.store.dispatch(UserActions.ClearUserInfo());
-    localStorage.removeItem('AccessToken');
-    this.oidcSecurityService.logoff();
+    this.oauthService.revokeTokenAndLogout();
   }
 
-  loggedIn() {
-    return localStorage.getItem('AccessToken') !== null ? true : false;
+  get loggedIn() {
+    return this.oauthService.hasValidAccessToken();
   }
 }
