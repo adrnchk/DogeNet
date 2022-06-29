@@ -1,10 +1,6 @@
 import * as Actions from 'src/app/store/actions/messages.action';
-import { Dialogue, MessagesState } from '../states/MessagesState';
+import { Dialogue, initialState, MessagesState } from '../states/MessagesState';
 import { createReducer, on } from '@ngrx/store';
-
-const initialState: MessagesState = {
-  items: new Array<Dialogue>(),
-};
 
 export const messagesNode = 'messages';
 

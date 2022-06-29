@@ -21,10 +21,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AppEffects } from './app.effects';
-import { metaReducers, reducers } from './store/reducers';
-import { AuthGuard } from './core/guards/auth.guard';
-import { LoginComponent } from './shared/components/login/login.component';
-import { OAuthModule } from 'angular-oauth2-oidc';
+import { reducers } from './store/reducers';
 
 @NgModule({
   declarations: [
@@ -53,7 +50,6 @@ import { OAuthModule } from 'angular-oauth2-oidc';
       },
     }),
     StoreModule.forRoot(reducers, {
-      metaReducers,
       runtimeChecks: {
         strictActionImmutability: true,
         strictStateImmutability: true,

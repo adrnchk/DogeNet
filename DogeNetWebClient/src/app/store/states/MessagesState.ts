@@ -7,3 +7,7 @@ export interface Dialogue {
   id: number;
   messages: MessagesDetailsModel[];
 }
+
+export const initialState: MessagesState = {
+  items: new Array<Dialogue>(),
+};

@@ -1,25 +1,6 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as Actions from 'src/app/store/actions/user-info.actions';
-import { AccountDetailsModel } from 'src/app/core/api/models';
-import { UserState } from '../states/UserState';
-
-const initialState: UserState = {
-  info: {
-    avatarImg: '',
-    bio: '',
-    cityId: 0,
-    coverImg: '',
-    createdAt: '',
-    firstName: '',
-    id: 0,
-    identityId: '',
-    lastName: '',
-    statusId: 0,
-    title: '',
-    updatedAt: '',
-    userName: '',
-  },
-};
+import { initialState } from '../states/UserState';
 
 export const userNode = 'user';
 
