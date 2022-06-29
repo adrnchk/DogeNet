@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ConversationService } from 'src/app/core/api/services';
 import { ConversationDetailsModel } from 'src/app/core/api/models/conversation-details-model';
 import { HttpHeaders } from '@angular/common/http';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { selectConversations } from 'src/app/store/selectors/conversations.selectors';
@@ -11,6 +10,7 @@ import { SignalrService } from 'src/app/core/services/signalr.service';
 import { selectUser } from 'src/app/store/selectors/user-info.selectors';
 import { AccountDetailsModel } from 'src/app/core/api/models';
 import { ConversationsState } from 'src/app/store/states/ConversationsState';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-chat-container',
@@ -23,7 +23,7 @@ export class ChatContainerComponent implements OnInit {
     this.conversationStore.pipe(select(selectConversations));
   constructor(
     private conversationService: ConversationService,
-    public oidcSecurityService: OidcSecurityService,
+    public oidcSecurityService: OAuthService,
     public signalrService: SignalrService,
     private conversationStore: Store<ConversationsState>
   ) {}

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import {
   HttpEvent,
   HttpHandler,
@@ -7,24 +6,21 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SelectMultipleControlValueAccessor } from '@angular/forms';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TokenInterceptorService implements HttpInterceptor {
-  constructor(public oidcSecurityService: OidcSecurityService) {}
+  constructor(public oidcSecurityService: OAuthService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    let tokenResult = '';
-    const res = this.oidcSecurityService.getAccessToken().subscribe((token) => {
-      tokenResult = token ?? '';
-    });
+    let token = this.oidcSecurityService.getAccessToken();
     let tokenizedReq = req.clone({
       setHeaders: {
-        Authorization: 'Bearer ' + tokenResult,
+        Authorization: 'Bearer ' + token,
       },
     });
     return next.handle(tokenizedReq);

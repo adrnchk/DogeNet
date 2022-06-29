@@ -7,9 +7,9 @@ import { RouterLink } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { selectUser } from 'src/app/store/selectors/user-info.selectors';
 import { Observable } from 'rxjs';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { SignalrService } from 'src/app/core/services/signalr.service';
 import { UserState } from 'src/app/store/states/UserState';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-chat-item',
@@ -23,19 +23,18 @@ export class ChatItemComponent implements OnInit {
   );
   constructor(
     private userStore: Store<UserState>,
-    public oidcSecurityService: OidcSecurityService,
+    public oidcSecurityService: OAuthService,
     public signalrService: SignalrService
   ) {}
 
   onClick(): void {
     this.user$.subscribe((data) => {
-      this.oidcSecurityService.getAccessToken().subscribe((token) => {
-        this.signalrService.joinRoom(
-          token,
-          data.userName ?? 'no_username',
-          this.conversationInfo.title ?? 'no_roomname'
-        );
-      });
+      let token = this.oidcSecurityService.getAccessToken();
+      this.signalrService.joinRoom(
+        token,
+        data.userName ?? 'no_username',
+        this.conversationInfo.title ?? 'no_roomname'
+      );
     });
   }
 

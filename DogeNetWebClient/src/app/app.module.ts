@@ -14,7 +14,6 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { ProfileModule } from './profile/profile.module';
-import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { TokenInterceptorService } from './core/interceptors/token-interceptor.service';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -30,6 +29,7 @@ import { reducers } from './store/reducers';
     NotFoundComponent,
     NavBarComponent,
     HeaderComponent,
+    LoginComponent,
   ],
   imports: [
     MessengerModule,
@@ -43,17 +43,10 @@ import { reducers } from './store/reducers';
     MatBadgeModule,
     MatIconModule,
     MatToolbarModule,
-    AuthModule.forRoot({
-      config: {
-        authority: 'https://localhost:10001',
-        redirectUrl: window.location.origin,
-        postLogoutRedirectUri: window.location.origin,
-        clientId: 'DogeNet-web-app',
-        scope: 'openid profile DogeNetWebAPI',
-        responseType: 'code',
-        silentRenew: true,
-        useRefreshToken: true,
-        logLevel: LogLevel.Debug,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['https://localhost:7001/'],
+        sendAccessToken: true,
       },
     }),
     StoreModule.forRoot(reducers, {
@@ -75,6 +68,7 @@ import { reducers } from './store/reducers';
       useClass: TokenInterceptorService,
       multi: true,
     },
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
