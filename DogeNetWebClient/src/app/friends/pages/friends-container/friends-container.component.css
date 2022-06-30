@@ -1,0 +1,24 @@
+.search-panel {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f3effa;
+
+  box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+  -webkit-box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+  -moz-box-shadow: 0px 0px 24px 6px rgba(0, 0, 0, 0.16);
+}
+.row {
+  display: flex;
+}
+.search {
+  width: 85%;
+}
+.tags {
+  color: rgba(0, 0, 0, 0.54);
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 44%;
+  height: 35px;
+  text-align: center;
+  margin-right: 10px;
+}

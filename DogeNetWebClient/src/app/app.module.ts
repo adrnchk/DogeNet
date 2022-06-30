@@ -22,6 +22,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AppEffects } from './app.effects';
 import { reducers } from './store/reducers';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { LoginComponent } from './shared/components/login/login.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { FriendsModule } from './friends/friends.module';
+import { GroupsModule } from './groups/groups.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,9 @@ import { reducers } from './store/reducers';
     LoginComponent,
   ],
   imports: [
+    GroupsModule,
     MessengerModule,
+    FriendsModule,
     MatMenuModule,
     ProfileModule,
     MatListModule,

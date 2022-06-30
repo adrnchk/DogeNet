@@ -1,0 +1,25 @@
+<mat-card class="search-panel">
+  <div class="row">
+    <mat-form-field class="search" appearance="fill">
+      <mat-label>Search groups</mat-label>
+      <input matInput />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      style="width: 90px; height: 40px; margin-top: 6px; margin-left: 15px"
+      class="button"
+      color="primary"
+    >
+      Search
+    </button>
+  </div>
+  <div class="row">
+    <button mat-flat-button class="tags">My</button>
+    <button mat-flat-button class="tags">Popular</button>
+    <button mat-flat-button class="tags">Recomendation</button>
+  </div>
+</mat-card>
+
+<app-groups-list></app-groups-list>
