@@ -1,5 +1,5 @@
-<div *ngIf="authService.loggedIn">
-  <mat-selection-list class="nav-bar" [multiple]="false">
+<div class="nav-bar" *ngIf="authService.loggedIn">
+  <mat-selection-list [multiple]="false">
     <a routerLink="/messages"
       ><mat-list-option>
         <div class="nav-item">
@@ -48,7 +48,7 @@
         </div>
       </mat-list-option></a
     >
-    <a routerLink="/messages"
+    <a routerLink="/groups"
       ><mat-list-option>
         <div class="nav-item">
           <mat-icon>groups</mat-icon>
@@ -60,7 +60,7 @@
         </div>
       </mat-list-option></a
     >
-    <a routerLink="/messages"
+    <a routerLink="/friends"
       ><mat-list-option>
         <div class="nav-item">
           <mat-icon>people_alt</mat-icon>
@@ -84,5 +84,5 @@
         </div>
       </mat-list-option></a
     >
-  </mat-selection-list>  
+  </mat-selection-list>
 </div>

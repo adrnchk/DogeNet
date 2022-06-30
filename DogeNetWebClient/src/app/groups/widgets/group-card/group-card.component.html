@@ -1,0 +1,19 @@
+<div class="group-wrap">
+  <mat-card class="group-card">
+    <img
+      mat-card-image
+      [src]="groupInfo.coverImg"
+      alt="No avatar"
+    /><mat-card-header>
+      <mat-card-title
+        ><a routerLink="/groups">{{ groupInfo.name }}</a></mat-card-title
+      >
+      <mat-card-subtitle class="subtitle">14 245 members</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions class="actions">
+      <button class="button" mat-stroked-button color="primary">
+        Join the group
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
