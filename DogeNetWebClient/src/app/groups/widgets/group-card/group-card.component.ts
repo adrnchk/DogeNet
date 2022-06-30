@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { GroupDetailsModel } from 'src/app/core/api/models';
 
 @Component({
   selector: 'app-group-card',
   templateUrl: './group-card.component.html',
-  styleUrls: ['./group-card.component.css']
+  styleUrls: ['./group-card.component.css'],
 })
-export class GroupCardComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class GroupCardComponent {
+  @Input() groupInfo: GroupDetailsModel = {};
 }

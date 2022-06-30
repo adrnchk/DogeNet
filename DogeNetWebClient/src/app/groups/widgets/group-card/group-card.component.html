@@ -2,22 +2,18 @@
   <mat-card class="group-card">
     <img
       mat-card-image
-      src="https://wallpaperaccess.com/full/767277.jpg"
+      [src]="groupInfo.coverImg"
       alt="No avatar"
     /><mat-card-header>
       <mat-card-title
-        ><a routerLink="/groups">Free Pizza for kids</a></mat-card-title
+        ><a routerLink="/groups">{{ groupInfo.name }}</a></mat-card-title
       >
       <mat-card-subtitle style="margin-bottom: 0px"
         >14 245 members</mat-card-subtitle
       >
     </mat-card-header>
     <mat-card-actions class="actions">
-      <button
-        style="width: 100%; margin-bottom: 3px"
-        mat-stroked-button
-        color="primary"
-      >
+      <button class="button" mat-stroked-button color="primary">
         Join the group
       </button>
     </mat-card-actions>

@@ -22,3 +22,9 @@
   text-align: center;
   margin-right: 10px;
 }
+.button {
+  width: 90px;
+  height: 40px;
+  margin-top: 6px;
+  margin-left: 15px;
+}

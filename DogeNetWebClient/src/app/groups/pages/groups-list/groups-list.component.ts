@@ -1,15 +1,102 @@
 import { Component, OnInit } from '@angular/core';
+import { GroupDetailsModel } from 'src/app/core/api/models';
 
 @Component({
   selector: 'app-groups-list',
   templateUrl: './groups-list.component.html',
-  styleUrls: ['./groups-list.component.css']
+  styleUrls: ['./groups-list.component.css'],
 })
-export class GroupsListComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class GroupsListComponent {
+  public items: GroupDetailsModel[] = [
+    {
+      id: 0,
+      name: 'Geyshin Infarkt Official Group',
+      title: 'Paimon inc.',
+      creatorId: 0,
+      createdAt: '2022-06-30T12:48:28.982Z',
+      avatarImg: 'string',
+      coverImg: 'https://wallpapercave.com/wp/wp7487062.jpg',
+      statusId: 0,
+    },
+    {
+      id: 0,
+      name: 'Geyshin Infarkt Official Group',
+      title: 'Paimon inc.',
+      creatorId: 0,
+      createdAt: '2022-06-30T12:48:28.982Z',
+      avatarImg: 'string',
+      coverImg: 'https://wallpapercave.com/wp/wp7487062.jpg',
+      statusId: 0,
+    },
+    {
+      id: 0,
+      name: 'Geyshin Infarkt Official Group',
+      title: 'Paimon inc.',
+      creatorId: 0,
+      createdAt: '2022-06-30T12:48:28.982Z',
+      avatarImg: 'string',
+      coverImg: 'https://wallpapercave.com/wp/wp7487062.jpg',
+      statusId: 0,
+    },
+    {
+      id: 0,
+      name: 'Geyshin Infarkt Official Group',
+      title: 'Paimon inc.',
+      creatorId: 0,
+      createdAt: '2022-06-30T12:48:28.982Z',
+      avatarImg: 'string',
+      coverImg: 'https://wallpapercave.com/wp/wp7487062.jpg',
+      statusId: 0,
+    },
+    {
+      id: 0,
+      name: 'Geyshin Infarkt Official Group',
+      title: 'Paimon inc.',
+      creatorId: 0,
+      createdAt: '2022-06-30T12:48:28.982Z',
+      avatarImg: 'string',
+      coverImg: 'https://wallpapercave.com/wp/wp7487062.jpg',
+      statusId: 0,
+    },
+    {
+      id: 0,
+      name: 'Geyshin Infarkt Official Group',
+      title: 'Paimon inc.',
+      creatorId: 0,
+      createdAt: '2022-06-30T12:48:28.982Z',
+      avatarImg: 'string',
+      coverImg: 'https://wallpapercave.com/wp/wp7487062.jpg',
+      statusId: 0,
+    },
+    {
+      id: 0,
+      name: 'Geyshin Infarkt Official Group',
+      title: 'Paimon inc.',
+      creatorId: 0,
+      createdAt: '2022-06-30T12:48:28.982Z',
+      avatarImg: 'string',
+      coverImg: 'https://wallpapercave.com/wp/wp7487062.jpg',
+      statusId: 0,
+    },
+    {
+      id: 0,
+      name: 'Geyshin Infarkt Official Group',
+      title: 'Paimon inc.',
+      creatorId: 0,
+      createdAt: '2022-06-30T12:48:28.982Z',
+      avatarImg: 'string',
+      coverImg: 'https://wallpapercave.com/wp/wp7487062.jpg',
+      statusId: 0,
+    },
+    {
+      id: 0,
+      name: 'Geyshin Infarkt Official Group',
+      title: 'Paimon inc.',
+      creatorId: 0,
+      createdAt: '2022-06-30T12:48:28.982Z',
+      avatarImg: 'string',
+      coverImg: 'https://wallpapercave.com/wp/wp7487062.jpg',
+      statusId: 0,
+    },
+  ];
 }
