@@ -8,5 +8,4 @@ import { FriendsDetailsModel } from 'src/app/core/api/models';
 })
 export class FriendCardComponent {
   @Input() friendInfo: FriendsDetailsModel = {};
-  
 }

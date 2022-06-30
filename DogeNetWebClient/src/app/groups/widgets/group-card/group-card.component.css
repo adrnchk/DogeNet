@@ -13,6 +13,9 @@ img {
   width: 100%;
   margin-bottom: 3px;
 }
+.subtitle {
+  margin-bottom: 0px;
+}
 
 .group-card {
   width: 100%;
