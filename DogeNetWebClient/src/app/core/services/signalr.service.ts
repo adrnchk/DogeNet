@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
+import { Store } from '@ngrx/store';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { MessagesState } from 'src/app/store/states/MessagesState';
+import * as MessagesActions from 'src/app/store/actions/messages.action';
+import { MessagesDetailsModel } from '../api/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SignalrService {
-  constructor(public oidcSecurityService: OAuthService) {}
+  constructor(
+    public oidcSecurityService: OAuthService,
+    private messageStore: Store<MessagesState>
+  ) {}
 
   connection: signalR.HubConnection | undefined;
   joinRoom = async (token: string, user: string, room: string) => {
@@ -21,14 +28,20 @@ export class SignalrService {
         .build();
 
       connection.on('ReceiveMessage', (user, message) => {
+        this.messageStore.dispatch(MessagesActions.AddMessage({ message }));
         console.log('Received', user, message);
       });
-      connection.on('EditedMessage', (id, user, message) => {
-        console.log('Edited', id, user, message);
+      connection.on('EditedMessage', (user, message) => {
+        this.messageStore.dispatch(MessagesActions.EditMessage({ message }));
+        console.log('Edited', user, message);
       });
-      connection.on('DeletedMessage', (id, user, message) => {
-        console.log('Deleted', id, user, message);
-      });
+      connection.on(
+        'DeletedMessage',
+        (id, user, message: MessagesDetailsModel) => {
+          this.messageStore.dispatch(MessagesActions.DeleteMessage({ id }));
+          console.log('Deleted', user, message);
+        }
+      );
 
       connection.on('UsersInRoom', (users) => {
         console.log('user in room', user);
@@ -42,7 +55,7 @@ export class SignalrService {
     }
   };
 
-  sendMessage = async (message: string) => {
+  sendMessage = async (message: MessagesDetailsModel) => {
     try {
       await this.connection?.invoke('SendMessage', message);
     } catch (e) {
@@ -50,17 +63,17 @@ export class SignalrService {
     }
   };
 
-  editMessage = async (id: number, message: string) => {
+  editMessage = async (message: MessagesDetailsModel) => {
     try {
-      await this.connection?.invoke('EditMessage', id, message);
+      await this.connection?.invoke('EditMessage', message);
     } catch (e) {
       console.log(e);
     }
   };
 
-  deleteMessage = async (id: number, message: string) => {
+  deleteMessage = async (message: MessagesDetailsModel) => {
     try {
-      await this.connection?.invoke('DeleteMessage', id, message);
+      await this.connection?.invoke('DeleteMessage', message);
     } catch (e) {
       console.log(e);
     }

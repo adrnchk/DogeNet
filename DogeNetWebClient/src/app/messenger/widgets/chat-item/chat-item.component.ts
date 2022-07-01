@@ -28,8 +28,10 @@ export class ChatItemComponent implements OnInit {
   ) {}
 
   onClick(): void {
+    console.log('click');
     this.user$.subscribe((data) => {
       let token = this.oidcSecurityService.getAccessToken();
+      console.log(data.userName + ' joined ' + this.conversationInfo.title);
       this.signalrService.joinRoom(
         token,
         data.userName ?? 'no_username',

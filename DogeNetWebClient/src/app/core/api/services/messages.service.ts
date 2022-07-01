@@ -118,13 +118,13 @@ export class MessagesService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiMessagesSendMessagePost()` instead.
+   * To access only the response body, use `apiMessagesSendMessagePost$Plain()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesSendMessagePost$Response(params?: {
+  apiMessagesSendMessagePost$Plain$Response(params?: {
     body?: SendMessageModel
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<number>> {
 
     const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesSendMessagePostPath, 'post');
     if (params) {
@@ -133,27 +133,68 @@ export class MessagesService extends BaseService {
 
     return this.http.request(rb.build({
       responseType: 'text',
-      accept: '*/*'
+      accept: 'text/plain'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `apiMessagesSendMessagePost$Response()` instead.
+   * To access the full response (for headers, for example), `apiMessagesSendMessagePost$Plain$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiMessagesSendMessagePost(params?: {
+  apiMessagesSendMessagePost$Plain(params?: {
     body?: SendMessageModel
-  }): Observable<void> {
+  }): Observable<number> {
 
-    return this.apiMessagesSendMessagePost$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+    return this.apiMessagesSendMessagePost$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<number>) => r.body as number)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiMessagesSendMessagePost$Json()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiMessagesSendMessagePost$Json$Response(params?: {
+    body?: SendMessageModel
+  }): Observable<StrictHttpResponse<number>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MessagesService.ApiMessagesSendMessagePostPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiMessagesSendMessagePost$Json$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiMessagesSendMessagePost$Json(params?: {
+    body?: SendMessageModel
+  }): Observable<number> {
+
+    return this.apiMessagesSendMessagePost$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<number>) => r.body as number)
     );
   }
 

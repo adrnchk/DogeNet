@@ -50,12 +50,7 @@ import { GroupsModule } from './groups/groups.module';
     MatBadgeModule,
     MatIconModule,
     MatToolbarModule,
-    OAuthModule.forRoot({
-      resourceServer: {
-        allowedUrls: ['https://localhost:7001/'],
-        sendAccessToken: true,
-      },
-    }),
+    OAuthModule.forRoot(),
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictActionImmutability: true,

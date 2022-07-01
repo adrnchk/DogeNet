@@ -36,6 +36,7 @@ namespace DogeNet.WebApi.Controllers
             this.Ok(await this.mediator.Send(new GetMessagesQuery(id)));
 
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(int))]
         public async Task<IActionResult> SendMessage(SendMessageModel model) =>
             this.Ok(await this.mediator.Send(new SendMessageCommand(model)));
 

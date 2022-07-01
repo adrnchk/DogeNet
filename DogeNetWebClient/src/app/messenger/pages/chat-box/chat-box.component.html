@@ -8,8 +8,10 @@
       <div class="name-section">{{ conversationInfo.title }}</div>
     </div>
   </div>
-  <div class="messages-area">
-    <app-message *ngFor="let item of items" [message]="item"></app-message>
+  <div *ngIf="items$ | async as items">
+    <div class="messages-area">
+      <app-message *ngFor="let item of items" [message]="item"></app-message>
+    </div>
   </div>
   <div class="footer">
     <div class="textarea">

@@ -8,6 +8,7 @@ namespace DogeNet.WebApi.Hubs
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using DogeNet.BLL.Features.Messages.GetMessages;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
 
@@ -45,7 +46,7 @@ namespace DogeNet.WebApi.Hubs
             await SendUsersConnected(userConnection.Room);
         }
 
-        public async Task SendMessage(string message)
+        public async Task SendMessage(MessagesDetailsModel message)
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
@@ -53,19 +54,19 @@ namespace DogeNet.WebApi.Hubs
             }
         }
 
-        public async Task DeleteMessage(int id, string message)
+        public async Task DeleteMessage(MessagesDetailsModel message)
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
-                await Clients.Group(userConnection.Room).SendAsync("DeletedMessage", id, userConnection.User, message);
+                await Clients.Group(userConnection.Room).SendAsync("DeletedMessage",message.Id, userConnection.User, message);
             }
         }
 
-        public async Task EditMessage(int id, string message)
+        public async Task EditMessage(MessagesDetailsModel message)
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
-                await this.Clients.Group(userConnection.Room).SendAsync("EditedMessage", id, userConnection.User, message);
+                await this.Clients.Group(userConnection.Room).SendAsync("EditedMessage", userConnection.User, message);
             }
         }
 

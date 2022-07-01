@@ -1,10 +1,10 @@
 <div *ngIf="authService.loggedIn">
-  <div  *ngIf="user$ | async as user">
+  <div *ngIf="user$ | async as user">
     <p class="header">
       <mat-toolbar color="primary">
         <div class="logo-img">
           <img
-            src="https://key0.cc/images/small/2106869_aa4088b15f09b7a706311ed69a6bc6a1.png"
+            src="https://ouch-cdn2.icons8.com/KYLZfidJ2SspVlmIYQ7pej2FOOvsliGBOtYxTD7Q-P4/rs:fit:490:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvMzM4/L2M2MWFiODIxLTFj/ZTEtNDU0Yi1iMDk5/LTBjOTMyZjQwN2Fk/ZC5zdmc.png"
             alt="logo"
           />
         </div>
@@ -12,7 +12,7 @@
         <span class="example-spacer"></span>
         <span class="name">{{ user.firstName }} {{ user.lastName }}</span>
         <div class="avatar" [matMenuTriggerFor]="menu">
-          <img src="user.avatarImg" alt="no_avatar" />
+          <img [src]="user.avatarImg" alt="no_avatar" />
         </div>
         <mat-menu #menu="matMenu">
           <a routerLink="/profile" class="menu-item" mat-menu-item>
@@ -28,7 +28,7 @@
             <span>Help</span>
           </button>
           <button
-          (click)="logout()"
+            (click)="logout()"
             style="background-color: #ffdab9"
             class="menu-item"
             mat-menu-item
