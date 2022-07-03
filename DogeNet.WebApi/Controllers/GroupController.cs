@@ -5,11 +5,13 @@
 namespace DogeNet.WebApi.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using DogeNet.BLL.Features.Group.CreateGroup;
     using DogeNet.BLL.Features.Group.DeleteGroup;
     using DogeNet.BLL.Features.Group.EditGroup;
     using DogeNet.BLL.Features.Group.GetGroup;
+    using DogeNet.BLL.Features.Group.GetUserGroups;
     using DogeNet.DAL;
     using MediatR;
     using Microsoft.AspNetCore.Authorization;
@@ -29,6 +31,11 @@ namespace DogeNet.WebApi.Controllers
         [ProducesResponseType(200, Type = typeof(GroupDetailsModel))]
         public async Task<IActionResult> GetGroupById(int id) =>
             this.Ok(await this.mediator.Send(new GetGroupQuery(id)));
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(List<GroupDetailsModel>))]
+        public async Task<IActionResult> GetUserGroups(int id) =>
+            this.Ok(await this.mediator.Send(new GetUserGroupsQuery(id)));
 
         [HttpPost]
         public async Task<IActionResult> CreateGroup(CreateGroupModel model) =>
