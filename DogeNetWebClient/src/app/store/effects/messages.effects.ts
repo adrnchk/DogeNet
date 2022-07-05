@@ -29,9 +29,8 @@ export class MessagesEffects {
     conversationId: number
   ): Observable<MessagesDetailsModel[]> => {
     this.messagesService.rootUrl = 'https://localhost:7001';
-    console.log(conversationId);
     return this.messagesService.apiMessagesGetMessagesIdGet$Json({
-      id: conversationId,
+      id: conversationId ?? 1,
     });
   };
 

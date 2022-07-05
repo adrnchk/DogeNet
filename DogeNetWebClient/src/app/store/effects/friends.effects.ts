@@ -30,7 +30,6 @@ export class FriendsEffects {
     this.friendsService.rootUrl = 'https://localhost:7001';
     let userId = 0;
     this.user$.subscribe((state) => {
-      console.log(state.id);
       userId = state.id ?? 0;
     });
 

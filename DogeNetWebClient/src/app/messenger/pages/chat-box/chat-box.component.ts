@@ -71,7 +71,6 @@ export class ChatBoxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.id);
     this.messagesStore.dispatch(MessagesActions.SetMessages(this.id));
   }
   sendMessage(): void {
