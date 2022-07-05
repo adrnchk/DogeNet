@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { filter, first, map, mergeMap, Observable, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import {
   AccountDetailsModel,
@@ -18,6 +18,8 @@ import { UserState } from 'src/app/store/states/UserState';
 import { MessagesState } from 'src/app/store/states/MessagesState';
 import * as MessagesActions from 'src/app/store/actions/messages.action';
 import { selectMessages } from 'src/app/store/selectors/messages.selector';
+import { ConversationsState } from 'src/app/store/states/ConversationsState';
+import { selectConversations } from 'src/app/store/selectors/conversations.selectors';
 
 @Component({
   selector: 'app-chat-box',
@@ -31,6 +33,7 @@ export class ChatBoxComponent implements OnInit {
     select(selectUser)
   );
   public items$: Observable<MessagesDetailsModel[]>;
+  public conversationInfo$: Observable<ConversationDetailsModel>;
 
   private routeSubscription: Subscription;
   id: any;
@@ -39,6 +42,7 @@ export class ChatBoxComponent implements OnInit {
 
   constructor(
     private userStore: Store<UserState>,
+    private conversationsStore: Store<ConversationsState>,
     private messagesStore: Store<MessagesState>,
     public signalrService: SignalrService,
     private messagesService: MessagesService,
@@ -56,24 +60,19 @@ export class ChatBoxComponent implements OnInit {
     this.messagesStore.dispatch(MessagesActions.ClearMessages());
 
     this.items$ = this.messagesStore.pipe(select(selectMessages));
-  }
-
-  items: MessagesDetailsModel[] = [];
-  conversationInfo: ConversationDetailsModel = {};
-
-  ngOnInit(): void {
-    this.messagesService.rootUrl = 'https://localhost:7001';
-    this.conversationsService.rootUrl = 'https://localhost:7001';
-    this.messagesService
-      .apiMessagesGetMessagesIdGet$Json({ id: this.id })
-      .subscribe((list) =>
-        this.messagesStore.dispatch(
-          MessagesActions.SetMessages({ messages: list })
+    this.conversationInfo$ = this.conversationsStore
+      .pipe(select(selectConversations))
+      .pipe(
+        map(
+          (processArray: ConversationDetailsModel[]) =>
+            processArray.filter((state) => state.id === this.id)[0]
         )
       );
-    this.conversationsService
-      .apiConversationGetConversationByIdIdGet$Json({ id: this.id })
-      .subscribe((res) => (this.conversationInfo = res));
+  }
+
+  ngOnInit(): void {
+    console.log(this.id);
+    this.messagesStore.dispatch(MessagesActions.SetMessages(this.id));
   }
   sendMessage(): void {
     this.message.text = this.messageText;
@@ -84,13 +83,7 @@ export class ChatBoxComponent implements OnInit {
         this.signalrService.sendMessage(this.message);
         this.messageText = '';
 
-        this.messagesService
-          .apiMessagesGetMessagesIdGet$Json({ id: this.id })
-          .subscribe((list) =>
-            this.messagesStore.dispatch(
-              MessagesActions.SetMessages({ messages: list })
-            )
-          );
+        this.messagesStore.dispatch(MessagesActions.SetMessages(this.id));
       });
   }
 }

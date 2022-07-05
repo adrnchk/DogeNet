@@ -31,15 +31,6 @@ export class GroupsListComponent {
     private userStore: Store<UserState>
   ) {}
   ngOnInit(): void {
-    this.groupsService.rootUrl = 'https://localhost:7001';
-
-    this.user$.subscribe((state) => {
-      state &&
-        this.groupsService
-          .apiGroupGetUserGroupsIdGet$Json({ id: state.id ?? 0 })
-          .subscribe((list) => {
-            this.groupStore.dispatch(GroupActions.SetGroups({ groups: list }));
-          });
-    });
+    this.groupStore.dispatch(GroupActions.SetGroups());
   }
 }

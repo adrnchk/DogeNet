@@ -27,6 +27,11 @@ import { LoginComponent } from './shared/components/login/login.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { FriendsModule } from './friends/friends.module';
 import { GroupsModule } from './groups/groups.module';
+import { UserEffects } from './store/effects/user_info.effects';
+import { FriendsEffects } from './store/effects/friends.effects';
+import { GroupsEffects } from './store/effects/groups.effects';
+import { ConversationsEffects } from './store/effects/conversations.effects';
+import { MessagesEffects } from './store/effects/messages.effects';
 
 @NgModule({
   declarations: [
@@ -61,7 +66,13 @@ import { GroupsModule } from './groups/groups.module';
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([
+      UserEffects,
+      FriendsEffects,
+      GroupsEffects,
+      ConversationsEffects,
+      MessagesEffects,
+    ]),
     StoreRouterConnectingModule.forRoot(),
   ],
   providers: [

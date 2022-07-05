@@ -31,6 +31,9 @@ export class SignalrService {
         this.messageStore.dispatch(MessagesActions.AddMessage({ message }));
         console.log('Received', user, message);
       });
+      connection.on('SystemMessage', (user, message) => {
+        console.log('System', user, message);
+      });
       connection.on('EditedMessage', (user, message) => {
         this.messageStore.dispatch(MessagesActions.EditMessage({ message }));
         console.log('Edited', user, message);

@@ -43,7 +43,6 @@ export class EditPersonalInfoComponent implements OnInit {
     this.userService
       .apiUserChangeUserInfoPut$Json({ body: this.newInfo })
       .subscribe((res) => {
-        console.log(res);
         this.router.navigate(['/profile']);
       });
   }

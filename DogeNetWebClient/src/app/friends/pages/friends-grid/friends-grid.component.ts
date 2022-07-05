@@ -31,17 +31,6 @@ export class FriendsGridComponent implements OnInit {
     private userStore: Store<UserState>
   ) {}
   ngOnInit(): void {
-    this.friendsService.rootUrl = 'https://localhost:7001';
-
-    this.user$.subscribe((state) => {
-      state &&
-        this.friendsService
-          .apiFriendGetFriendsIdGet$Json({ id: state.id ?? 0 })
-          .subscribe((list) => {
-            this.friendsStore.dispatch(
-              FriendsActions.SetFriends({ friends: list })
-            );
-          });
-    });
+    this.friendsStore.dispatch(FriendsActions.SetFriends());
   }
 }

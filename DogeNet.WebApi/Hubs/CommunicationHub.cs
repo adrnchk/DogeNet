@@ -28,7 +28,7 @@ namespace DogeNet.WebApi.Hubs
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
                 _connections.Remove(Context.ConnectionId);
-                Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", _botUser, $"{userConnection.User} has left");
+                Clients.Group(userConnection.Room).SendAsync("SystemMessage", _botUser, $"{userConnection.User} has left");
                 SendUsersConnected(userConnection.Room);
             }
 
@@ -41,7 +41,7 @@ namespace DogeNet.WebApi.Hubs
 
             _connections[Context.ConnectionId] = userConnection;
 
-            await Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", _botUser, $"{userConnection.User} has joined {userConnection.Room}");
+            await Clients.Group(userConnection.Room).SendAsync("SystemMessage", _botUser, $"{userConnection.User} has joined {userConnection.Room}");
 
             await SendUsersConnected(userConnection.Room);
         }

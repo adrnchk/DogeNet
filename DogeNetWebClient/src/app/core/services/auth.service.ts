@@ -19,7 +19,7 @@ export class AuthService {
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
     this.oauthService.setupAutomaticSilentRefresh();
     setTimeout(() => {
-      this.setUser();
+      this.store.dispatch(UserActions.SetUserInfo());
     }, 500);
   }
 
@@ -34,15 +34,5 @@ export class AuthService {
 
   get loggedIn() {
     return this.oauthService.hasValidAccessToken();
-  }
-
-  setUser() {
-    this.userService.rootUrl = 'https://localhost:7001';
-    let res: any = this.oauthService.getIdentityClaims();
-    this.userService
-      .apiUserGetUserByIdentityIdGet$Json({ id: res?.sub })
-      .subscribe((res) => {
-        this.store.dispatch(UserActions.SetUserInfo({ payload: res }));
-      });
   }
 }

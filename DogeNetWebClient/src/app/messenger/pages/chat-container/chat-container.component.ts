@@ -35,17 +35,6 @@ export class ChatContainerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.conversationService.rootUrl = 'https://localhost:7001';
-
-    this.user$.subscribe((state) => {
-      state &&
-        this.conversationService
-          .apiConversationGetConversationsIdGet$Json({ id: state.id ?? 0 })
-          .subscribe((list) => {
-            this.conversationStore.dispatch(
-              ConversationActions.SetConversations({ payload: list })
-            );
-          });
-    });
+    this.conversationStore.dispatch(ConversationActions.SetConversations());
   }
 }

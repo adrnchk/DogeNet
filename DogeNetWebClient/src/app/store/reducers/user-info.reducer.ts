@@ -6,7 +6,7 @@ export const userNode = 'user';
 
 export const userReducer = createReducer(
   initialState,
-  on(Actions.SetUserInfo, (state, { payload }) => ({
+  on(Actions.SetUserInfoSuccess, (state, { payload }) => ({
     ...state,
     info: payload,
   })),

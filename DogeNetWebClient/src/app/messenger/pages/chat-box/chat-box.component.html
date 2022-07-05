@@ -1,4 +1,7 @@
-<div class="chat-box-container">
+<div
+  *ngIf="conversationInfo$ | async as conversationInfo"
+  class="chat-box-container"
+>
   <div class="header">
     <div class="avatar-section">
       <div class="picture">

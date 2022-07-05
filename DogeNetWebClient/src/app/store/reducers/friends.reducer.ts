@@ -6,7 +6,7 @@ export const friendsNode = 'friends';
 
 export const friendsReducer = createReducer(
   initialState,
-  on(Actions.SetFriends, (state, { friends }) => ({
+  on(Actions.SetFriendsSuccess, (state, { friends }) => ({
     ...state,
     items: friends,
   })),

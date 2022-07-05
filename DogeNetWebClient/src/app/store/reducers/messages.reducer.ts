@@ -1,12 +1,12 @@
 import * as Actions from 'src/app/store/actions/messages.action';
-import { initialState, MessagesState } from '../states/MessagesState';
+import { initialState } from '../states/MessagesState';
 import { createReducer, on } from '@ngrx/store';
 
 export const messagesNode = 'messages';
 
 export const messagesReducer = createReducer(
   initialState,
-  on(Actions.SetMessages, (state, { messages }) => ({
+  on(Actions.SetMessagesSuccess, (state, { messages }) => ({
     ...state,
     items: messages,
   })),

@@ -6,7 +6,7 @@ export const groupsNode = 'groups';
 
 export const groupsReducer = createReducer(
   initialState,
-  on(Actions.SetGroups, (state, { groups }) => ({
+  on(Actions.SetGroupsSuccess, (state, { groups }) => ({
     ...state,
     items: groups,
   })),

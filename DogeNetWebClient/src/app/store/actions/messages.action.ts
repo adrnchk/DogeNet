@@ -3,6 +3,10 @@ import { MessagesDetailsModel } from 'src/app/core/api/models';
 
 export const SetMessages = createAction(
   '[Messages] Set_Messages',
+  props<{ conversationId: number }>()
+);
+export const SetMessagesSuccess = createAction(
+  '[Messages] Set_Messages_Success',
   props<{ messages: MessagesDetailsModel[] }>()
 );
 export const AddMessage = createAction(

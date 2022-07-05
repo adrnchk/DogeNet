@@ -49,7 +49,6 @@ export class MessageComponent implements OnInit {
         body: { messageId: this.message.id ?? 0, text: this.messageText },
       })
       .subscribe((res) => {
-        console.log(this.message);
         this.signalrService.editMessage({
           ...this.message,
           text: this.messageText,
