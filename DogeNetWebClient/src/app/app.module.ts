@@ -1,4 +1,8 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  NgModule,
+  CUSTOM_ELEMENTS_SCHEMA,
+  APP_INITIALIZER,
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,13 +24,18 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { AppEffects } from './app.effects';
 import { reducers } from './store/reducers';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginComponent } from './shared/components/login/login.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { FriendsModule } from './friends/friends.module';
 import { GroupsModule } from './groups/groups.module';
+import { UserEffects } from './store/effects/user_info.effects';
+import { FriendsEffects } from './store/effects/friends.effects';
+import { GroupsEffects } from './store/effects/groups.effects';
+import { ConversationsEffects } from './store/effects/conversations.effects';
+import { MessagesEffects } from './store/effects/messages.effects';
+import { JsonAppConfigService } from './core/services/json-app-config.service';
 
 @NgModule({
   declarations: [
@@ -37,25 +46,20 @@ import { GroupsModule } from './groups/groups.module';
     LoginComponent,
   ],
   imports: [
+    HttpClientModule,
     GroupsModule,
     MessengerModule,
     FriendsModule,
     MatMenuModule,
     ProfileModule,
     MatListModule,
-    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatBadgeModule,
     MatIconModule,
     MatToolbarModule,
-    OAuthModule.forRoot({
-      resourceServer: {
-        allowedUrls: ['https://localhost:7001/'],
-        sendAccessToken: true,
-      },
-    }),
+    OAuthModule.forRoot(),
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictActionImmutability: true,
@@ -66,10 +70,27 @@ import { GroupsModule } from './groups/groups.module';
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([
+      UserEffects,
+      FriendsEffects,
+      GroupsEffects,
+      ConversationsEffects,
+      MessagesEffects,
+    ]),
     StoreRouterConnectingModule.forRoot(),
   ],
   providers: [
+    HttpClientModule,
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [JsonAppConfigService],
+      useFactory: (appConfigService: JsonAppConfigService) => {
+        return () => {
+          return appConfigService.loadConfig();
+        };
+      },
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

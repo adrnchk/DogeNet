@@ -1,6 +1,6 @@
 <div class="group-list">
-  <app-group-card
-    *ngFor="let item of items"
-    [groupInfo]="item"
-  ></app-group-card>
+  <div *ngIf="items$ | async as items">
+    <app-group-card *ngFor="let item of items" [groupInfo]="item">
+    </app-group-card>
+  </div>
 </div>

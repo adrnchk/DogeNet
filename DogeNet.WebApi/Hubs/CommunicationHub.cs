@@ -8,6 +8,7 @@ namespace DogeNet.WebApi.Hubs
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using DogeNet.BLL.Features.Messages.GetMessages;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
 
@@ -27,7 +28,7 @@ namespace DogeNet.WebApi.Hubs
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
                 _connections.Remove(Context.ConnectionId);
-                Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", _botUser, $"{userConnection.User} has left");
+                Clients.Group(userConnection.Room).SendAsync("SystemMessage", _botUser, $"{userConnection.User} has left");
                 SendUsersConnected(userConnection.Room);
             }
 
@@ -40,12 +41,12 @@ namespace DogeNet.WebApi.Hubs
 
             _connections[Context.ConnectionId] = userConnection;
 
-            await Clients.Group(userConnection.Room).SendAsync("ReceiveMessage", _botUser, $"{userConnection.User} has joined {userConnection.Room}");
+            await Clients.Group(userConnection.Room).SendAsync("SystemMessage", _botUser, $"{userConnection.User} has joined {userConnection.Room}");
 
             await SendUsersConnected(userConnection.Room);
         }
 
-        public async Task SendMessage(string message)
+        public async Task SendMessage(MessagesDetailsModel message)
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
@@ -53,19 +54,19 @@ namespace DogeNet.WebApi.Hubs
             }
         }
 
-        public async Task DeleteMessage(int id, string message)
+        public async Task DeleteMessage(MessagesDetailsModel message)
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
-                await Clients.Group(userConnection.Room).SendAsync("DeletedMessage", id, userConnection.User, message);
+                await Clients.Group(userConnection.Room).SendAsync("DeletedMessage",message.Id, userConnection.User, message);
             }
         }
 
-        public async Task EditMessage(int id, string message)
+        public async Task EditMessage(MessagesDetailsModel message)
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
-                await this.Clients.Group(userConnection.Room).SendAsync("EditedMessage", id, userConnection.User, message);
+                await this.Clients.Group(userConnection.Room).SendAsync("EditedMessage", userConnection.User, message);
             }
         }
 

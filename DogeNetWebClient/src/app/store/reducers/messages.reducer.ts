@@ -1,50 +1,33 @@
 import * as Actions from 'src/app/store/actions/messages.action';
-import { Dialogue, initialState, MessagesState } from '../states/MessagesState';
+import { initialState } from '../states/MessagesState';
 import { createReducer, on } from '@ngrx/store';
 
 export const messagesNode = 'messages';
 
 export const messagesReducer = createReducer(
   initialState,
-  on(Actions.SetNewDialogue, (state, { id, messages }) => {
-    state.items.unshift({
-      id: id,
-      messages: messages,
-    });
-    return state;
-  }),
-  on(Actions.SendMessage, (state, { id, message }) => {
-    state.items.forEach((element) => {
-      if (element.id === id) {
-        element.messages.unshift(message);
-      }
-    });
-    return state;
-  }),
-  on(Actions.DeleteDialogue, (state, { payload }) => ({
+  on(Actions.SetMessagesSuccess, (state, { messages }) => ({
     ...state,
-    items: state.items.filter((val, indx, arr) => val.id !== payload),
+    items: messages,
   })),
-  on(Actions.EditMessage, (state, { id, message }) => {
+  on(Actions.AddMessage, (state, { message }) => ({
+    ...state,
+    items: [...state.items, message],
+  })),
+  on(Actions.ClearMessages, (state) => ({
+    ...state,
+    items: initialState.items,
+  })),
+  on(Actions.EditMessage, (state, { message }) => {
     state.items.forEach((element) => {
-      if (element.id === id) {
-        element.messages.forEach((mes) => {
-          if (mes.id === message.id) {
-            mes = message;
-          }
-        });
+      if (element.id === message.id) {
+        element = message;
       }
     });
     return state;
   }),
-  on(Actions.DeleteMessage, (state, { id, message }) => {
-    state.items.forEach((element) => {
-      if (element.id === id) {
-        element.messages = element.messages.filter(
-          (val, indx, arr) => val.id !== message.id
-        );
-      }
-    });
-    return state;
+  on(Actions.DeleteMessage, (state, { id }) => {
+    let filtered = state.items.filter((val, indx, arr) => val.id !== id);
+    return { ...state, items: filtered };
   })
 );

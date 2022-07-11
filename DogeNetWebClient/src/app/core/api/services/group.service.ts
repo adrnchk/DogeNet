@@ -112,6 +112,93 @@ export class GroupService extends BaseService {
   }
 
   /**
+   * Path part for operation apiGroupGetUserGroupsIdGet
+   */
+  static readonly ApiGroupGetUserGroupsIdGetPath = '/api/Group/GetUserGroups/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGroupGetUserGroupsIdGet$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGroupGetUserGroupsIdGet$Plain$Response(params: {
+    id: number;
+  }): Observable<StrictHttpResponse<Array<GroupDetailsModel>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, GroupService.ApiGroupGetUserGroupsIdGetPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: 'text/plain'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<GroupDetailsModel>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiGroupGetUserGroupsIdGet$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGroupGetUserGroupsIdGet$Plain(params: {
+    id: number;
+  }): Observable<Array<GroupDetailsModel>> {
+
+    return this.apiGroupGetUserGroupsIdGet$Plain$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<GroupDetailsModel>>) => r.body as Array<GroupDetailsModel>)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGroupGetUserGroupsIdGet$Json()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGroupGetUserGroupsIdGet$Json$Response(params: {
+    id: number;
+  }): Observable<StrictHttpResponse<Array<GroupDetailsModel>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, GroupService.ApiGroupGetUserGroupsIdGetPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'text/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<GroupDetailsModel>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `apiGroupGetUserGroupsIdGet$Json$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGroupGetUserGroupsIdGet$Json(params: {
+    id: number;
+  }): Observable<Array<GroupDetailsModel>> {
+
+    return this.apiGroupGetUserGroupsIdGet$Json$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<GroupDetailsModel>>) => r.body as Array<GroupDetailsModel>)
+    );
+  }
+
+  /**
    * Path part for operation apiGroupCreateGroupPost
    */
   static readonly ApiGroupCreateGroupPostPath = '/api/Group/CreateGroup';

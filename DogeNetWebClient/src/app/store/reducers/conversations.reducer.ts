@@ -6,7 +6,7 @@ export const conversationsNode = 'conversations';
 
 export const conversationsReducer = createReducer(
   initialState,
-  on(Actions.SetConversations, (state, { payload }) => ({
+  on(Actions.SetConversationsSuccess, (state, { payload }) => ({
     ...state,
     items: payload,
   })),

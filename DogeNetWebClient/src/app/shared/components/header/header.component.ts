@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   public user$: Observable<AccountDetailsModel> = this.store.pipe(
     select(selectUser)
   );
@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit {
     public authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
 
   logout() {
     this.authService.logout();

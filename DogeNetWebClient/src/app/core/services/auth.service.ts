@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as UserActions from 'src/app/store/actions/user-info.actions';
-import { Observable, timeout } from 'rxjs';
 import { UserState } from 'src/app/store/states/UserState';
 import { select, Store } from '@ngrx/store';
 import { UserService } from '../api/services';
-import { AccountDetailsModel } from '../api/models';
-import { selectUser } from 'src/app/store/selectors/user-info.selectors';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { authCodeFlowConfig } from 'src/app/shared/configs/OAuthConfig';
 
@@ -13,9 +10,6 @@ import { authCodeFlowConfig } from 'src/app/shared/configs/OAuthConfig';
   providedIn: 'root',
 })
 export class AuthService {
-  public user$: Observable<AccountDetailsModel> = this.store.pipe(
-    select(selectUser)
-  );
   constructor(
     public oauthService: OAuthService,
     private userService: UserService,
@@ -24,6 +18,9 @@ export class AuthService {
     this.oauthService.configure(authCodeFlowConfig);
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
     this.oauthService.setupAutomaticSilentRefresh();
+    setTimeout(() => {
+      this.store.dispatch(UserActions.SetUserInfo());
+    }, 500);
   }
 
   login() {

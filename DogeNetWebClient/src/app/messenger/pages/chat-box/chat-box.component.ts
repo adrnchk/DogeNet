@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { filter, first, map, mergeMap, Observable, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import {
   AccountDetailsModel,
@@ -15,7 +15,11 @@ import { SignalrService } from 'src/app/core/services/signalr.service';
 import { selectUser } from 'src/app/store/selectors/user-info.selectors';
 import { select, Store } from '@ngrx/store';
 import { UserState } from 'src/app/store/states/UserState';
-import { Dialogue } from 'src/app/store/states/MessagesState';
+import { MessagesState } from 'src/app/store/states/MessagesState';
+import * as MessagesActions from 'src/app/store/actions/messages.action';
+import { selectMessages } from 'src/app/store/selectors/messages.selector';
+import { ConversationsState } from 'src/app/store/states/ConversationsState';
+import { selectConversations } from 'src/app/store/selectors/conversations.selectors';
 
 @Component({
   selector: 'app-chat-box',
@@ -24,15 +28,22 @@ import { Dialogue } from 'src/app/store/states/MessagesState';
 })
 export class ChatBoxComponent implements OnInit {
   @Output() onSubmit: EventEmitter<any> = new EventEmitter();
+
   public user$: Observable<AccountDetailsModel> = this.userStore.pipe(
     select(selectUser)
   );
+  public items$: Observable<MessagesDetailsModel[]>;
+  public conversationInfo$: Observable<ConversationDetailsModel>;
+
   private routeSubscription: Subscription;
   id: any;
   messageText: string = '';
   message: MessagesDetailsModel = {};
+
   constructor(
     private userStore: Store<UserState>,
+    private conversationsStore: Store<ConversationsState>,
+    private messagesStore: Store<MessagesState>,
     public signalrService: SignalrService,
     private messagesService: MessagesService,
     private conversationsService: ConversationService,
@@ -41,31 +52,37 @@ export class ChatBoxComponent implements OnInit {
     this.routeSubscription = route.params.subscribe((params) => {
       this.id = params['id'];
       this.message.conversationId = this.id;
-      this.message.userId = 1; //don't forget to replace 1 - userId
+      this.user$.subscribe((state) => {
+        state && (this.message.userId = state.id);
+      });
       this.message.text = '';
     });
+    this.messagesStore.dispatch(MessagesActions.ClearMessages());
+
+    this.items$ = this.messagesStore.pipe(select(selectMessages));
+    this.conversationInfo$ = this.conversationsStore
+      .pipe(select(selectConversations))
+      .pipe(
+        map(
+          (processArray: ConversationDetailsModel[]) =>
+            processArray.filter((state) => state.id === this.id)[0]
+        )
+      );
   }
 
-  items: MessagesDetailsModel[] = [];
-  conversationInfo: ConversationDetailsModel = {};
-
   ngOnInit(): void {
-    this.messagesService.rootUrl = 'https://localhost:7001';
-    this.conversationsService.rootUrl = 'https://localhost:7001';
-    this.messagesService
-      .apiMessagesGetMessagesIdGet$Json({ id: this.id })
-      .subscribe((list) => (this.items = list));
-    this.conversationsService
-      .apiConversationGetConversationByIdIdGet$Json({ id: this.id })
-      .subscribe((res) => (this.conversationInfo = res));
+    this.messagesStore.dispatch(MessagesActions.SetMessages(this.id));
   }
   sendMessage(): void {
     this.message.text = this.messageText;
     this.messagesService
-      .apiMessagesSendMessagePost({ body: this.message })
+      .apiMessagesSendMessagePost$Json({ body: this.message })
       .subscribe((res) => {
-        this.signalrService.sendMessage(this.messageText);
+        this.message.id = res;
+        this.signalrService.sendMessage(this.message);
         this.messageText = '';
+
+        this.messagesStore.dispatch(MessagesActions.SetMessages(this.id));
       });
   }
 }

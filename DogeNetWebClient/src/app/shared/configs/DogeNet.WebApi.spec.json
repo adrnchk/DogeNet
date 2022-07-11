@@ -7,7 +7,9 @@
   "paths": {
     "/api/Conversation/GetConversations/{id}": {
       "get": {
-        "tags": ["Conversation"],
+        "tags": [
+          "Conversation"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -54,7 +56,9 @@
     },
     "/api/Conversation/GetConversationById/{id}": {
       "get": {
-        "tags": ["Conversation"],
+        "tags": [
+          "Conversation"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -92,7 +96,9 @@
     },
     "/api/Conversation/CreateConversation": {
       "post": {
-        "tags": ["Conversation"],
+        "tags": [
+          "Conversation"
+        ],
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -143,7 +149,9 @@
     },
     "/api/Friend/GetFriends/{id}": {
       "get": {
-        "tags": ["Friend"],
+        "tags": [
+          "Friend"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -190,7 +198,9 @@
     },
     "/api/Friend/GetFriendRequests/{id}": {
       "get": {
-        "tags": ["Friend"],
+        "tags": [
+          "Friend"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -237,7 +247,9 @@
     },
     "/api/Friend/GetBlackList/{id}": {
       "get": {
-        "tags": ["Friend"],
+        "tags": [
+          "Friend"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -284,7 +296,9 @@
     },
     "/api/Friend/AddFriend": {
       "post": {
-        "tags": ["Friend"],
+        "tags": [
+          "Friend"
+        ],
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -318,7 +332,9 @@
     },
     "/api/Friend/DeleteFriend": {
       "delete": {
-        "tags": ["Friend"],
+        "tags": [
+          "Friend"
+        ],
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -352,7 +368,9 @@
     },
     "/api/Group/GetGroupById/{id}": {
       "get": {
-        "tags": ["Group"],
+        "tags": [
+          "Group"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -388,9 +406,60 @@
         }
       }
     },
+    "/api/Group/GetUserGroups/{id}": {
+      "get": {
+        "tags": [
+          "Group"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GroupDetailsModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GroupDetailsModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GroupDetailsModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Group/CreateGroup": {
       "post": {
-        "tags": ["Group"],
+        "tags": [
+          "Group"
+        ],
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -424,7 +493,9 @@
     },
     "/api/Group/EditGroup/{id}": {
       "put": {
-        "tags": ["Group"],
+        "tags": [
+          "Group"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -485,7 +556,9 @@
     },
     "/api/Group/DeleteGroup/{id}": {
       "delete": {
-        "tags": ["Group"],
+        "tags": [
+          "Group"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -506,7 +579,9 @@
     },
     "/api/Messages/GetMessages/{id}": {
       "get": {
-        "tags": ["Messages"],
+        "tags": [
+          "Messages"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -553,7 +628,9 @@
     },
     "/api/Messages/SendMessage": {
       "post": {
-        "tags": ["Messages"],
+        "tags": [
+          "Messages"
+        ],
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -580,14 +657,36 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
           }
         }
       }
     },
     "/api/Messages/EditMessage/{id}": {
       "put": {
-        "tags": ["Messages"],
+        "tags": [
+          "Messages"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -648,7 +747,9 @@
     },
     "/api/Messages/DeleteMessage/{id}": {
       "delete": {
-        "tags": ["Messages"],
+        "tags": [
+          "Messages"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -669,7 +770,9 @@
     },
     "/api/Post/GetPostById/{id}": {
       "get": {
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -707,7 +810,9 @@
     },
     "/api/Post/CreatePost": {
       "post": {
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -741,7 +846,9 @@
     },
     "/api/Post/EditPost/{id}": {
       "put": {
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -802,7 +909,9 @@
     },
     "/api/Post/DeletePost/{id}": {
       "delete": {
-        "tags": ["Post"],
+        "tags": [
+          "Post"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -823,7 +932,9 @@
     },
     "/api/User/GetUserById/{id}": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -861,7 +972,9 @@
     },
     "/api/User/GetUserByIdentity/{id}": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -898,7 +1011,9 @@
     },
     "/api/User/ChangeUserInfo": {
       "put": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -1474,7 +1589,7 @@
   },
   "security": [
     {
-      "oauth2": []
+      "oauth2": [ ]
     }
   ]
 }

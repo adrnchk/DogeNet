@@ -1,6 +1,9 @@
 <div class="chat-box-container">
   <div class="header">
-    <div class="avatar-section">
+    <div
+      *ngIf="conversationInfo$ | async as conversationInfo"
+      class="avatar-section"
+    >
       <div class="picture">
         <img [src]="conversationInfo.avatarImg" />
       </div>
@@ -8,8 +11,10 @@
       <div class="name-section">{{ conversationInfo.title }}</div>
     </div>
   </div>
-  <div class="messages-area">
-    <app-message *ngFor="let item of items" [message]="item"></app-message>
+  <div *ngIf="items$ | async as items">
+    <div class="messages-area">
+      <app-message *ngFor="let item of items" [message]="item"></app-message>
+    </div>
   </div>
   <div class="footer">
     <div class="textarea">

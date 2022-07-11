@@ -8,7 +8,9 @@
       <mat-card-title
         ><a routerLink="/groups">{{ groupInfo.name }}</a></mat-card-title
       >
-      <mat-card-subtitle class="subtitle">14 245 members</mat-card-subtitle>
+      <mat-card-subtitle class="subtitle">{{
+        groupInfo.title
+      }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions class="actions">
       <button class="button" mat-stroked-button color="primary">

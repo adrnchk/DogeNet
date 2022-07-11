@@ -4,6 +4,10 @@
   width: 240px;
   height: 342px;
 }
+img {
+  max-height: 190px;
+  object-fit: cover;
+}
 
 .friend-card {
   width: 100%;
