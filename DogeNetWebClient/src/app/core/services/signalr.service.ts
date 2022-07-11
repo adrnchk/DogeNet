@@ -29,25 +29,20 @@ export class SignalrService {
 
       connection.on('ReceiveMessage', (user, message) => {
         this.messageStore.dispatch(MessagesActions.AddMessage({ message }));
-        console.log('Received', user, message);
       });
       connection.on('SystemMessage', (user, message) => {
-        console.log('System', user, message);
       });
       connection.on('EditedMessage', (user, message) => {
         this.messageStore.dispatch(MessagesActions.EditMessage({ message }));
-        console.log('Edited', user, message);
       });
       connection.on(
         'DeletedMessage',
         (id, user, message: MessagesDetailsModel) => {
           this.messageStore.dispatch(MessagesActions.DeleteMessage({ id }));
-          console.log('Deleted', user, message);
         }
       );
 
       connection.on('UsersInRoom', (users) => {
-        console.log('user in room', user);
       });
 
       await connection.start();

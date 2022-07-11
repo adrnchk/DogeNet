@@ -7,6 +7,7 @@ import {
   ConversationDetailsModel,
 } from 'src/app/core/api/models';
 import { ConversationService } from 'src/app/core/api/services';
+import { JsonAppConfigService } from 'src/app/core/services/json-app-config.service';
 import * as ConversationsActions from 'src/app/store/actions/conversation.actions';
 import { selectUser } from '../selectors/user-info.selectors';
 import { UserState } from '../states/UserState';
@@ -29,7 +30,7 @@ export class ConversationsEffects {
   );
 
   getConversationsData = (): Observable<ConversationDetailsModel[]> => {
-    this.conversationsService.rootUrl = 'https://localhost:7001';
+    this.conversationsService.rootUrl = this.appConfigService.apiRootUrl;
     let userId = 0;
     this.user$.subscribe((state) => {
       userId = state.id ?? 0;
@@ -41,6 +42,7 @@ export class ConversationsEffects {
   };
 
   constructor(
+    private appConfigService: JsonAppConfigService,
     private action$: Actions,
     private userStore: Store<UserState>,
     private conversationsService: ConversationService

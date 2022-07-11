@@ -1,4 +1,8 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  NgModule,
+  CUSTOM_ELEMENTS_SCHEMA,
+  APP_INITIALIZER,
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +24,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { AppEffects } from './app.effects';
 import { reducers } from './store/reducers';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginComponent } from './shared/components/login/login.component';
@@ -32,6 +35,7 @@ import { FriendsEffects } from './store/effects/friends.effects';
 import { GroupsEffects } from './store/effects/groups.effects';
 import { ConversationsEffects } from './store/effects/conversations.effects';
 import { MessagesEffects } from './store/effects/messages.effects';
+import { JsonAppConfigService } from './core/services/json-app-config.service';
 
 @NgModule({
   declarations: [
@@ -42,13 +46,13 @@ import { MessagesEffects } from './store/effects/messages.effects';
     LoginComponent,
   ],
   imports: [
+    HttpClientModule,
     GroupsModule,
     MessengerModule,
     FriendsModule,
     MatMenuModule,
     ProfileModule,
     MatListModule,
-    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -76,6 +80,17 @@ import { MessagesEffects } from './store/effects/messages.effects';
     StoreRouterConnectingModule.forRoot(),
   ],
   providers: [
+    HttpClientModule,
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [JsonAppConfigService],
+      useFactory: (appConfigService: JsonAppConfigService) => {
+        return () => {
+          return appConfigService.loadConfig();
+        };
+      },
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

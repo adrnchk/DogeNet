@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { catchError, EmptyError, exhaustMap, map, Observable } from 'rxjs';
 import { GroupDetailsModel } from 'src/app/core/api/models';
 import { GroupService } from 'src/app/core/api/services';
+import { JsonAppConfigService } from 'src/app/core/services/json-app-config.service';
 import * as GroupsActions from 'src/app/store/actions/groups.action';
 import { selectUser } from '../selectors/user-info.selectors';
 import { UserState } from '../states/UserState';
@@ -24,7 +25,7 @@ export class GroupsEffects {
   );
 
   getGroupsData = (): Observable<GroupDetailsModel[]> => {
-    this.groupsService.rootUrl = 'https://localhost:7001';
+    this.groupsService.rootUrl = this.appConfigService.apiRootUrl;
     let userId = 0;
     this.user$.subscribe((state) => {
       userId = state.id ?? 0;
@@ -36,6 +37,7 @@ export class GroupsEffects {
   };
 
   constructor(
+    private appConfigService: JsonAppConfigService,
     private action$: Actions,
     private userStore: Store<UserState>,
     private groupsService: GroupService

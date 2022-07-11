@@ -8,12 +8,16 @@ services:
       dockerfile: DogeNet.WebApi/Dockerfile          
     links:
       - dogenet.identityserver
+    depends_on:
+    - sql-server-db
 
   dogenet.identityserver:
     image: ${DOCKER_REGISTRY-}dogenetidentityserver
     build:
       context: .
       dockerfile: DogeNet.IdentityServer/Dockerfile
+    depends_on:
+      - sql-server-db
 
   dogenet-web-client:
     container_name: dogenet-web-client

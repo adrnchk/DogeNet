@@ -8,6 +8,7 @@ import {
   MessagesDetailsModel,
 } from 'src/app/core/api/models';
 import { MessagesService } from 'src/app/core/api/services';
+import { JsonAppConfigService } from 'src/app/core/services/json-app-config.service';
 import * as MessagesActions from 'src/app/store/actions/messages.action';
 import { selectUser } from '../selectors/user-info.selectors';
 import { UserState } from '../states/UserState';
@@ -28,13 +29,14 @@ export class MessagesEffects {
   getMessagesData = (
     conversationId: number
   ): Observable<MessagesDetailsModel[]> => {
-    this.messagesService.rootUrl = 'https://localhost:7001';
+    this.messagesService.rootUrl = this.appConfigService.apiRootUrl;
     return this.messagesService.apiMessagesGetMessagesIdGet$Json({
       id: conversationId ?? 1,
     });
   };
 
   constructor(
+    private appConfigService: JsonAppConfigService,
     private action$: Actions,
     private messagesService: MessagesService
   ) {}
